@@ -1,0 +1,28 @@
+<h1>Devices List</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Address</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @devices.each do |device| %>
+      <tr>
+        <td>
+			<%= device.name %>
+        </td>
+        <td>
+			<%= device.location %>
+        </td>
+        <td>
+			<%= device.address %>
+        </td>
+     </tr>
+    <% end %>
+  </tbody>
+</table>
+
