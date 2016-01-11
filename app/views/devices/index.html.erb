@@ -3,7 +3,8 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th>Name</th>
+      <th>Activated</th>
+      <th>Name</th
       <th>Location</th>
       <th>Address</th>
     </tr>
@@ -12,6 +13,11 @@
   <tbody>
     <% @devices.each do |device| %>
       <tr>
+        <td> 
+        	<% if (device.follow == true) %>
+		  		<i class="glyphicon glyphicon-ok"></i>
+        	<% end %>
+        </td>
         <td>
 			<%= device.name %>
         </td>

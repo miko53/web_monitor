@@ -5,7 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-Device.create(name: 'D1', location: 'Upstairs', address: 'xb@10:15:5A:6B')
-Device.create(name: 'D2', location: 'Exterior', address: 'xb@10:51:5A:6C')
-Device.create(name: 'D3', location: 'Salle', address: 'xb@56:51:5A:6C')
+Device.create(name: 'D1', location: 'Upstairs', address: 'xb@10:15:5A:6B', follow: true)
+Device.create(name: 'D2', location: 'Exterior', address: 'xb@10:51:5A:6C', follow: true)
+Device.create(name: 'D3', location: 'Salle', address: 'xb@56:51:5A:6C', follow: true)
 

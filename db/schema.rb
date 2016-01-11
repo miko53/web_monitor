@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160109212453) do
+ActiveRecord::Schema.define(version: 20160110183857) do
 
   create_table "devices", force: :cascade do |t|
     t.string   "name"
@@ -19,16 +19,7 @@ ActiveRecord::Schema.define(version: 20160109212453) do
     t.string   "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  add_index "devices", ["address"], name: "index_devices_on_address", unique: true
-
-  create_table "sensors", force: :cascade do |t|
-    t.string   "name"
-    t.string   "location"
-    t.string   "address"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "follow"
   end
 
 end
