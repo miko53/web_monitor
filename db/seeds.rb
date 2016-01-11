@@ -9,3 +9,7 @@ Device.create(name: 'D1', location: 'Upstairs', address: 'xb@10:15:5A:6B', follo
 Device.create(name: 'D2', location: 'Exterior', address: 'xb@10:51:5A:6C', follow: true)
 Device.create(name: 'D3', location: 'Salle', address: 'xb@56:51:5A:6C', follow: true)
 
+Sensor.create(device_id: 1, type: "Temperature", order: 1)
+Sensor.create(device_id: 1, type: "Humidity", order: 2)
+Sensor.create(device_id: 1, type: "Voltage", order: 3)
+

@@ -8,9 +8,12 @@
 #  address    :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  follow     :boolean
 #
 
 class Device < ActiveRecord::Base
   validates :address, :presence => true
+  
+  has_many :sensors  
   
 end

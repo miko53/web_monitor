@@ -1,24 +1,20 @@
 # == Schema Information
 #
-# Table name: devices
+# Table name: sensors
 #
 #  id         :integer          not null, primary key
-#  name       :string
-#  location   :string
-#  address    :string
+#  device_id  :integer
+#  type       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  follow     :boolean
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  location: MyString
-  address: MyString
+  id_device: 1
+  type: 
 
 two:
-  name: MyString
-  location: MyString
-  address: MyString
+  id_device: 1
+  type: 

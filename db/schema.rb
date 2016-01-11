@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160110183857) do
+ActiveRecord::Schema.define(version: 20160111204830) do
 
   create_table "devices", force: :cascade do |t|
     t.string   "name"
@@ -21,5 +21,15 @@ ActiveRecord::Schema.define(version: 20160110183857) do
     t.datetime "updated_at", null: false
     t.boolean  "follow"
   end
+
+  create_table "sensors", force: :cascade do |t|
+    t.integer  "device_id"
+    t.string   "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "order"
+  end
+
+  add_index "sensors", ["device_id"], name: "index_sensors_on_device_id"
 
 end
