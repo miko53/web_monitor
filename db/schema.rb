@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160111204830) do
+ActiveRecord::Schema.define(version: 20160112194406) do
 
   create_table "devices", force: :cascade do |t|
     t.string   "name"
@@ -22,6 +22,14 @@ ActiveRecord::Schema.define(version: 20160111204830) do
     t.boolean  "follow"
   end
 
+  create_table "humidityDatas", force: :cascade do |t|
+    t.integer  "sensor_id"
+    t.float    "value"
+    t.datetime "date_time"
+  end
+
+  add_index "humidityDatas", ["sensor_id"], name: "index_humidityDatas_on_sensor_id"
+
   create_table "sensors", force: :cascade do |t|
     t.integer  "device_id"
     t.string   "type"
@@ -31,5 +39,21 @@ ActiveRecord::Schema.define(version: 20160111204830) do
   end
 
   add_index "sensors", ["device_id"], name: "index_sensors_on_device_id"
+
+  create_table "temperatureDatas", force: :cascade do |t|
+    t.integer  "sensor_id"
+    t.float    "value"
+    t.datetime "date_time"
+  end
+
+  add_index "temperatureDatas", ["sensor_id"], name: "index_temperatureDatas_on_sensor_id"
+
+  create_table "voltageDatas", force: :cascade do |t|
+    t.integer  "sensor_id"
+    t.float    "value"
+    t.datetime "date_time"
+  end
+
+  add_index "voltageDatas", ["sensor_id"], name: "index_voltageDatas_on_sensor_id"
 
 end
