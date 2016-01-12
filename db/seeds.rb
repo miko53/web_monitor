@@ -13,3 +13,11 @@ Sensor.create(device_id: 1, type: "Temperature", order: 1)
 Sensor.create(device_id: 1, type: "Humidity", order: 2)
 Sensor.create(device_id: 1, type: "Voltage", order: 3)
 
+Sensor.create(device_id: 2, type: "Temperature", order: 1)
+Sensor.create(device_id: 2, type: "Humidity", order: 2)
+Sensor.create(device_id: 2, type: "Voltage", order: 3)
+
+Sensor.create(device_id: 3, type: "Temperature", order: 1)
+Sensor.create(device_id: 3, type: "Humidity", order: 2)
+Sensor.create(device_id: 3, type: "Voltage", order: 3)
+
