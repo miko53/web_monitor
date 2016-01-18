@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  #get 'update/index'
+  post 'update/insert'
   root 'board#index'
   resources :devices
 

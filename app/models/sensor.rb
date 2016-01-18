@@ -18,12 +18,24 @@ class Sensor < ActiveRecord::Base
   def set_type
     raise "Type is not defined"
   end
-  
+
+  def insert_sample(value)
+    raise "DB doesn't exist"
+  end
+
 end
 
 class Temperature < Sensor
   def set_type
     self.type = "Temperature"
+  end
+  
+  def insert_sample(value)
+    t = TemperatureDatum.new
+    t.value = value 
+    t.sensor_id = id
+    t.dateTime = DateTime.now
+    t.save
   end
 end
 
@@ -31,10 +43,28 @@ class Humidity < Sensor
   def set_type
     self.type = "Humidity"
   end
+  
+  def insert_sample(value)
+    t = HumidityDatum.new
+    t.value = value 
+    t.sensor_id = id
+    t.dateTime = DateTime.now
+    t.save
+  end
+  
 end
 
 class Voltage < Sensor
   def set_type
     self.type = "Voltage"
   end
+
+  def insert_sample(value)
+    t = VoltageDatum.new
+    t.value = value 
+    t.sensor_id = id
+    t.dateTime = DateTime.now
+    t.save
+  end
+
 end
