@@ -24,9 +24,10 @@ class UpdateController < ApplicationController
        end
        head :ok, content_type: "text/html"
      end
-     rescue
-        logger.info("wrong JSON decoding") #TODO add more details
-        head :error, content_type: "text/html"       
+   #  rescue
+    #    logger.info("wrong JSON decoding") #TODO add more details
+     #   head :error, content_type: "text/html"       
+    #67
     end
   end
   
@@ -41,24 +42,26 @@ class UpdateController < ApplicationController
     device = Device.find_by_address(device_data["address"])
     if (device == nil) then
       #insert into DB
-     
+      insert_device(device_data)
     else
-      #update 
-      device_data["data"].each { |d|
-        p "d --> #{d}"
-        s = device.sensors.find_by_order(d["id"])
-        if (s != nil) then
-          #insert into db
-          insert_sample(s, d["value"])
-        end
-      }
+      update_data(device, device_data) if (device.follow == true)
     end
-    
+  end
+
+  def update_data(device, device_data)
+    #update 
+    device_data["data"].each { |d|
+      p "d --> #{d}"
+      s = device.sensors.find_by_order(d["id"])
+      if (s != nil) then
+        #insert into db
+        s.insert_sample(d["value"])
+      end
+    }          
   end
   
-  def insert_sample(sensor, value)
-    #p "sensor => #{sensor.class}"
-    sensor.insert_sample(value)
+  def insert_device(device_data)
+    
   end
   
 end
