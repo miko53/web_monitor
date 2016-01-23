@@ -5,6 +5,7 @@
     <tr>
       <th>order</th>
       <th>type</th>
+      <th>data samples</th>
     </tr>
   </thead>
 
@@ -17,6 +18,9 @@
         <td>
 			<%= sensor.type %>
         </td>
+        <td>
+      <%= link_to sensor_path(sensor), sensor_path(sensor) %>
+        </td>          
      </tr>
     <% end %>
   </tbody>

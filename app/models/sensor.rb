@@ -23,6 +23,9 @@ class Sensor < ActiveRecord::Base
     raise "DB doesn't exist"
   end
 
+  def db
+    raise "DB to set"
+  end
 end
 
 class Temperature < Sensor
@@ -37,6 +40,10 @@ class Temperature < Sensor
     t.dateTime = DateTime.now
     t.save
   end
+  
+  def db
+    return TemperatureDatum
+  end  
 end
 
 class Humidity < Sensor
@@ -50,6 +57,10 @@ class Humidity < Sensor
     t.sensor_id = id
     t.dateTime = DateTime.now
     t.save
+  end
+  
+  def db
+    return HumidityDatum
   end
   
 end
@@ -67,4 +78,7 @@ class Voltage < Sensor
     t.save
   end
 
+  def db
+    return VoltageDatum
+  end
 end

@@ -24,10 +24,9 @@ class UpdateController < ApplicationController
        end
        head :ok, content_type: "text/html"
      end
-   #  rescue
-    #    logger.info("wrong JSON decoding") #TODO add more details
-     #   head :error, content_type: "text/html"       
-    #67
+     rescue
+       logger.info("wrong JSON decoding") #TODO add more details
+       head :error, content_type: "text/html"       
     end
   end
   

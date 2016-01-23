@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   post 'update/insert'
   root 'board#index'
   resources :devices
+  resources :sensors
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

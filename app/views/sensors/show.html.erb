@@ -1,0 +1,39 @@
+<h1>Sample list <%= @sensor.type %></h1>
+<p>in <%= @sensor.device.location %> </p>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>date</th>
+      <%= @sensor.type %>
+      <% case @sensor.type %>
+      <% when "Temperature"  %>
+        <th>temperature (°C)</th>
+      <% when "Humidity" %>
+        <th>humidity (°)</th>
+      <% when "Voltage" %>
+        <th>tension (V)</th>
+      <% else %>
+        <th>data</th>
+      <% end%>
+    </tr>
+  </thead>
+  <tbody>
+    <%= will_paginate @samples %>
+    <% @samples.each do |sample| %>
+  <tr>
+   <td>
+    <%= sample.dateTime %>
+   </td>
+   <td>
+    <%= sample.value %>
+   </td>
+<!-- >   <td>
+    <%= sample.id %>
+   </td>
+-->
+  </tr>
+    <% end%>
+  </tbody>
+</table>
+
+
