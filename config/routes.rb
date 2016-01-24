@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
+  get 'reports/index'
+  get 'reports/create'
+
   #get 'update/index'
   post 'update/insert'
-  root 'board#index'
+  root 'reports#index'
   resources :devices
   resources :sensors
+  resources :reports
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

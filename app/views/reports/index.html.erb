@@ -1,0 +1,33 @@
+<h1>Data Monitoring </h1>
+<ul>
+      <li><%= link_to "Accueil", root_path %></li>
+      <li><%= link_to "Device List", devices_path %></li>
+</ul>
+<div class = "container-fluid">
+
+<%= form_for(@report, html: { role: "form" }) do |f| %>
+<div class="form-group">
+  <%= f.label "Title" %>  
+  <%= f.text_field :title, {:class => 'form-control', :value => "Trends" } %>
+</div>
+<div class="form-group">
+  <%= f.label "Device Name" %>
+  <%= f.text_field :deviceName, {:class => 'form-control'} %>
+</div>
+<div class="form-group">
+  <%= f.label "Flow ID" %>
+  <%= f.text_field :flowID, {:class => 'form-control'} %>
+</div>
+<div class="form-group">
+  <%= f.label "report begin" %>
+  <%= f.datetime_local_field(:dateBegin, { :class => 'form-control', :value => DateTime.now.since(-1.days).strftime("%Y-%m-%dT%H:%M:%S") }) %>
+</div>
+<div class="form-group">
+  <%= f.label "report end" %>
+  <%= f.datetime_local_field(:dateEnd, { :class => 'form-control', :value => DateTime.now.strftime("%Y-%m-%dT%H:%M:%S") }) %>
+</div>
+<div class="action form-group">
+  <%= f.submit "Create" %>
+</div>
+<% end %>
+</div>
