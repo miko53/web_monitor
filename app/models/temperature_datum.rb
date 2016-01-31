@@ -2,12 +2,10 @@
 #
 # Table name: temperature_data
 #
-#  id         :integer          not null, primary key
-#  sensor_id  :integer
-#  value      :float
-#  dateTime   :datetime
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id        :integer          not null, primary key
+#  sensor_id :integer
+#  value     :float
+#  dateTime  :datetime
 #
 
 class TemperatureDatum < ActiveRecord::Base

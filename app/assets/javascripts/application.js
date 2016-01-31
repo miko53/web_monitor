@@ -15,6 +15,8 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
+//= require highcharts.js
+//= require chartkick
 
 $(document).ready(function() {
   $('.has-tooltip').tooltip();
@@ -27,3 +29,9 @@ $(document).ready(function() {
   });
 });
 
+Highcharts.setOptions({
+    global: {
+ //       timezoneOffset: 1 * 60,
+        useUTC: 0
+    }
+});
