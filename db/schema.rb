@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160118204320) do
+ActiveRecord::Schema.define(version: 20160202192100) do
+
+  create_table "device_of_reports", force: :cascade do |t|
+    t.string   "deviceName"
+    t.integer  "flowID"
+    t.integer  "report_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "device_of_reports", ["report_id"], name: "index_device_of_reports_on_report_id"
 
   create_table "devices", force: :cascade do |t|
     t.string   "name"
@@ -26,6 +36,12 @@ ActiveRecord::Schema.define(version: 20160118204320) do
     t.integer  "sensor_id"
     t.float    "value"
     t.datetime "dateTime"
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "sensors", force: :cascade do |t|

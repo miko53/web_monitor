@@ -8,8 +8,10 @@
 #  updated_at :datetime         not null
 #
 
-class Report < ActiveRecord::Base
-  has_many :device_of_reports, :dependent => :destroy
-  accepts_nested_attributes_for :device_of_reports, :allow_destroy => true
-    
+require 'test_helper'
+
+class ReportTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
 end

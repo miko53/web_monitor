@@ -1,9 +1,31 @@
 class ReportsController < ApplicationController
-  def index
+  before_filter :load_report , only: [:show,:edit,:update]
+  helper :reports
+  
+  def new
     @report = Report.new
+  end
+  
+  def index
+    @reports = Report.all
   end
 
   def create
+    p "create"
+    @report = Report.new(report_params)
+    if (@report.save) then
+      flash[:info] = "report created successfully"
+      redirect_to report_url(@report)
+    else
+      flash[:error] = "report saved failed"
+      render :new
+    end
+  end
+  
+  def show
+  end  
+  
+  def create2
     reportParam = params[:report]
     @report = Report.new
     @report.title = reportParam["title"]
@@ -75,5 +97,16 @@ class ReportsController < ApplicationController
     #           ]
 
   end
+  
+ private
+  def load_report
+    @report = Report.find(params[:id])
+  end
+  
+  def report_params
+    params.require(:report).permit(:id, :name, 
+            :device_of_reports_attributes => [:id, :deviceName, :flowID,:_destroy])
+  end
+  
   
 end

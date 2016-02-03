@@ -8,8 +8,10 @@
 #  updated_at :datetime         not null
 #
 
-class Report < ActiveRecord::Base
-  has_many :device_of_reports, :dependent => :destroy
-  accepts_nested_attributes_for :device_of_reports, :allow_destroy => true
-    
-end
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+
+two:
+  name: MyString
