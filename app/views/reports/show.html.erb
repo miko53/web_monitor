@@ -1,0 +1,16 @@
+<h1> Report <%= @report.name %> </h1>
+<span><%=notice%></span><br/>
+<%= link_to "Back", reports_path%>
+<%= link_to "Edit", edit_report_path(@report)%>
+<%= link_to "Delete", report_path(@report), method: :delete %>
+<h2>Temperature</h2>
+<p>
+  <%= line_chart [ { name: "Temperature", data: @series_a } ],
+                     ytitle: "°C"  %>
+</p>
+<h2>Humidity</h2>
+<p>
+  <%= line_chart [ { name: "Humidity", data: @series_b } ],
+                     ytitle: "°H"  %>
+</p>
+

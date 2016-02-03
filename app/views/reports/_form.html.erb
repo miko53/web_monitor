@@ -1,0 +1,26 @@
+<%= form_for @report do |f| %>
+  <% if @report.errors.any? %>
+    <% @report.errors.full_messages.each do |message| %>
+            <br/><span><%= message %></span>
+      <% end %>
+  <% end %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %> <br/>
+
+  <div>
+    <%= add_child_button "New Device/Flow",:device_of_reports,"#device_of_reports" %>
+    <%= new_fields_template f, :device_of_reports %>
+  </div>
+
+  <div id="device_of_reports" style="border:1px solid #777;">
+      <%= f.fields_for :device_of_reports do |builder| %>
+        <div>
+        <%= render "device_of_report_fields", :f => builder %>
+      </div>
+      <% end %>
+  </div>
+
+  <%= f.submit "Save" %>
+<%end %>
+<%= link_to "Back", reports_path%>
