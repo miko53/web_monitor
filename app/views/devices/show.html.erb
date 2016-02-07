@@ -1,25 +1,24 @@
-<h1>Sensor List of Device <%= @device.name %></h1>
+<h1>Sensor list of Device <%= @device.name %></h1>
 <p>in <%= @device.location %> </p>
 <table class="table table-hover">
   <thead>
     <tr>
       <th>Flow ID</th>
       <th>Type</th>
-      <th>Data samples</th>
+      <th>Samples</th>
     </tr>
   </thead>
-
   <tbody>
     <% @sensors.each do |sensor| %>
       <tr>
         <td>
-			<%= sensor.order %>
+          <%= sensor.order %>
         </td>
         <td>
-			<%= sensor.type %>
+          <%= sensor.type %>
         </td>
         <td>
-      <%= link_to sensor_path(sensor), sensor_path(sensor) %>
+          <%= link_to sensor_path(sensor), sensor_path(sensor) %>
         </td>          
      </tr>
     <% end %>

@@ -1,9 +1,25 @@
+<div class="container">
+<ul class="nav navbar-nav navbar-left">
+  <li>
+    <%= link_to "Back", reports_path, class: 'btn-link' %>
+  </li>
+  <li>
+    <%= link_to "Edit", edit_report_path(@report), class: 'btn-link' %>
+  </li>
+  <li>
+    <%= link_to "Delete", report_path(@report), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn-link' %>
+  </li>
+</ul>
+</div>
 <h1><%= @report.name %></h1>
-<%= link_to "Back", reports_path%>
-<%= link_to "Edit", edit_report_path(@report)%>
-<%= link_to "Delete", report_path(@report), method: :delete %>
-<p>From <%=@report.dateBegin %></p>
-<p>To <%=@report.dateEnd %></p>
+<ul>
+<li>
+  From <%=@report.dateBegin %>
+</li>
+<li>
+  To <%=@report.dateEnd %>
+</li>
+</ul>
 <% i = 0 %>
 <% @data.each do |chartData| %>
 <h2><%= @dataCtrl[i][0] %> (<%=@dataCtrl[i][1]%>)</h2>

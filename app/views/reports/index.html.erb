@@ -1,26 +1,21 @@
-<h1>Report List</h1>
-<%= link_to "New Reports", reports_new_path%>
+<h1>Report list</h1>
 <table class="table table-hover">
   <thead>
     <tr>
       <th>Name</th>
-      <th>Display</th>
     </tr>
   </thead>
   <tbody>
     <% @reports.each do |report| %>
       <tr>
         <td>
-          <%= report.name %>
-        </td>
-        <td>
-          <%= link_to report_path(report), report_path(report)  %>
+          <%= link_to report.name, report_path(report), class: 'btn-link'   %>
         </td>        
         <td>
-          <%= link_to "Edit", edit_report_path(report)%>
+          <%= link_to 'Edit', edit_report_path(report), class: 'btn btn-primary btn-xs'  %>
        </td>        
         <td>
-          <%= link_to "Delete", report_path(report), method: :delete %>
+          <%= link_to 'Delete', report, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>
        </td>        
      </tr>
     <% end %>

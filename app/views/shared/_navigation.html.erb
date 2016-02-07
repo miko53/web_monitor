@@ -1,0 +1,19 @@
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container">
+    <ul class="nav navbar-nav navbar-left">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu <span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu">
+         <!-- <li><a href="#">Login</a></li> -->
+          <li><%= link_to 'Device list', devices_path %></li>
+          <li class="divider"></li>
+          <li><%= link_to 'Report list', reports_path %></li>
+          <li><%= link_to 'Create a report', new_report_path %></li>
+        </ul>
+      </li>
+    </ul>
+    <div class="navbar-header navbar-right">
+      <a class="navbar-brand" href="/">MyDeviceData</a>
+    </div>
+  </div>
+</nav>
