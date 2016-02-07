@@ -1,8 +1,10 @@
 <h1>Report List</h1>
+<%= link_to "New Reports", reports_new_path%>
 <table class="table table-hover">
   <thead>
     <tr>
       <th>Name</th>
+      <th>Display</th>
     </tr>
   </thead>
   <tbody>
@@ -14,6 +16,12 @@
         <td>
           <%= link_to report_path(report), report_path(report)  %>
         </td>        
+        <td>
+          <%= link_to "Edit", edit_report_path(report)%>
+       </td>        
+        <td>
+          <%= link_to "Delete", report_path(report), method: :delete %>
+       </td>        
      </tr>
     <% end %>
   </tbody>

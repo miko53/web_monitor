@@ -13,7 +13,6 @@
 
 class Device < ActiveRecord::Base
   validates :address, :presence => true
-  
-  has_many :sensors  
+  has_many :sensors, :dependent => :destroy
   
 end

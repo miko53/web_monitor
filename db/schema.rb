@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160202192100) do
+ActiveRecord::Schema.define(version: 20160207110241) do
 
   create_table "device_of_reports", force: :cascade do |t|
     t.string   "deviceName"
@@ -40,8 +40,12 @@ ActiveRecord::Schema.define(version: 20160202192100) do
 
   create_table "reports", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "dateBegin"
+    t.string   "dateEnd"
+    t.boolean  "isRangeSet"
+    t.integer  "dayRangeFromEnd"
   end
 
   create_table "sensors", force: :cascade do |t|

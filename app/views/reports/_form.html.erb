@@ -1,16 +1,16 @@
-
+<p>Date format is YYYY-MM-DD HH:MM:SS or now </p>
 <%= form_for(@report, html: { class: "form-horizontal" }) do |f| %>
 <div class="form-group ">
   <%= f.label "Title", {:class => 'col-sm-2 control-label'} %> 
   <div class = 'col-sm-10'>
-    <%= f.text_field :name, {:class => 'form-control ', :value => "Trends" } %>
+    <%= f.text_field :name, {:class => '', :value => "Trends" } %>
   </div>
 </div>
 <div class="form-group">
   <%= add_child_button "Add Device",:device_of_reports,"#device_of_reports" %>
   <%= new_fields_template f, :device_of_reports %>
 </div>
-<div id="device_of_reports" class="row">
+<div id="device_of_reports" class="row col-sm-offset-2">
     <%= f.fields_for :device_of_reports do |builder| %>
     <div>
       <%= render "device_of_report_fields", :f => builder %>
@@ -18,21 +18,33 @@
     <% end %>
 </div>
 <div class="form-group">
+  <%= f.label "set a duration", {:class => 'col-sm-2 control-label'} %>
+  <div class = 'col-sm-10'>
+  <%= f.check_box(:isRangeSet, { :class => 'col-sm-offset-2' }) %>
+  </div>
+</div>
+<div class="form-group">
   <%= f.label "report begin", {:class => 'col-sm-2 control-label'} %>
   <div class = 'col-sm-10'>
-  <%= f.datetime_local_field(:dateBegin, { :class => 'form-control', :value => DateTime.now.since(-1.days).strftime("%Y-%m-%dT%H:%M:%S") }) %>
+  <%= f.text_field(:dateBegin, { :class => '' }) %>
   </div>
 </div>
 <div class="form-group">
   <%= f.label "report end", {:class => 'col-sm-2 control-label'} %>
   <div class = 'col-sm-10'>
-  <%= f.datetime_local_field(:dateEnd, { :class => 'form-control', :value => DateTime.now.strftime("%Y-%m-%dT%H:%M:%S") }) %>
+  <%= f.text_field(:dateEnd, { :class => '' }) %>
   </div>
 </div>
-
+<div class="form-group">
+  <%= f.label "duration (in day)", {:class => 'col-sm-2 control-label'} %>
+  <div class = 'col-sm-10'>
+  <%= f.text_field(:dayRangeFromEnd, { :class => '' }) %>
+  </div>
+</div>
 <div class="action form-group">
   <div class = 'col-sm-offset-2 col-sm-10'>
   <%= f.submit "Create" %>
   </div>
 </div>
 <%end %>
+  
