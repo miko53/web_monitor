@@ -15,14 +15,26 @@ module ReportsHelper
   end
   def add_child_button(name, association,target)
     content_tag(:spam,"<span>#{name}</span>".html_safe,
-      :class => "add_child",
-      :style => "cursor:pointer; border:1px solid #777;",
+      :class => "add_child col-sm-2 btn btn-success glyphicon glyphicon-plus",
       :"data-association" => association,
       :target => target)
   end
   def remove_child_button(name)
     content_tag(:div,"<span>Remove</span>".html_safe,
-      :style => "cursor:pointer; border:1px solid #777; display:inline-block; width: 60px;",
-      :class => "remove_child")
-  end  
+      :class => "remove_child glyphicon glyphicon-minus")
+  end
+  
+  
+  def unit(typeName)
+    unit = "-"
+    case (typeName)
+      when "Temperature"
+        unit = "°C"
+      when "Humidity"
+        unit = "°H"
+      when "Voltage"
+        unit = "V"
+      else
+    end
+  end
 end

@@ -1,5 +1,5 @@
 class ReportsController < ApplicationController
-  before_filter :load_report , only: [:show,:edit,:update]
+  before_filter :load_report , only: [:show,:edit,:update, :destroy]
   helper :reports
   
   def new
@@ -23,7 +23,37 @@ class ReportsController < ApplicationController
   end
   
   def show
+    @data = Array.new
+    @dataCtrl = Array.new
+    @report.device_of_reports.each do |item|
+      p item
+      device = Device.find_by_name(item.deviceName)
+      if (device != nil) then
+        sensor = device.sensors.find_by_order(item.flowID)
+        if (sensor != nil) then
+          samples = sensor.db.where('sensor_id=? AND (datetime(dateTime) >= datetime(?) AND datetime(dateTime) < datetime(?))',  
+                                    sensor.id, 
+                                    DateTime.now.since(4.minutes), DateTime.now)
+          sArray = Array.new
+          samples.each do |sample|
+            sArray << [ sample.dateTime, sample.value ]
+          end
+          @dataCtrl << [ item.deviceName, item.flowID, sensor.type ]
+          @data << sArray
+        end
+      end 
+    end
   end  
+  
+  def edit
+    
+  end
+  
+  def destroy
+    @report.destroy
+    flash[:info] = "report removed"
+    redirect_to reports_path
+  end
   
   def create2
     reportParam = params[:report]
