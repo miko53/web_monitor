@@ -25,12 +25,11 @@ class UpdateController < ApplicationController
        head :ok, content_type: "text/html"
      end
      rescue
-       logger.info("wrong JSON decoding") #TODO add more details
        head :error, content_type: "text/html"       
     end
   end
   
-  private
+private
   
   def check_api(api)
     return true
@@ -39,29 +38,48 @@ class UpdateController < ApplicationController
   def update_data_from_device(device_data)
     #p device_data
     device = Device.find_by_address(device_data["address"])
-    if (device == nil) then
-      #insert into DB
-      insert_device(device_data)
-    else
-      update_data(device, device_data) if (device.follow == true)
+    ActiveRecord::Base.transaction do
+      if (device == nil) then
+        #insert into DB
+        create_device(device_data)
+      else
+        update_data(device, device_data) if (device.follow == true)
+      end
     end
   end
 
   def update_data(device, device_data)
     #update 
-    device_data["data"].each { |d|
-      p "d --> #{d}"
+    device_data["data"].each do |d|
+      #p "d --> #{d}"
       s = device.sensors.find_by_order(d["id"])
       if (s != nil) then
         #insert into db
         s.insert_sample(d["value"])
       end
-    }          
+    end
   end
   
-  def insert_device(device_data)
-    
+  def create_device(device_data)
+    device = Device.create(address: device_data["address"], follow: false)
+    create_sensor(device, device_data)
   end
   
+  def create_sensor(device, device_data)
+    type = ""
+    device_data["data"].each do |d|
+      p "d --> #{d}"
+      case (d["phys"])
+        when "temp"
+          type = "Temperature"
+        when "humd"
+          type = "Humidity"
+        when "volt"
+          type = "Voltage"
+      end
+      device.sensors.create(order: d["id"],  type: type)
+    end
+  end
+
 end
 

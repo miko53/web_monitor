@@ -35,7 +35,7 @@ class ReportsController < ApplicationController
             if (@report.dateEnd == "now") then
                 @report.dateEnd = DateTime.now
             end
-            @report.dateBegin =  @report.dateEnd.to_time.since(@report.dayRangeFromEnd.days)
+            @report.dateBegin =  @report.dateEnd.to_time.since(-@report.dayRangeFromEnd.days)
           end
           samples = sensor.db.where('sensor_id=? AND (datetime(dateTime) >= datetime(?) AND datetime(dateTime) < datetime(?))',  
                                     sensor.id, 
