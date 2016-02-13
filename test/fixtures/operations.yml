@@ -1,0 +1,29 @@
+# == Schema Information
+#
+# Table name: operations
+#
+#  id           :integer          not null, primary key
+#  sensor_id    :integer
+#  type         :string
+#  currentValue :float
+#  period       :integer
+#  beginPeriod  :datetime
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sensor_id: 1
+  type: 
+  currentValue: 1.5
+  period: 1
+  beginPerid: 
+
+two:
+  sensor_id: 1
+  type: 
+  currentValue: 1.5
+  period: 1
+  beginPerid: 

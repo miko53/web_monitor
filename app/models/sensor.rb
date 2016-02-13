@@ -14,6 +14,7 @@ class Sensor < ActiveRecord::Base
   belongs_to :device
   TYPES = %w( Temperature Humidity Voltage)
   before_save :set_type
+  has_many :operations, :dependent => :destroy
   
   def set_type
     raise "Type is not defined"

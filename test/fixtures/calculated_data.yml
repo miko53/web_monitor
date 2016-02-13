@@ -1,0 +1,20 @@
+# == Schema Information
+#
+# Table name: calculated_data
+#
+#  id          :integer          not null, primary key
+#  value       :float
+#  beginPeriod :datetime
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  value: 1.5
+  beginPerid: 
+
+two:
+  value: 1.5
+  beginPerid: 

@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160207110241) do
+ActiveRecord::Schema.define(version: 20160213155036) do
+
+  create_table "calculated_data", force: :cascade do |t|
+    t.float    "value"
+    t.datetime "beginPeriod"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "device_of_reports", force: :cascade do |t|
     t.string   "deviceName"
@@ -36,6 +43,16 @@ ActiveRecord::Schema.define(version: 20160207110241) do
     t.integer  "sensor_id"
     t.float    "value"
     t.datetime "dateTime"
+  end
+
+  create_table "operations", force: :cascade do |t|
+    t.integer  "sensor_id"
+    t.string   "type"
+    t.float    "currentValue"
+    t.integer  "period"
+    t.datetime "beginPeriod"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "reports", force: :cascade do |t|
