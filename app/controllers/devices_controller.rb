@@ -18,14 +18,25 @@ class DevicesController < ApplicationController
   def update
     if (@device.update(device_params)) then
       flash[:info] = "device correctly updated"
-      redirect_to device_url(@device)
+      #redirect_to device_url(@device)
+      redirect_to devices_url
     else
       flash[:error] = "device update failed"
       render :edit
     end  end
   
   def destroy
-    
+    #recuperer chaque sensor et 
+    #dans la db retirer les samples associés.
+    ActiveRecord::Base.transaction do
+      @device.sensors.each do |s|
+        p s
+        s.remove_samples
+      end
+      @device.destroy    
+    end
+    flash[:info] = "device removed"
+    redirect_to devices_path
   end
   
 private

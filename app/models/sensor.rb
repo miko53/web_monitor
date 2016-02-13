@@ -26,6 +26,14 @@ class Sensor < ActiveRecord::Base
   def db
     raise "DB to set"
   end
+  
+  def remove_samples
+    samples = db.where(sensor_id: id)
+    samples.each do |s|
+      s.destroy
+    end
+  end
+
 end
 
 class Temperature < Sensor
@@ -43,7 +51,8 @@ class Temperature < Sensor
   
   def db
     return TemperatureDatum
-  end  
+  end 
+  
 end
 
 class Humidity < Sensor
@@ -63,6 +72,7 @@ class Humidity < Sensor
     return HumidityDatum
   end
   
+  
 end
 
 class Voltage < Sensor
@@ -81,4 +91,5 @@ class Voltage < Sensor
   def db
     return VoltageDatum
   end
+  
 end
