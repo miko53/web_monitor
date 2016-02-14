@@ -1,0 +1,23 @@
+<tr>
+  <td>
+    <%= operation.id %>
+  </td>
+  <td>
+    <%= operation.calcul_type %>
+  </td>
+  <td>
+    <%= operation.period %>
+  </td>
+  <td>
+    <% if (operation.beginPeriod !=nil) then %>
+    <%=      operation.beginPeriod.strftime("%H:%M:%S") %>
+    <% else %>
+    <%=      operation.beginPeriod %>
+    <% end %>
+  </td>
+  <td>
+  </td>
+  <td>
+  </td>
+</tr>
+

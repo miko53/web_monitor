@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
-  get 'reports/index'
-  get 'reports/create'
-
+  
   #get 'update/index'
   post 'update/insert'
   root 'reports#index'
   resources :devices
   resources :sensors
   resources :reports
+  resources :operations
+  get '/sensors/:id/show_operation', to: 'sensors#show_operation', as: 'sensor_show_operation'
   match '/reports_new',  :to => 'reports#new', :via => [ :get]
   
   # The priority is based upon order of creation: first created -> highest priority.

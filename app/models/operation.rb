@@ -4,12 +4,12 @@
 #
 #  id           :integer          not null, primary key
 #  sensor_id    :integer
-#  type         :string
 #  currentValue :float
 #  period       :integer
-#  beginPeriod  :datetime
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  calcul_type  :string
+#  beginPeriod  :time
 #
 
 class Operation < ActiveRecord::Base

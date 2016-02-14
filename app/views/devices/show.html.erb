@@ -18,6 +18,9 @@
           <%= sensor.type %>
         </td>
         <td>
+          <%= link_to 'Edit operation', sensor_show_operation_path(sensor), class: 'btn btn-primary btn-xs' %>
+        </td>
+        <td>
           <%= link_to sensor_path(sensor), sensor_path(sensor) %>
         </td>          
      </tr>
