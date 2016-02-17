@@ -16,14 +16,14 @@
 
 one:
   sensor_id: 1
-  type: 
+  calcul_type: 1
   currentValue: 1.5
   period: 1
-  beginPerid: 
+  beginPeriod: 
 
 two:
   sensor_id: 1
-  type: 
+  calcul_type: 
   currentValue: 1.5
   period: 1
-  beginPerid: 
+  beginPeriod: 
