@@ -7,7 +7,7 @@ class DevicesController < ApplicationController
   
   def show
     if (@device != nil) then
-    @sensors = @device.sensors
+      @sensors = @device.sensors
     end
   end
   
@@ -30,7 +30,7 @@ class DevicesController < ApplicationController
     #dans la db retirer les samples associés.
     ActiveRecord::Base.transaction do
       @device.sensors.each do |s|
-        p s
+        #p s
         s.remove_samples
       end
       @device.destroy    

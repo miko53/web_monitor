@@ -47,6 +47,10 @@ class Sensor < ActiveRecord::Base
     end
   end
   
+  def last_sample
+    return db.where(sensor_id: id).order("dateTime DESC").limit(1)[0]
+  end
+  
 private
   
   def insert_temperature_sample(value)

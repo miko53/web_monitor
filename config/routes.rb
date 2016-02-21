@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :reports
   resources :operations
   get '/sensors/:id/show_operation', to: 'sensors#show_operation', as: 'sensor_show_operation'
+  post '/devices/:id/', to: 'devices#show'
   match '/reports_new',  :to => 'reports#new', :via => [ :get]
   
   # The priority is based upon order of creation: first created -> highest priority.

@@ -6,6 +6,10 @@
     <%= sensor.sensor_type %>
   </td>
   <td>
+    <% if (sensor.last_sample != nil) then %>
+    <%= sensor.last_sample.value %>
+    (<%= time_ago_in_words(sensor.last_sample.dateTime) %>)
+    <% end %>
   </td>
   <td>
     <%= link_to 'Show operation', sensor_show_operation_path(sensor), class: 'btn btn-primary btn-xs' %>
