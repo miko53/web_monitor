@@ -5,26 +5,13 @@
     <tr>
       <th>Flow ID</th>
       <th>Type</th>
-      <th>Samples</th>
+      <th>Last value</th>
+      <th>Operation on data</th>
+      <th>Sample data</th>
     </tr>
   </thead>
   <tbody>
-    <% @sensors.each do |sensor| %>
-      <tr>
-        <td>
-          <%= sensor.order %>
-        </td>
-        <td>
-          <%= sensor.type %>
-        </td>
-        <td>
-          <%= link_to 'Show operation', sensor_show_operation_path(sensor), class: 'btn btn-primary btn-xs' %>
-        </td>
-        <td>
-          <%= link_to sensor_path(sensor), sensor_path(sensor) %>
-        </td>          
-     </tr>
-    <% end %>
+  <%= render @device.sensors %>
   </tbody>
 </table>
 

@@ -9,9 +9,9 @@ Device.create(name: 'D1', location: 'Upstairs', address: 'xb@10:15:5A:6B', follo
 Device.create(name: 'D2', location: 'Exterior', address: 'xb@10:51:5A:6C', follow: false)
 Device.create(name: 'D3', location: 'Salle', address: 'xb@56:51:5A:6C', follow: true)
 
-s = Sensor.create(device_id: 1, type: "Temperature", order: 1)
-Sensor.create(device_id: 1, type: "Humidity", order: 2)
-Sensor.create(device_id: 1, type: "Voltage", order: 3)
+s = Sensor.create(device_id: 1, sensor_type: "Temperature", order: 1)
+Sensor.create(device_id: 1, sensor_type: "Humidity", order: 2)
+Sensor.create(device_id: 1, sensor_type: "Voltage", order: 3)
 
 ActiveRecord::Base.transaction do
   for i in 0 ... 10000
@@ -34,11 +34,11 @@ ActiveRecord::Base.transaction do
   end
 end
 
-Sensor.create(device_id: 2, type: "Temperature", order: 1)
-Sensor.create(device_id: 2, type: "Humidity", order: 2)
-Sensor.create(device_id: 2, type: "Voltage", order: 3)
+Sensor.create(device_id: 2, sensor_type: "Temperature", order: 1)
+Sensor.create(device_id: 2, sensor_type: "Humidity", order: 2)
+Sensor.create(device_id: 2, sensor_type: "Voltage", order: 3)
 
-Sensor.create(device_id: 3, type: "Temperature", order: 1)
-Sensor.create(device_id: 3, type: "Humidity", order: 2)
-Sensor.create(device_id: 3, type: "Voltage", order: 3)
+Sensor.create(device_id: 3, sensor_type: "Temperature", order: 1)
+Sensor.create(device_id: 3, sensor_type: "Humidity", order: 2)
+Sensor.create(device_id: 3, sensor_type: "Voltage", order: 3)
 

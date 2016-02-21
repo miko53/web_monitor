@@ -2,30 +2,42 @@
 #
 # Table name: sensors
 #
-#  id         :integer          not null, primary key
-#  device_id  :integer
-#  type       :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  order      :integer
+#  id          :integer          not null, primary key
+#  device_id   :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  order       :integer
+#  sensor_type :string
 #
 
 class Sensor < ActiveRecord::Base
   belongs_to :device
-  TYPES = %w( Temperature Humidity Voltage)
-  before_save :set_type
   has_many :operations, :dependent => :destroy
-  
-  def set_type
-    raise "Type is not defined"
-  end
 
   def insert_sample(value)
-    raise "DB doesn't exist"
+    case (sensor_type)
+      when "Temperature"
+        insert_temperature_sample(value)
+      when "Humidity"
+        insert_humidity_sample(value)
+      when "Voltage"
+        insert_voltage_sample(value)
+      else
+        raise "DB doesn't exist"
+    end
   end
 
   def db
-    raise "DB to set"
+    case (sensor_type)
+      when "Temperature"
+        return TemperatureDatum
+      when "Humidity"
+        return HumidityDatum
+      when "Voltage"
+        return VoltageDatum
+      else
+        raise "DB unknown"
+    end
   end
   
   def remove_samples
@@ -34,63 +46,30 @@ class Sensor < ActiveRecord::Base
       s.destroy
     end
   end
-
-end
-
-class Temperature < Sensor
-  def set_type
-    self.type = "Temperature"
-  end
   
-  def insert_sample(value)
+private
+  
+  def insert_temperature_sample(value)
     t = TemperatureDatum.new
     t.value = value 
     t.sensor_id = id
     t.dateTime = DateTime.now
     t.save
   end
-  
-  def db
-    return TemperatureDatum
-  end 
-  
-end
 
-class Humidity < Sensor
-  def set_type
-    self.type = "Humidity"
-  end
-  
-  def insert_sample(value)
+  def insert_humidity_sample(value)
     t = HumidityDatum.new
     t.value = value 
     t.sensor_id = id
     t.dateTime = DateTime.now
     t.save
   end
-  
-  def db
-    return HumidityDatum
-  end
-  
-  
-end
 
-class Voltage < Sensor
-  def set_type
-    self.type = "Voltage"
-  end
-
-  def insert_sample(value)
+  def insert_voltage_sample(value)
     t = VoltageDatum.new
     t.value = value 
     t.sensor_id = id
     t.dateTime = DateTime.now
     t.save
   end
-
-  def db
-    return VoltageDatum
-  end
-  
 end
