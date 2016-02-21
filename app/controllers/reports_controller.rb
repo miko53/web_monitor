@@ -45,7 +45,7 @@ class ReportsController < ApplicationController
           samples.each do |sample|
             sArray << [ sample.dateTime, sample.value ]
           end
-          @dataCtrl << [ item.deviceName, item.flowID, sensor.type ]
+          @dataCtrl << [ item.deviceName, item.flowID, sensor.sensor_type ]
           @data << sArray
         end
       end 

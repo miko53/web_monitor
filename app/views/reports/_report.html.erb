@@ -1,0 +1,11 @@
+<tr>
+  <td>
+    <%= link_to report.name, report_path(report), class: 'btn-link'   %>
+  </td>        
+  <td>
+    <%= link_to 'Edit', edit_report_path(report), class: 'btn btn-primary btn-xs'  %>
+  </td>        
+  <td>
+    <%= link_to 'Delete', report, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>
+  </td>        
+</tr>

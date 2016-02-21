@@ -77,7 +77,7 @@ private
         when "volt"
           type = "Voltage"
       end
-      device.sensors.create(order: d["id"],  type: type)
+      device.sensors.create(order: d["id"],  sensor_type: type)
     end
   end
 

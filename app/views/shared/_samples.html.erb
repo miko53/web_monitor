@@ -1,0 +1,17 @@
+  <tbody>
+    <%= will_paginate @samples %>
+    <% @samples.each do |sample| %>
+  <tr>
+   <td>
+    <%= sample.dateTime %>
+   </td>
+   <td>
+    <%= sample.value %>
+   </td>
+<!-- >   <td>
+    <%= sample.id %>
+   </td>
+-->
+  </tr>
+    <% end%>
+  </tbody>

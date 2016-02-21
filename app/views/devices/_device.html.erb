@@ -1,0 +1,22 @@
+<tr>
+  <td>
+    <%= link_to device.name, device_path(device), class: 'btn-link'  %>
+  </td>
+  <td>
+    <%= device.location %>
+  </td>
+  <td>
+    <%= device.address %>
+  </td>
+  <td> 
+    <% if (device.follow? == true) %>
+      <i class="glyphicon glyphicon-ok"></i>
+    <% end %>
+  </td>
+  <td>
+    <%= link_to 'Edit', edit_device_path(device), class: 'btn btn-primary btn-xs'  %>
+  </td>        
+  <td>
+    <%= link_to 'Delete', device, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>
+  </td>        
+</tr>
