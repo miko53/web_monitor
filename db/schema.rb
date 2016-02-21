@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160214160559) do
+ActiveRecord::Schema.define(version: 20160221103341) do
 
   create_table "calculated_data", force: :cascade do |t|
     t.float    "value"
     t.datetime "beginPeriod"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "operation_id"
   end
 
   create_table "device_of_reports", force: :cascade do |t|
@@ -49,10 +50,12 @@ ActiveRecord::Schema.define(version: 20160214160559) do
     t.integer  "sensor_id"
     t.float    "currentValue"
     t.integer  "period"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.string   "calcul_type"
-    t.time     "beginPeriod"
+    t.datetime "endPeriod"
+    t.integer  "number_samples"
+    t.integer  "period_unit"
   end
 
   create_table "reports", force: :cascade do |t|

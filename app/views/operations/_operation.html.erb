@@ -7,17 +7,13 @@
   </td>
   <td>
     <%= operation.period %>
+    <%= get_unit(operation.period_unit) %>
   </td>
   <td>
-    <% if (operation.beginPeriod !=nil) then %>
-    <%=      operation.beginPeriod.strftime("%H:%M:%S") %>
-    <% else %>
-    <%=      operation.beginPeriod %>
-    <% end %>
+    <%= link_to "Edit", edit_operation_path(operation), class: 'btn btn-primary btn-xs' %> 
   </td>
   <td>
-  </td>
-  <td>
+    <%= link_to "Delete", operation_path(operation), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>
   </td>
 </tr>
 

@@ -1,10 +1,12 @@
 module PeriodHelper
 
-  MINUTE=1
-  HOUR=2
-  DAY=3
-  WEEK=4
-  MONTH=5
+  unless (const_defined?(:MINUTE))
+    MINUTE=1
+    HOUR=2
+    DAY=3
+    MONTH=4
+  end
+  
 
   #fonctionnr en prenant en faite le temps de la fin de period
   #sauvegarder la next period et checker si depasser,
@@ -24,7 +26,6 @@ module PeriodHelper
     to_second = 1
     
     case(period_unit)
-      
       when MINUTE
         if (requested_period > 1) then
           ref_date = current_date.beginning_of_hour
@@ -79,6 +80,7 @@ module PeriodHelper
         end
         
       else
+        p "not valid period_unit => #{period_unit} MINUTE = #{MINUTE}"
         return false, nil
     end
     
@@ -87,8 +89,9 @@ module PeriodHelper
     next_date_in_s = ref_date.to_i + nb_period * requested_period*to_second
     next_date = Time.at(next_date_in_s)
     return true, next_date
-    
   end
+
+private
 
   def next_month(date)
     days = Time.days_in_month(date.month, date.year)
@@ -100,5 +103,7 @@ module PeriodHelper
 #   days = Time.days_in_month(m, y)
 #    If you have a Time object t, cleaner to ask the day number of the last day of the month:
 #    days = t.end_of_month.day
+  
+  module_function(:get_next_end_period, :next_month)
   
 end
