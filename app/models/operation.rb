@@ -18,4 +18,8 @@ class Operation < ActiveRecord::Base
     belongs_to :sensor
     has_many :calculated_data, :dependent => :destroy
 
+    def last_sample
+      return self.calculated_data.order("beginPeriod DESC")[0]
+    end
+    
 end

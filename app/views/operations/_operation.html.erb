@@ -10,6 +10,14 @@
     <%= get_unit(operation.period_unit) %>
   </td>
   <td>
+    <% if (operation.last_sample != nil) then %>
+    <%= operation.last_sample.value %>
+    (<%= time_ago_in_words(operation.last_sample.beginPeriod) %>)
+    <% end %>
+  </td>
+  <td>
+  </td>
+  <td>
     <%= link_to "Edit", edit_operation_path(operation), class: 'btn btn-primary btn-xs' %> 
   </td>
   <td>

@@ -1,16 +1,26 @@
 <h1>Operation list </h1>
 <h2>Sensor Flow ID <%=@sensor.order %> </h2>
 <p>
-  on Device <%=@sensor.device.name %> in  <%=@sensor.device.location %></p>
-<p>
-  <%= link_to 'Add operation', new_operation_path(:sensor_id => @sensor.id) %>
+  on Device <%=@sensor.device.name %> in  <%=@sensor.device.location %>
 </p>
+<ul>
+  <li>
+    <%= link_to 'Add operation', new_operation_path(:sensor_id => @sensor.id) %>
+  </li>
+  <li>
+    <%= link_to 'Back to sensor list', device_path(@sensor.device) %>
+  </li>
+</ul>
 <table class="table table-hover">
   <thead>
     <tr>
       <th>Id</th>
       <th>Type</th>
       <th>Period</th>
+      <th>Last value</th>
+      <th>Sample data</th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
