@@ -1,6 +1,10 @@
 <h1>Sensor list of Device <%= @device.name %></h1>
-<p>in <%= @device.location %> </p>
-<%= button_to "Refresh", "", { :onclick => "history.go(0)" }  %>
+<p>
+  in <%= @device.location %> 
+</p>
+<p>
+  <%= button_to "Refresh", "", { :onclick => "history.go(0)" }  %> 
+</p>
 <table class="table table-hover">
   <thead>
     <tr>

@@ -1,3 +1,5 @@
+require 'period_helper'
+
 class UpdateController < ApplicationController
   protect_from_forgery except: :insert
   
@@ -54,8 +56,9 @@ private
       #p "d --> #{d}"
       s = device.sensors.find_by_order(d["id"])
       if (s != nil) then
-        #insert into db
         s.insert_sample(d["value"])
+        calculate_operation_on_sensor(s, d["value"])
+        #then, insert into db
       end
     end
   end
@@ -68,7 +71,7 @@ private
   def create_sensor(device, device_data)
     type = ""
     device_data["data"].each do |d|
-      p "d --> #{d}"
+      #p "d --> #{d}"
       case (d["phys"])
         when "temp"
           type = "Temperature"
@@ -80,6 +83,83 @@ private
       device.sensors.create(order: d["id"],  sensor_type: type)
     end
   end
-
+  
+  def calculate_operation_on_sensor(s, value)
+    s.operations.each do |operation|
+      #p "operation --> #{operation}"
+      #check if end of period
+      now = DateTime.now
+      if (now >= operation.endPeriod) then
+        logger.info "We has reached the end of period, now = #{now} endPeriod = #{operation.endPeriod}, do the calcul"
+        insert_new_calcul(operation, value)
+      else
+        #logger.info "NOT A THE END, now = #{now} endPeriod = #{operation.endPeriod}"        
+        do_calcul(operation, value)
+      end
+    end
+  end
+  
+  def insert_new_calcul(operation, value)
+    if (operation.number_samples != 0) then
+      data_value = 0.0
+      case operation.calcul_type
+        when 'Min'
+          data_value = operation.currentValue
+        when 'Max'
+          data_value = operation.currentValue        
+        when 'Moy'
+          data_value = operation.currentValue / operation.number_samples
+        else
+          logger.warn "Unknown calcul type #{operation.calcul_type}"
+      end
+      new_calculated_data = operation.calculated_data.new(value: data_value, beginPeriod: operation.endPeriod)
+      new_calculated_data.save
+    end
+    
+    #calculate new end period
+    update_end_period(operation)
+    operation.currentValue = value
+    operation.number_samples = 1
+    operation.save
+  end
+  
+  def do_calcul(operation, value)
+    case operation.calcul_type
+      when 'Min'
+        if (value < operation.currentValue) then
+          operation.currentValue = value
+        end
+      when 'Max'
+        if (value > operation.currentValue) then
+          operation.currentValue = value
+        end
+      when 'Moy'
+        operation.currentValue = operation.currentValue + value
+        operation.number_samples = operation.number_samples + 1
+      else
+        logger.warn "Unknown calcul type #{operation.calcul_type}"
+    end
+    operation.save
+  end
+  
+  def update_end_period(operation)
+    isValid, nextPeriod = PeriodHelper::get_next_end_period(operation.period, operation.period_unit, Time.now)
+    operation.endPeriod = nextPeriod if (isValid == true)
+    
+#     case operation.period_unit
+#       when PeriodHelper::MINUTE
+#         operation.endPeriod = operation.endPeriod + operation.period * 1.minute
+#       when PeriodHelper::HOUR
+#         operation.endPeriod = operation.endPeriod + operation.period * 1.hour
+#       when PeriodHelper::DAY
+#         operation.endPeriod = operation.endPeriod + operation.period * 1.day
+#       when PeriodHelper::MONTH
+#         days = Time.days_in_month(operation.endPeriod.month, operation.endPeriod.year)
+#         operation.endPeriod = operation.endPeriod + operation.period * days * 1.day
+#       else
+#         logger.warn "Unknown period_unit #{operation.period_unit}"
+#     end  
+  end
+  
 end
 

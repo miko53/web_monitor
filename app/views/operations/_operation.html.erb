@@ -7,7 +7,7 @@
   </td>
   <td>
     <%= operation.period %>
-    <%= get_unit(operation.period_unit) %>
+    <%= OperationsHelper::get_unit(operation.period_unit) %>
   </td>
   <td>
     <% if (operation.last_sample != nil) then %>

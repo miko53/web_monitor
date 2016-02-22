@@ -3,6 +3,9 @@
 <p>
   on Device <%=@sensor.device.name %> in  <%=@sensor.device.location %>
 </p>
+<p>
+  <%= button_to "Refresh", "", { :onclick => "history.go(0)" }  %> 
+</p>
 <ul>
   <li>
     <%= link_to 'Add operation', new_operation_path(:sensor_id => @sensor.id) %>
