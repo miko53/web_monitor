@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :sensors
   resources :reports
   resources :operations
+  resources :calculated_data
   get '/sensors/:id/show_operation', to: 'sensors#show_operation', as: 'sensor_show_operation'
   post '/devices/:id/', to: 'devices#show'
   match '/reports_new',  :to => 'reports#new', :via => [ :get]

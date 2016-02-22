@@ -16,6 +16,7 @@
     <% end %>
   </td>
   <td>
+    <%= link_to 'samples', calculated_data_path(:operation_id => operation.id) %>
   </td>
   <td>
     <%= link_to "Edit", edit_operation_path(operation), class: 'btn btn-primary btn-xs' %> 

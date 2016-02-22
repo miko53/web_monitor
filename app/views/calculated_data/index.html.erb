@@ -1,11 +1,11 @@
-<h1>Sample list <%= @operation.sensor_type %></h1>
-<p>in <%= @sensor.device.location %> </p>
+<h1>Sample list of <%= @operation.calcul_type %> <%= @operation.sensor.sensor_type %></h1>
+<h2>on <%=@operation.period%> <%=get_unit(@operation.period_unit) %> </h2>
+<p>in <%= @operation.sensor.device.location %> </p>
 <table class="table table-hover">
   <thead>
     <tr>
       <th>date</th>
-      <%= @sensor.sensor_type %>
-      <% case @sensor.sensor_type %>
+      <% case @operation.sensor.sensor_type %>
       <% when "Temperature"  %>
         <th>temperature (°C)</th>
       <% when "Humidity" %>
@@ -18,6 +18,9 @@
     </tr>
   </thead>
   <tbody>
-    <%= render 'shared/samples' %>
+    <%= will_paginate @calculatedData %>
+    <%= render @calculatedData %>
   </tbody>
 </table>
+
+
