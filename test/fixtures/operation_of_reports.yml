@@ -1,0 +1,23 @@
+# == Schema Information
+#
+# Table name: operation_of_reports
+#
+#  id          :integer          not null, primary key
+#  deviceName  :string
+#  operationID :integer
+#  report_id   :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  deviceName: MyString
+  operationID: 1
+  report_id: 1
+
+two:
+  deviceName: MyString
+  operationID: 1
+  report_id: 1

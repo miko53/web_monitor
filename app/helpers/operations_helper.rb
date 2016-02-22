@@ -1,6 +1,6 @@
 module OperationsHelper
 
-  def get_unit(period_unit)
+  def self.get_unit(period_unit)
     case period_unit
       when PeriodHelper::MINUTE
         return "minute(s)"

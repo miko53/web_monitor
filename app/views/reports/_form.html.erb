@@ -18,6 +18,17 @@
     <% end %>
 </div>
 <div class="form-group">
+  <%= add_child_button "Add Calculated Data",:operation_of_reports,"#operation_of_reports" %>
+  <%= new_fields_template f, :operation_of_reports %>
+</div>
+<div id="operation_of_reports" class="row col-sm-offset-2">
+    <%= f.fields_for :operation_of_reports do |builder| %>
+    <div>
+      <%= render "operation_of_report_fields", :f => builder %>
+    </div>
+    <% end %>
+</div>
+<div class="form-group">
   <%= f.label "set a duration", {:class => 'col-sm-2 control-label'} %>
   <div class = 'col-sm-10'>
   <%= f.check_box(:isRangeSet, { :class => 'col-sm-offset-2' }) %>

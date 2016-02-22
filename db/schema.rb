@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160221110036) do
+ActiveRecord::Schema.define(version: 20160222150829) do
 
   create_table "calculated_data", force: :cascade do |t|
     t.float    "value"
@@ -44,6 +44,14 @@ ActiveRecord::Schema.define(version: 20160221110036) do
     t.integer  "sensor_id"
     t.float    "value"
     t.datetime "dateTime"
+  end
+
+  create_table "operation_of_reports", force: :cascade do |t|
+    t.string   "deviceName"
+    t.integer  "operationID"
+    t.integer  "report_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "operations", force: :cascade do |t|
