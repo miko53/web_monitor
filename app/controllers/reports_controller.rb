@@ -68,7 +68,7 @@ class ReportsController < ApplicationController
   end
   
   def build_array_of_raw_data(item)
-    p item
+    #p item
     device = Device.find_by_name(item.deviceName)
     if (device != nil) then
       sensor = device.sensors.find_by_order(item.flowID)
@@ -88,7 +88,8 @@ class ReportsController < ApplicationController
         samples.each do |sample|
           sArray << [ sample.dateTime, sample.value ]
         end
-        @dataCtrl << [ item.deviceName, item.flowID, sensor.sensor_type ]
+        legend = "flowID #{item.flowID}, raw data"
+        @dataCtrl << [ item.deviceName, legend, sensor.sensor_type ]
         @data << sArray
       end
     end 
@@ -114,7 +115,7 @@ class ReportsController < ApplicationController
           sArray << [ sample.beginPeriod, sample.value ]
         end
         
-        legend = "#{operation.calcul_type} of flowID #{operation.sensor.order} period of #{operation.period} #{OperationsHelper::get_unit(operation.period_unit)}"
+        legend = "flowID #{operation.sensor.order}, #{operation.calcul_type} on a period of #{operation.period} #{OperationsHelper::get_unit(operation.period_unit)}"
         @dataCtrl << [ operation.sensor.device.name, legend, operation.sensor.sensor_type ]
         @data << sArray        
     end
