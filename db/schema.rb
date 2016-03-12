@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160222150829) do
+ActiveRecord::Schema.define(version: 20160307204600) do
 
   create_table "calculated_data", force: :cascade do |t|
     t.float    "value"
@@ -91,6 +91,18 @@ ActiveRecord::Schema.define(version: 20160222150829) do
     t.float    "value"
     t.datetime "dateTime"
   end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "password_hash"
+    t.string   "password_salt"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "user_name"
+  end
+
+  add_index "users", ["user_name"], name: "index_users_on_user_name", unique: true
 
   create_table "voltage_data", force: :cascade do |t|
     t.integer  "sensor_id"

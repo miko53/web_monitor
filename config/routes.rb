@@ -2,16 +2,23 @@ Rails.application.routes.draw do
   
   #get 'update/index'
   post 'update/insert'
-  root 'reports#index'
-  resources :devices
+  root 'users#index'
+  resources :devices  
   resources :sensors
   resources :reports
   resources :operations
   resources :calculated_data
+  resources :users
+  resources :sessions, :only => [ :new , :create, :destroy ]
+  
   get '/sensors/:id/show_operation', to: 'sensors#show_operation', as: 'sensor_show_operation'
   post '/sensors/:id/show_operation', to: 'sensors#show_operation'
   post '/devices/:id/', to: 'devices#show'
   match '/reports_new',  :to => 'reports#new', :via => [ :get]
+
+  match '/signup',  :to => 'users#new', :via => [ :get]
+  match '/signin',  :to => 'sessions#new', :via => [ :get]
+  match '/signout', :to => 'sessions#destroy', :via => [ :get]
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

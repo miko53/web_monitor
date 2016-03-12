@@ -1,7 +1,7 @@
-
 require "operations_helper.rb"
 
 class ReportsController < ApplicationController
+  before_filter :authenticate
   before_filter :load_report , only: [:show,:edit,:update, :destroy]
   helper :reports
   

@@ -1,0 +1,19 @@
+<h2><%= @user.name %> (<%=@user.user_name %>) </h2>
+<ul>
+  <li>
+    <%= link_to 'Add an user', '#' %>
+  </li>
+  <li>
+    <%= link_to 'Edit profile', '#' %>
+  </li>
+  <li>
+    <%= link_to 'Regenerate API key', '#' %>
+  </li>
+</ul>
+<h4>your API key</h4>
+<ul>
+  <li> 
+    Read/Write API key : '<%= 'TEST' %>'  
+  </li>
+</ul>
+<p> Add it into post_data.rb script in variable API</p>

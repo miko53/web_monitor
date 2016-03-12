@@ -1,6 +1,7 @@
 require 'period_helper'
 
 class OperationsController < ApplicationController
+  before_filter :authenticate
   before_filter :load_operation , only: [:show, :edit, :update, :destroy]
   
   def new

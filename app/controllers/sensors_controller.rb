@@ -1,4 +1,5 @@
 class SensorsController < ApplicationController
+  before_filter :authenticate
   before_filter :load_sensor , only: [:show,:show_operation]
 
   def show

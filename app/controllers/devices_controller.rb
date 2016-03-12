@@ -1,4 +1,5 @@
 class DevicesController < ApplicationController
+  before_filter :authenticate
   before_filter :load_device , only: [:show,:edit,:update, :destroy]
   
   def index
