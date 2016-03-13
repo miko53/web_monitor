@@ -14,9 +14,13 @@
     <% end %>
   </td>
   <td>
+    <% if (current_user.admin?) then %>
     <%= link_to 'Edit', edit_device_path(device), class: 'btn btn-primary btn-xs'  %>
+    <% end %>
   </td>        
   <td>
+    <% if (current_user.admin?) then %>
     <%= link_to 'Delete', device, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>
+    <% end %>
   </td>        
 </tr>

@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   
   #get 'update/index'
+  get '/users/update_api_key', to:'users#update_api_key'
   post 'update/insert'
-  root 'users#index'
+  root 'users#home'
   resources :devices  
   resources :sensors
   resources :reports
@@ -15,7 +16,7 @@ Rails.application.routes.draw do
   post '/sensors/:id/show_operation', to: 'sensors#show_operation'
   post '/devices/:id/', to: 'devices#show'
   match '/reports_new',  :to => 'reports#new', :via => [ :get]
-
+ 
   match '/signup',  :to => 'users#new', :via => [ :get]
   match '/signin',  :to => 'sessions#new', :via => [ :get]
   match '/signout', :to => 'sessions#destroy', :via => [ :get]

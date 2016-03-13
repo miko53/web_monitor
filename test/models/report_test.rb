@@ -10,6 +10,7 @@
 #  dateEnd         :string
 #  isRangeSet      :boolean
 #  dayRangeFromEnd :integer
+#  user_id         :integer
 #
 
 require 'test_helper'

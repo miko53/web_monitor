@@ -4,10 +4,14 @@
     <%= link_to "Back", reports_path, class: 'btn-link' %>
   </li>
   <li>
+    <% if (current_user.admin?) then %>
     <%= link_to "Edit", edit_report_path(@report), class: 'btn-link' %>
+    <% end %>
   </li>
   <li>
+    <% if (current_user.admin?) then %>
     <%= link_to "Delete", report_path(@report), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn-link' %>
+    <% end %>
   </li>
 </ul>
 </div>

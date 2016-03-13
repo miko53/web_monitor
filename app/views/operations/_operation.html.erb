@@ -19,10 +19,14 @@
     <%= link_to 'samples', calculated_data_path(:operation_id => operation.id) %>
   </td>
   <td>
+    <% if (current_user.admin?) then %>
     <%= link_to "Edit", edit_operation_path(operation), class: 'btn btn-primary btn-xs' %> 
+    <% end %>
   </td>
   <td>
+    <% if (current_user.admin?) then %>
     <%= link_to "Delete", operation_path(operation), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>
+    <% end %>
   </td>
 </tr>
 

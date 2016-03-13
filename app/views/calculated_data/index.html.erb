@@ -1,5 +1,5 @@
 <h1>Sample list of <%= @operation.calcul_type %> <%= @operation.sensor.sensor_type %></h1>
-<h2>on <%=@operation.period%> <%=get_unit(@operation.period_unit) %> </h2>
+<h2>on <%=@operation.period%> <%= OperationsHelper::get_unit(@operation.period_unit) %> </h2>
 <p>in <%= @operation.sensor.device.location %> </p>
 <table class="table table-hover">
   <thead>

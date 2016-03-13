@@ -5,7 +5,7 @@ require 'json'
 require 'digest'
 
 uri = URI('http://localhost:3000/update/insert')
-API = Digest::SHA2.hexdigest('dmslfksdmlfk')
+API = '76da1f320f6dc0985c685eccd6af4a20'
 
 #p :fr.class
 #p ARGV
@@ -41,11 +41,10 @@ ARGV.each { |arg|
 
 device_data[:data] = sensors
 device_data = device_data.to_json
-p device_data
+#p device_data
 
 #res = Net::HTTP.post_form(uri, 'api' => API, 'data' => "test")
 res = Net::HTTP.post_form(uri, 'api' => API, 'data' => device_data)
-
-puts res.body
-p res
+#puts res.body
+#p res
 

@@ -10,6 +10,7 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  user_name     :string
+#  api_key       :string
 #
 
 require 'test_helper'

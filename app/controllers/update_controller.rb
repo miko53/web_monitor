@@ -18,7 +18,7 @@ class UpdateController < ApplicationController
         head :error, content_type: "text/html"
      else
        #check if API is OK
-       if (check_api(params[:data]) == true) then
+       if (check_api(params[:api]) == true) then
          data = JSON.parse(params[:data])
          #insert in DB if does'nt exist
          #if exists and data must be insert, insert into DB
@@ -34,7 +34,20 @@ class UpdateController < ApplicationController
 private
   
   def check_api(api)
-    return true
+    bApiOk = false;
+    admin = User.find_by_user_name('admin')
+    if (admin == nil) then
+      logger.info("no admin found")
+      bApiOk = false
+    else
+      if (admin.api_key == api) then
+        bApiOk = true
+      else
+        bApiOk = false
+        logger.info("wrong API provided #{api}")
+      end
+    end
+    return bApiOk
   end
   
   def update_data_from_device(device_data)

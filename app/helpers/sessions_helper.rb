@@ -12,6 +12,10 @@ module SessionsHelper
     @current_user ||= user_from_remember_token
   end
   
+  def current_user?(user)
+    user == current_user
+  end    
+  
   def sign_in(user)
     cookies.permanent.signed[:remember_token] = [user.id, user.password_salt]
     self.current_user = user
@@ -24,8 +28,6 @@ module SessionsHelper
 
   def deny_access
     store_location  
-    #redirect_to signin_path, :notice => "Merci de vous identifier pour rejoindre cette page."
-    #equivalent to  (cf. api.rubyonrails.org/class/ActionController/Redirecting.html)
     flash[:notice] =  "Thanks to registering before to display this page."
     redirect_to root_path
   end

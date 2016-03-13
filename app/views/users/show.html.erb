@@ -1,19 +1,45 @@
 <h2><%= @user.name %> (<%=@user.user_name %>) </h2>
 <ul>
+  <% if @user.admin? then %>
   <li>
-    <%= link_to 'Add an user', '#' %>
+    <%= link_to 'Add an user', new_user_path %>
   </li>
   <li>
-    <%= link_to 'Edit profile', '#' %>
+    <%= link_to 'User list', users_path %>
   </li>
+  <% end %>
   <li>
-    <%= link_to 'Regenerate API key', '#' %>
+    <%= link_to 'Update information profile', edit_user_path(@user) %>
   </li>
 </ul>
-<h4>your API key</h4>
-<ul>
-  <li> 
-    Read/Write API key : '<%= 'TEST' %>'  
-  </li>
-</ul>
+<table class="table table-hover">
+  <thead>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        Email
+      </td>
+      <td>
+        <%= @user.email %>
+      </td>
+      <td></td>
+    </tr>
+<% if (@user.admin?) then %>
+    <tr>
+      <td>
+        API key 
+      </td>
+      <td>
+        <%= @user.api_key %> 
+      </td>
+      <td>
+        <%= link_to 'Regenerate API key', 'update_api_key', class: 'btn btn-primary btn-xs' %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+<% if (@user.admin?) then %>
 <p> Add it into post_data.rb script in variable API</p>
+<% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160307204600) do
+ActiveRecord::Schema.define(version: 20160313154043) do
 
   create_table "calculated_data", force: :cascade do |t|
     t.float    "value"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20160307204600) do
     t.string   "dateEnd"
     t.boolean  "isRangeSet"
     t.integer  "dayRangeFromEnd"
+    t.integer  "user_id"
   end
 
   create_table "sensors", force: :cascade do |t|
@@ -100,6 +101,7 @@ ActiveRecord::Schema.define(version: 20160307204600) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.string   "user_name"
+    t.string   "api_key"
   end
 
   add_index "users", ["user_name"], name: "index_users_on_user_name", unique: true

@@ -6,11 +6,11 @@ class ReportsController < ApplicationController
   helper :reports
   
   def new
-    @report = Report.new
+    @report = current_user.reports.new
   end
   
   def index
-    @reports = Report.all
+    @reports = current_user.reports
   end
 
   def create
@@ -62,7 +62,7 @@ class ReportsController < ApplicationController
   end
   
   def report_params
-    params.require(:report).permit(:id, :name, :dateBegin, :dateEnd, :isRangeSet, :dayRangeFromEnd,
+    params.require(:report).permit(:id, :user_id, :name, :dateBegin, :dateEnd, :isRangeSet, :dayRangeFromEnd,
             :device_of_reports_attributes => [:id, :deviceName, :flowID,:_destroy],
             :operation_of_reports_attributes => [:id, :operationID, :_destroy])
   end
@@ -79,7 +79,7 @@ class ReportsController < ApplicationController
           end
           @report.dateBegin =  @report.dateEnd.to_time.since(-@report.dayRangeFromEnd.days)
         end
-        
+
         samples = sensor.db.where('sensor_id=? AND (datetime(dateTime) >= datetime(?) AND datetime(dateTime) < datetime(?))',  
                                   sensor.id, 
                                   @report.dateBegin.to_time.utc, 
