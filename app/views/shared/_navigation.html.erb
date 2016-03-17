@@ -2,31 +2,23 @@
   <div class="container">
     <ul class="nav navbar-nav navbar-left">
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sensor Monitoring<span class="caret"></span></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Web monitor menu  
+         <% if (signed_in?) then %>
+           (<%= current_user.user_name %>)
+         <% else %>
+           (no logged)
+         <% end %>
+        <span class="caret"></span></a>
         <ul class="dropdown-menu" role="menu">
-         <!-- <li><a href="#">Login</a></li> -->
-          <li><%= link_to 'Device list', devices_path %></li>
-          <li class="divider"></li>
-          <li><%= link_to 'Report list', reports_path %></li>
-          <li><%= link_to 'Create a report', new_report_path %></li>
-        </ul>
-      </li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-          <% if signed_in? %> 
-            <%= current_user.user_name %>
-          <span class="caret"></span></a>
-        <ul class="dropdown-menu" role="menu">
+        <% if signed_in? then %>
           <li><%= link_to 'Home', user_path(current_user) %></li>
+          <li class="divider"></li>
           <li><%= link_to 'Log out', signout_path %></li>
+          <li class="divider"></li>
+        <% end %>
+          <li><%= link_to 'Report list', reports_path %></li>
+          <li><%= link_to 'Device list', devices_path %></li>
         </ul>
-          <% else %>
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-          no login
-          <span class="caret"></span></a>
-          <% end  %>
       </li>
     </ul>
   </div>

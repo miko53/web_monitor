@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(version: 20160313154043) do
     t.boolean  "follow"
   end
 
+  add_index "devices", ["address"], name: "index_devices_on_address", unique: true
+
   create_table "humidity_data", force: :cascade do |t|
     t.integer  "sensor_id"
     t.float    "value"

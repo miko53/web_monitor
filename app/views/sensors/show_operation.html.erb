@@ -7,9 +7,11 @@
   <%= button_to "Refresh", "", { :onclick => "history.go(0)" }  %> 
 </p>
 <ul>
+  <% if (current_user.admin?) then %>
   <li>
     <%= link_to 'Add operation', new_operation_path(:sensor_id => @sensor.id) %>
   </li>
+  <% end %>
   <li>
     <%= link_to 'Back to sensor list', device_path(@sensor.device) %>
   </li>

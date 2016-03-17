@@ -8,10 +8,13 @@
   <thead>
     <tr>
       <th>Name</th>
+    <% if (current_user.admin?) then %>
+      <th>login</th>    
+    <% end %>
     </tr>
   </thead>
   <tbody>
-    <%= render @reports %>
+    <%= render @reports  %>
   </tbody>
 </table>
 
