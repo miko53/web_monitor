@@ -12,6 +12,7 @@
 #  endPeriod      :datetime
 #  number_samples :integer
 #  period_unit    :integer
+#  name           :string
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

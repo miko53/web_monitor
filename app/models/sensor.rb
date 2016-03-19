@@ -8,12 +8,29 @@
 #  updated_at  :datetime         not null
 #  order       :integer
 #  sensor_type :string
+#  name        :string
 #
 
+class SensorValidator < ActiveModel::Validator
+  def validate(record)    
+    device = Device.find(record.device_id)
+    sensors = device.sensors
+    result = sensors.where("name = ?", record.name)
+    if (result.count != 0) then
+      if (result.count == 1) && (result[0].id == record.id) then
+      else
+      record.errors[:name] << "a sensor has the same name, please change it"
+      end
+    end
+  end
+end
+ 
 class Sensor < ActiveRecord::Base
   belongs_to :device
   has_many :operations, :dependent => :destroy
-
+  include ActiveModel::Validations
+  validates_with SensorValidator
+  
   def insert_sample(value)
     case (sensor_type)
       when "Temperature"

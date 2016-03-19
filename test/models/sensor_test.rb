@@ -8,6 +8,7 @@
 #  updated_at  :datetime         not null
 #  order       :integer
 #  sensor_type :string
+#  name        :string
 #
 
 require 'test_helper'

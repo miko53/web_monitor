@@ -12,6 +12,7 @@
 #  endPeriod      :datetime
 #  number_samples :integer
 #  period_unit    :integer
+#  name           :string
 #
 
 require 'test_helper'
