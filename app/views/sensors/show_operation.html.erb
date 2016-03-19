@@ -1,8 +1,5 @@
-<h1>Operation list </h1>
-<h2>Sensor Flow ID <%=@sensor.order %> </h2>
-<p>
-  on Device <%=@sensor.device.name %> in  <%=@sensor.device.location %>
-</p>
+<h1>List of operations</h1>
+<h3>Device '<%=@sensor.device.name %>', Sensor  '<%=@sensor.name %>' (flow ID: <%=@sensor.order %>) </h3>
 <p>
   <%= button_to "Refresh", "", { :onclick => "history.go(0)" }  %> 
 </p>
@@ -19,7 +16,7 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th>Id</th>
+      <th>Name</th>
       <th>Type</th>
       <th>Period</th>
       <th>Last value</th>

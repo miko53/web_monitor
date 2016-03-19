@@ -1,0 +1,25 @@
+<%= form_for(@sensor, html: { class: "form-horizontal" }) do |f| %>
+<div class="form-group ">
+  <%= f.label "Name", {:class => 'col-sm-2 control-label'} %> 
+  <div class = 'col-sm-10'>
+    <%= f.text_field :name, {:class => '' } %>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.label "id", {:class => 'col-sm-2 control-label'} %>
+  <div class = 'col-sm-10'>
+  <%= f.text_field  :order, { :readonly => true, :class => '' } %>
+  </div>
+</div>
+<div class="form-group ">
+  <%= f.label "sensor_type", {:class => 'col-sm-2 control-label'} %> 
+  <div class = 'col-sm-10'>
+    <%= f.text_field :sensor_type, { :readonly => true, :class => '' } %>
+  </div>
+</div>
+<div class="action form-group">
+  <div class = 'col-sm-offset-2 col-sm-10'>
+  <%= f.submit "Update" %>
+  </div>
+</div>
+<%end %>

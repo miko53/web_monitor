@@ -3,6 +3,9 @@
     <%= sensor.order %>
   </td>
   <td>
+    <%= sensor.name %>
+  </td>
+  <td>
     <%= sensor.sensor_type %>
   </td>
   <td>
@@ -16,5 +19,10 @@
   </td>
   <td>
     <%= link_to sensor_path(sensor), sensor_path(sensor) %>
+  </td>          
+  <td>
+    <% if (current_user.admin?) then %>
+    <%= link_to 'Edit', edit_sensor_path(sensor), class: 'btn btn-primary btn-xs'  %>
+    <% end %>
   </td>          
 </tr>

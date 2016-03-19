@@ -74,7 +74,7 @@ class OperationsController < ApplicationController
 
 private
   def operation_params
-    params.require(:operation).permit(:id, :sensor_id, :period, :period_unit, :calcul_type )
+    params.require(:operation).permit(:id, :sensor_id, :period, :period_unit, :calcul_type, :name )
   end
   
   def load_operation

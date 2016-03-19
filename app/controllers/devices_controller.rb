@@ -24,7 +24,8 @@ class DevicesController < ApplicationController
     else
       flash[:error] = "device update failed"
       render :edit
-    end  end
+    end
+  end
   
   def destroy
     #recuperer chaque sensor et 
