@@ -32,13 +32,13 @@ class ReportsController < ApplicationController
   def show
     @data = Array.new
     @dataCtrl = Array.new
-    @report.device_of_reports.each do |item|
-      build_array_of_raw_data(item)
-    end
-    
-    @report.operation_of_reports.each do |item|
-      build_array_of_calculated_data(item)
-    end
+#     @report.device_of_reports.each do |item|
+#       build_array_of_raw_data(item)
+#     end
+#     
+#     @report.operation_of_reports.each do |item|
+#       build_array_of_calculated_data(item)
+#     end
   end  
   
   def edit
@@ -67,8 +67,8 @@ class ReportsController < ApplicationController
   
   def report_params
     params.require(:report).permit(:id, :user_id, :name, :dateBegin, :dateEnd, :isRangeSet, :dayRangeFromEnd,
-            :device_of_reports_attributes => [:id, :deviceName, :flowID,:_destroy],
-            :operation_of_reports_attributes => [:id, :operationID, :_destroy])
+            :graphs_attributes => [:id, :title, :dataset_id,:_destroy,
+            :datasets_attributes => [:id, :device_name, :sensor_name, :operation_name, :_destroy]])
   end
   
   def build_array_of_raw_data(item)
