@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160319111932) do
+ActiveRecord::Schema.define(version: 20160320172603) do
 
   create_table "calculated_data", force: :cascade do |t|
     t.float    "value"
@@ -21,15 +21,14 @@ ActiveRecord::Schema.define(version: 20160319111932) do
     t.integer  "operation_id"
   end
 
-  create_table "device_of_reports", force: :cascade do |t|
-    t.string   "deviceName"
-    t.integer  "flowID"
-    t.integer  "report_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "datasets", force: :cascade do |t|
+    t.string   "device_name"
+    t.string   "sensor_name"
+    t.string   "operation_name"
+    t.integer  "graph_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
-
-  add_index "device_of_reports", ["report_id"], name: "index_device_of_reports_on_report_id"
 
   create_table "devices", force: :cascade do |t|
     t.string   "name"
@@ -42,18 +41,21 @@ ActiveRecord::Schema.define(version: 20160319111932) do
 
   add_index "devices", ["address"], name: "index_devices_on_address", unique: true
 
+  create_table "graphs", force: :cascade do |t|
+    t.integer  "report_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "dataset_id"
+    t.string   "title"
+  end
+
+  add_index "graphs", ["dataset_id"], name: "index_graphs_on_dataset_id"
+  add_index "graphs", ["report_id"], name: "index_graphs_on_report_id"
+
   create_table "humidity_data", force: :cascade do |t|
     t.integer  "sensor_id"
     t.float    "value"
     t.datetime "dateTime"
-  end
-
-  create_table "operation_of_reports", force: :cascade do |t|
-    t.string   "deviceName"
-    t.integer  "operationID"
-    t.integer  "report_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
   end
 
   create_table "operations", force: :cascade do |t|

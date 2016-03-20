@@ -15,11 +15,7 @@
 
 class Report < ActiveRecord::Base
   belongs_to :user
-
-  has_many :device_of_reports, :dependent => :destroy
-  accepts_nested_attributes_for :device_of_reports, :allow_destroy => true
-  
-  has_many :operation_of_reports, :dependent => :destroy
-  accepts_nested_attributes_for :operation_of_reports, :allow_destroy => true
-    
+  has_many :graphs, :dependent => :destroy
+  has_many :datasets, :through => :graphs
+  accepts_nested_attributes_for :graphs, :allow_destroy => true
 end

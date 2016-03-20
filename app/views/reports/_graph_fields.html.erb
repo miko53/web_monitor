@@ -1,0 +1,20 @@
+<div class='nested-fields form-group'>
+  <%= f.label :title, {:class => 'col-sm-2 control-label'} %>
+  <div class = 'col-sm-10' >
+  <%= f.text_field :title  %>
+  <%= link_to_remove_association '', f, { :class => 'glyphicon glyphicon-minus' } %>
+  </div>
+  <div id='graphs' >
+    <div class='links' >
+    <div class='row' >
+    <%= link_to_add_association 'Add dataset', f,  :datasets, 'data-association-insertion-method' => 'append', 
+                                                              'data-association-insertion-node'      => '.links',
+                                                              'data-association-insertion-traversal' => 'closest',
+                                                    :class => 'col-sm-2 col-sm-offset-0 btn glyphicon glyphicon-plus' %>
+    </div>
+    </div>
+    <%= f.fields_for :datasets do |data_set| %>
+      <%= render 'dataset_fields', :f => data_set %>
+    <% end %>
+  </div>
+</div>

@@ -2,11 +2,9 @@
   <td>
     <%= link_to report.name, report_path(report), class: 'btn-link'   %>
   </td> 
-  <% if (current_user.admin?) then %>
   <td>
     <%= report.user.user_name %>
   </td>
-  <% end %>
   <td>
     <% if ((current_user == report.user) || (current_user.admin?)) then %> 
     <%= link_to 'Edit', edit_report_path(report), class: 'btn btn-primary btn-xs'  %>

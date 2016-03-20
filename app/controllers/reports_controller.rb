@@ -10,11 +10,11 @@ class ReportsController < ApplicationController
   end
   
   def index
-    if (current_user.admin?) then
+  #  if (current_user.admin?) then
       @reports = Report.all
-    else
-      @reports = current_user.reports
-    end
+   # else
+  #    @reports = current_user.reports
+   # end
   end
 
   def create
