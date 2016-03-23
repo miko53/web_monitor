@@ -1,4 +1,3 @@
-require "operations_helper.rb"
 
 class ReportsController < ApplicationController
   before_filter :authenticate
@@ -30,15 +29,13 @@ class ReportsController < ApplicationController
   end
   
   def show
-    @data = Array.new
-    @dataCtrl = Array.new
-#     @report.device_of_reports.each do |item|
-#       build_array_of_raw_data(item)
-#     end
-#     
-#     @report.operation_of_reports.each do |item|
-#       build_array_of_calculated_data(item)
-#     end
+    @chartTitles = Array.new
+    @chartDatas = Array.new
+    @chartUnits = Array.new
+    set_report_date
+    @report.graphs.each do |graph|
+      build_array_for_each_graph(graph)
+    end
   end  
   
   def edit
@@ -71,58 +68,69 @@ class ReportsController < ApplicationController
             :datasets_attributes => [:id, :device_name, :sensor_name, :operation_name, :_destroy]])
   end
   
-  def build_array_of_raw_data(item)
-    #p item
-    device = Device.find_by_name(item.deviceName)
-    if (device != nil) then
-      sensor = device.sensors.find_by_order(item.flowID)
-      if (sensor != nil) then
-        if (@report.isRangeSet == true) then
-          if (@report.dateEnd == "now") then
-              @report.dateEnd = DateTime.now
-          end
-          @report.dateBegin =  @report.dateEnd.to_time.since(-@report.dayRangeFromEnd.days)
-        end
-
-        samples = sensor.db.where('sensor_id=? AND (datetime(dateTime) >= datetime(?) AND datetime(dateTime) < datetime(?))',  
-                                  sensor.id, 
-                                  @report.dateBegin.to_time.utc, 
-                                  @report.dateEnd.to_time.utc)
-        sArray = Array.new
-        samples.each do |sample|
-          sArray << [ sample.dateTime, sample.value ]
-        end
-        legend = "flowID #{item.flowID}, raw data"
-        @dataCtrl << [ item.deviceName, legend, sensor.sensor_type ]
-        @data << sArray
+  def set_report_date
+    if (@report.isRangeSet == true) then
+      if (@report.dateEnd == "now") then
+          @report.dateEnd = DateTime.now
+      else
+        
       end
-    end 
-  end
-  
-  def build_array_of_calculated_data(item)
-    p item
-    operation = Operation.find(item.operationID)
-    if (operation != nil) then
-        if (@report.isRangeSet == true) then
-          if (@report.dateEnd == "now") then
-              @report.dateEnd = DateTime.now
-          end
-          @report.dateBegin =  @report.dateEnd.to_time.since(-@report.dayRangeFromEnd.days)
-        end
-        
-        samples = CalculatedDatum.where('operation_id=? AND (datetime(beginPeriod) >= datetime(?) AND datetime(beginPeriod) < datetime(?))',  
-                                  operation.id, 
-                                  @report.dateBegin.to_time.utc, 
-                                  @report.dateEnd.to_time.utc)
-        sArray = Array.new
-        samples.each do |sample|
-          sArray << [ sample.beginPeriod, sample.value ]
-        end
-        
-        legend = "flowID #{operation.sensor.order}, #{operation.calcul_type} on a period of #{operation.period} #{OperationsHelper::get_unit(operation.period_unit)}"
-        @dataCtrl << [ operation.sensor.device.name, legend, operation.sensor.sensor_type ]
-        @data << sArray        
+      @report.dateBegin =  @report.dateEnd.to_time.since(-@report.dayRangeFromEnd.days)
     end
+  end
+
+  def build_array_for_each_graph(graph)
+    #insert each dataset inside graph
+    @chartTitles << graph.title
+    sUnit = Array.new
+    sChartData = Array.new
+    graph.datasets.each do |dataset|
+      sensor = nil
+      device = Device.find_by_name(dataset.device_name)
+      if (device != nil) then
+        sensor = device.sensors.find_by_name(dataset.sensor_name)
+      end
+      
+      if (sensor != nil) then
+        #check type of operation
+        p dataset.operation_name
+        if (dataset.operation_name == "raw") then
+          samples = sensor.db.where('sensor_id=? AND (datetime(dateTime) >= datetime(?) AND datetime(dateTime) < datetime(?))',  
+                                    sensor.id, 
+                                    @report.dateBegin.to_time.utc, 
+                                    @report.dateEnd.to_time.utc)
+          sArray = Array.new
+          samples.each do |sample|
+            sArray << [ sample.dateTime, sample.value ]
+          end
+          dataset = Hash.new
+          dataset['name'] = sensor.name + '_raw'
+          dataset['data'] = sArray
+          sChartData << dataset
+          sUnit << ReportsHelper::unit(sensor.sensor_type)
+        else
+          #now take the operation 
+          operation = sensor.operations.find_by_name(dataset.operation_name)
+          if (operation != nil) then
+            samples = CalculatedDatum.where('operation_id=? AND (datetime(beginPeriod) >= datetime(?) AND datetime(beginPeriod) < datetime(?))',  
+                                      operation.id, 
+                                      @report.dateBegin.to_time.utc, 
+                                      @report.dateEnd.to_time.utc)  
+            sArray = Array.new
+            samples.each do |sample|
+              sArray << [ sample.beginPeriod, sample.value ]
+            end
+            dataset = Hash.new
+            dataset['name'] = operation.name
+            dataset['data'] = sArray
+            sChartData << dataset
+            sUnit << ReportsHelper::unit(sensor.sensor_type)
+          end
+        end
+      end
+    end
+    @chartUnits << sUnit
+    @chartDatas << sChartData
   end
   
 end

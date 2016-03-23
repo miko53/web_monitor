@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get '/sensors/:id/show_operation', to: 'sensors#show_operation', as: 'sensor_show_operation'
   post '/sensors/:id/show_operation', to: 'sensors#show_operation'
   post '/devices/:id/', to: 'devices#show'
+  post '/reports/:id/', to: 'reports#show'
   match '/reports_new',  :to => 'reports#new', :via => [ :get]
  
   match '/signup',  :to => 'users#new', :via => [ :get]

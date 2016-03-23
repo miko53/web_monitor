@@ -5,7 +5,7 @@ require 'json'
 require 'digest'
 
 uri = URI('http://localhost:3000/update/insert')
-API = '76da1f320f6dc0985c685eccd6af4a20'
+API = '96d691e645bcf7ef9f0a1b008d6ae7b0'
 
 #p :fr.class
 #p ARGV

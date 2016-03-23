@@ -1,6 +1,6 @@
 module ReportsHelper
   
-  def unit(typeName)
+  def self.unit(typeName)
     unit = "-"
     case (typeName)
       when "Temperature"

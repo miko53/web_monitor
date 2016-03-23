@@ -15,6 +15,9 @@
   </li>
 </ul>
 </div>
+<p>
+  <%= button_to "Refresh", "", { :onclick => "history.go(0)" }  %> 
+</p>
 <h1><%= @report.name %></h1>
 <ul>
 <li>
@@ -25,11 +28,11 @@
 </li>
 </ul>
 <% i = 0 %>
-<% @data.each do |chartData| %>
-<h2><%= @dataCtrl[i][0] %> (<%=@dataCtrl[i][1]%>)</h2>
+<% @chartDatas.each do |chartData| %>
+<h2><%= @chartTitles[i] %> </h2>
 <p>
-  <%= line_chart [ { name: @dataCtrl[i][2], data: chartData } ],
-                     ytitle: unit(@dataCtrl[i][2])  %>
+  <%= line_chart chartData,
+                 xtitle: "Time", ytitle: @chartUnits[i]  %>
 </p>
-<% i+=1 %>
+<% i += 1 %>
 <% end %>

@@ -1,4 +1,7 @@
-<p>Date format is YYYY-MM-DD HH:MM:SS or now </p>
+<ul>
+<li>Date format is YYYY-MM-DD HH:MM:SS or now </li>
+<li>Insert 'raw' as operation to have the value directly from the sensor</li>
+</ul>
 <%= form_for(@report, html: { class: "form-horizontal" }) do |f| %>
 <%= f.hidden_field( :user_id, :value => @report.user_id ) %>
 <div class="form-group">
