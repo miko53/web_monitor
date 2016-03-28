@@ -1,8 +1,14 @@
+
 Rails.application.routes.draw do
-  
+
+scope ActionController::Base.relative_url_root do  
   #get 'update/index'
   get '/users/update_api_key', to:'users#update_api_key'
   post 'update/insert'
+
+
+
+
   root 'users#home'
   resources :devices  
   resources :sensors
@@ -76,4 +82,5 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+end
 end
