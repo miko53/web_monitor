@@ -4,8 +4,14 @@ require 'net/http'
 require 'json'
 require 'digest'
 
-uri = URI('http://localhost:3000/update/insert')
-API = '96d691e645bcf7ef9f0a1b008d6ae7b0'
+rails_env = ENV['RAILS_ENV']
+if rails_env == "production" then
+  API = ENV['API_KEY'] 
+  uri = URI('http://localhost:80/web_monitor/update/insert')
+else
+  API = '96d691e645bcf7ef9f0a1b008d6ae7b0'
+  uri = URI('http://localhost:3000/update/insert')
+end
 
 #p :fr.class
 #p ARGV

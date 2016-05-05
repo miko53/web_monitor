@@ -58,7 +58,22 @@ private
         #insert into DB
         create_device(device_data)
       else
-        update_data(device, device_data) if (device.follow == true)
+        if (device.follow == true) then
+          update_data(device, device_data) 
+        else
+          create_sensor_if_not_exist(device, device_data)
+        end
+      end
+    end
+  end
+  
+  def create_sensor_if_not_exist(device, device_data)
+    device_data["data"].each do |d|
+      #p "d --> #{d}"
+      s = device.sensors.find_by_order(d["id"])
+      if (s == nil) then
+        #insert into db
+        s = create_sensor_1(device, d)
       end
     end
   end
@@ -68,11 +83,12 @@ private
     device_data["data"].each do |d|
       #p "d --> #{d}"
       s = device.sensors.find_by_order(d["id"])
-      if (s != nil) then
-        s.insert_sample(d["value"])
-        calculate_operation_on_sensor(s, d["value"])
-        #then, insert into db
+      if (s == nil) then
+        #insert into db
+        s = create_sensor_1(device, d)
       end
+      s.insert_sample(d["value"])
+      calculate_operation_on_sensor(s, d["value"])
     end
   end
   
@@ -95,6 +111,20 @@ private
       end
       device.sensors.create(order: d["id"],  sensor_type: type)
     end
+  end
+  
+  def create_sensor_1(device, d)
+      #p "d --> #{d}"
+      case (d["phys"])
+        when "temp"
+          type = "Temperature"
+        when "humd"
+          type = "Humidity"
+        when "volt"
+          type = "Voltage"
+      end
+      s = device.sensors.create(order: d["id"],  sensor_type: type)
+      return s
   end
   
   def calculate_operation_on_sensor(s, value)
