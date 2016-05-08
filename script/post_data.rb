@@ -9,7 +9,7 @@ if rails_env == "production" then
   API = ENV['API_KEY'] 
   uri = URI('http://localhost:80/web_monitor/update/insert')
 else
-  API = '96d691e645bcf7ef9f0a1b008d6ae7b0'
+  API = 'e87c9b917f1f424d81bfbf767fd49e50'
   uri = URI('http://localhost:3000/update/insert')
 end
 
@@ -38,8 +38,11 @@ ARGV.each { |arg|
     when :volt
       sensor = { :id => current_id, :phys => "volt", :value => arg_items[1].to_f}
       sensors << sensor     
+    when :press
+      sensor = { :id => current_id, :phys => "press", :value => arg_items[1].to_f}
+      sensors << sensor     
     else
-      p "usage address=<devise_address> temp=<temperature> humd=<humidity> volt=<tension>"
+      p "usage address=<devise_address> id=<sensor_id> >temp=<temperature> id=<sensor_id> humd=<humidity> id=<sensor_id> volt=<tension> id=<sensor_id> press=<pressure>"
       raise "unexpected argument \"#{arg_items[0]}\""
   end
 }
