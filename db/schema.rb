@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160320172603) do
+ActiveRecord::Schema.define(version: 20160508113158) do
 
   create_table "calculated_data", force: :cascade do |t|
     t.float    "value"
@@ -69,6 +69,12 @@ ActiveRecord::Schema.define(version: 20160320172603) do
     t.integer  "number_samples"
     t.integer  "period_unit"
     t.string   "name"
+  end
+
+  create_table "pressure_data", force: :cascade do |t|
+    t.integer  "sensor_id"
+    t.float    "value"
+    t.datetime "dateTime"
   end
 
   create_table "reports", force: :cascade do |t|

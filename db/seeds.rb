@@ -12,6 +12,7 @@ Device.create(name: 'D3', location: 'Salle', address: 'xb@56:51:5A:6C', follow: 
 s = Sensor.create(device_id: 1, sensor_type: "Temperature", order: 1)
 Sensor.create(device_id: 1, sensor_type: "Humidity", order: 2)
 Sensor.create(device_id: 1, sensor_type: "Voltage", order: 3)
+Sensor.create(device_id: 1, sensor_type: "Pressure", order: 4)
 
 ActiveRecord::Base.transaction do
   for i in 0 ... 10000
@@ -30,7 +31,12 @@ ActiveRecord::Base.transaction do
     value: 3.3 + rand(0),
     sensor_id: 3,
     dateTime: d)
-    #p i
+    
+    PressureDatum.create(
+    value: 1013.25 + rand(250) + rand(0),
+    sensor_id: 4,
+    dateTime: d)
+    
   end
 end
 

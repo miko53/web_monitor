@@ -39,6 +39,8 @@ class Sensor < ActiveRecord::Base
         insert_humidity_sample(value)
       when "Voltage"
         insert_voltage_sample(value)
+      when "Pressure"
+        insert_pressure_sample(value)
       else
         raise "DB doesn't exist"
     end
@@ -52,6 +54,8 @@ class Sensor < ActiveRecord::Base
         return HumidityDatum
       when "Voltage"
         return VoltageDatum
+      when "Pressure"
+        return PressureDatum
       else
         raise "DB unknown"
     end
@@ -93,4 +97,13 @@ private
     t.dateTime = DateTime.now
     t.save
   end
+  
+  def insert_pressure_sample(value)
+    t = PressureDatum.new
+    t.value = value 
+    t.sensor_id = id
+    t.dateTime = DateTime.now
+    t.save
+  end
+  
 end

@@ -9,6 +9,8 @@ module ReportsHelper
         unit = "°H"
       when "Voltage"
         unit = "V"
+      when "Pressure"
+        unit = "hPa"
       else
     end
   end

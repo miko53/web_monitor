@@ -108,6 +108,8 @@ private
           type = "Humidity"
         when "volt"
           type = "Voltage"
+        when "press"
+          type = "Pressure"
       end
       device.sensors.create(order: d["id"],  sensor_type: type)
     end
@@ -122,6 +124,8 @@ private
           type = "Humidity"
         when "volt"
           type = "Voltage"
+        when "press"
+          type = "Pressure"
       end
       s = device.sensors.create(order: d["id"],  sensor_type: type)
       return s
