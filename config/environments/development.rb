@@ -39,4 +39,19 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
   config.time_zone = "Paris"
+  
+    
+  config.action_mailer.delivery_method = :smtp
+  # SMTP settings for gmail
+  config.action_mailer.smtp_settings = {
+  :address              => "smtp.sfr.fr",
+  :port                 => 465,
+#  :user_name            => ENV['gmail_username'],
+#  :password             => ENV['gmail_password'],
+#  :authentication       => "plain",
+  :enable_starttls_auto => false,
+  :ssl => true
+  }
+  
+  
 end

@@ -37,6 +37,8 @@ class ReportsController < ApplicationController
     @report.graphs.each do |graph|
       build_array_for_each_graph(graph)
     end
+    
+    SnapshotMailer.welcome_email(current_user).deliver_later
   end  
   
   def edit
