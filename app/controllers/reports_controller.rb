@@ -102,11 +102,11 @@ class ReportsController < ApplicationController
                                     @report.dateBegin.to_time.utc, 
                                     @report.dateEnd.to_time.utc)
           if (min_max['min'] == nil) then
-            min_max['min'] = samples.minimum(:value) - 5
-            min_max['max'] = samples.maximum(:value) + 5
+            min_max['min'] = samples.minimum(:value)
+            min_max['max'] = samples.maximum(:value)
           else
-            min_max['min'] = [ samples.minimum(:value) - 5, min_max['min']].min 
-            min_max['max'] = [ samples.maximum(:value) + 5, min_max['max']].max 
+            min_max['min'] = [ samples.minimum(:value), min_max['min']].min 
+            min_max['max'] = [ samples.maximum(:value), min_max['max']].max 
           end
           sArray = Array.new
           samples.each do |sample|
@@ -126,11 +126,11 @@ class ReportsController < ApplicationController
                                       @report.dateBegin.to_time.utc, 
                                       @report.dateEnd.to_time.utc)  
             if (min_max['min'] == nil) then
-              min_max['min'] = samples.minimum(:value) - 5
-              min_max['max'] = samples.maximum(:value) + 5
+              min_max['min'] = samples.minimum(:value)
+              min_max['max'] = samples.maximum(:value)
             else
-              min_max['min'] = [ samples.minimum(:value) - 5, min_max['min']].min 
-              min_max['max'] = [ samples.maximum(:value) + 5, min_max['max']].max 
+              min_max['min'] = [ samples.minimum(:value), min_max['min']].min 
+              min_max['max'] = [ samples.maximum(:value), min_max['max']].max 
             end
             sArray = Array.new
             samples.each do |sample|
