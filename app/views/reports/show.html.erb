@@ -32,7 +32,7 @@
 <h2><%= @chartTitles[i] %> </h2>
 <p>
   <%= line_chart chartData, library: { chart: {zoomType: 'xy'}},
-                 xtitle: "Time", ytitle: @chartUnits[i] #, min: @chartScale[i]['min'], max: @chartScale[i]['max']
+                 xtitle: "Time", ytitle: @chartUnits[i], min: @chartScale[i]['min'], max: @chartScale[i]['max']
                  %>
 </p>
 <% i += 1 %>
