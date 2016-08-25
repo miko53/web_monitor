@@ -32,7 +32,7 @@ class ReportsController < ApplicationController
     @chartTitles = Array.new
     @chartDatas = Array.new
     @chartUnits = Array.new
-    @chartScale = Array.new
+    #@chartScale = Array.new
     set_report_date
     @report.graphs.each do |graph|
       build_array_for_each_graph(graph)
@@ -85,7 +85,7 @@ class ReportsController < ApplicationController
     @chartTitles << graph.title
     sUnit = Array.new
     sChartData = Array.new
-    min_max = Hash.new
+    #min_max = Hash.new
     graph.datasets.each do |dataset|
       sensor = nil
       device = Device.find_by_name(dataset.device_name)
@@ -101,13 +101,13 @@ class ReportsController < ApplicationController
                                     sensor.id, 
                                     @report.dateBegin.to_time.utc, 
                                     @report.dateEnd.to_time.utc)
-          if (min_max['min'] == nil) then
-            min_max['min'] = samples.minimum(:value)
-            min_max['max'] = samples.maximum(:value)
-          else
-            min_max['min'] = [ samples.minimum(:value), min_max['min']].min
-            min_max['max'] = [ samples.maximum(:value), min_max['max']].max
-          end
+#           if (min_max['min'] == nil) then
+#             min_max['min'] = samples.minimum(:value)
+#             min_max['max'] = samples.maximum(:value)
+#           else
+#             min_max['min'] = [ samples.minimum(:value), min_max['min']].min
+#             min_max['max'] = [ samples.maximum(:value), min_max['max']].max
+#           end
           sArray = Array.new
           samples.each do |sample|
             sArray << [ sample.dateTime, sample.value ]
@@ -125,13 +125,13 @@ class ReportsController < ApplicationController
                                       operation.id, 
                                       @report.dateBegin.to_time.utc, 
                                       @report.dateEnd.to_time.utc)  
-            if (min_max['min'] == nil) then
-              min_max['min'] = samples.minimum(:value)
-              min_max['max'] = samples.maximum(:value)
-            else
-              min_max['min'] = [ samples.minimum(:value), min_max['min']].min
-              min_max['max'] = [ samples.maximum(:value), min_max['max']].max
-            end
+#             if (min_max['min'] == nil) then
+#               min_max['min'] = samples.minimum(:value)
+#               min_max['max'] = samples.maximum(:value)
+#             else
+#               min_max['min'] = [ samples.minimum(:value), min_max['min']].min
+#               min_max['max'] = [ samples.maximum(:value), min_max['max']].max
+#             end
             sArray = Array.new
             samples.each do |sample|
               sArray << [ sample.beginPeriod, sample.value ]
@@ -147,7 +147,7 @@ class ReportsController < ApplicationController
     end
     @chartUnits << sUnit
     @chartDatas << sChartData
-    @chartScale << min_max
+    #@chartScale << min_max
   end
   
 end

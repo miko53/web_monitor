@@ -1,6 +1,6 @@
 class SensorsController < ApplicationController
   before_filter :authenticate
-  before_filter :load_sensor , only: [:show,:edit,:update,:show_operation]
+  before_filter :load_sensor , only: [:show,:edit,:update,:show_operation, :delete_sample]
 
   def show
     @samples = @sensor.db.where(sensor_id: @sensor.id).order("dateTime DESC").page(params[:page]).per_page(70)
@@ -17,6 +17,17 @@ class SensorsController < ApplicationController
       flash[:error] = "sensor update failed"
       render :edit
     end    
+  end
+  
+  def delete_sample
+#     p params[:sample_id]
+#     p @sensor
+    sample_j = @sensor.find_sample(params[:sample_id])
+    if (sample_j) then
+#       p sample_j.sample
+      sample_j.sample.destroy
+    end
+    redirect_to sensor_path(@sensor)
   end
   
   def show_operation

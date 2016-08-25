@@ -28,6 +28,9 @@ scope ActionController::Base.relative_url_root do
   match '/signin',  :to => 'sessions#new', :via => [ :get]
   match '/signout', :to => 'sessions#destroy', :via => [ :get]
   
+#  get '/sensors/:id/delete_sample', to: 'sensors#delete_sample', as: 'sensor_delete_sample'
+  delete '/sensors/:id/delete_sample', to: 'sensors#delete_sample', as: 'sensor_delete_sample'
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

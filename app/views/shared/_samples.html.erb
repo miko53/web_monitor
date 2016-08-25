@@ -1,4 +1,4 @@
-  <tbody>
+<tbody>
     <%= will_paginate @samples %>
     <% @samples.each do |sample| %>
   <tr>
@@ -8,10 +8,11 @@
    <td>
     <%= sample.value %>
    </td>
-<!-- >   <td>
-    <%= sample.id %>
-   </td>
--->
+  <td>
+    <% if (current_user.admin?) then %>
+    <%= link_to 'Delete', sensor_delete_sample_path(sample.sensor, sample_id: sample.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>
+    <% end %>
+  </td>
   </tr>
     <% end%>
-  </tbody>
+</tbody> 
