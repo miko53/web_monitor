@@ -23,7 +23,6 @@
       <td>
         <%= @user.email %>
       </td>
-      <td></td>
     </tr>
 <% if (@user.admin?) then %>
     <tr>
@@ -32,14 +31,22 @@
       </td>
       <td>
         <%= @user.api_key %> 
+        <p> Add it into post_data.rb script in variable API</p>
+        <p> <%= link_to 'Regenerate API key', 'update_api_key', class: 'btn btn-primary btn-xs' %></p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Version
       </td>
       <td>
-        <%= link_to 'Regenerate API key', 'update_api_key', class: 'btn btn-primary btn-xs' %>
+        <% unless GIT_COMMIT.blank? -%>
+          <%= GIT_COMMIT %>
+        <% end -%>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 <% if (@user.admin?) then %>
-<p> Add it into post_data.rb script in variable API</p>
 <% end %>

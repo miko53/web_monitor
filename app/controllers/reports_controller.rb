@@ -10,7 +10,7 @@ class ReportsController < ApplicationController
   
   def index
   #  if (current_user.admin?) then
-      @reports = Report.all
+      @reports = Report.all.order(:name).page(params[:page]).per_page(10)
    # else
   #    @reports = current_user.reports
    # end
