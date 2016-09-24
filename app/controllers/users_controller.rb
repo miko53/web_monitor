@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   
   def home
     if signed_in? then
-      redirect_to reports_path
+      redirect_to dashboard_path(current_user.dash_board)
     else
       @user = User.find_by_user_name("admin")
       if (@user == nil) then
@@ -55,6 +55,7 @@ class UsersController < ApplicationController
   
   def create
     @user = User.new(user_params)
+    @user.dash_board = DashBoard.new
     if (@user.save) then
       flash[:info] = "user correctly created"
       if (@user.user_name == 'admin') then

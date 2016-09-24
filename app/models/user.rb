@@ -16,6 +16,7 @@
 class User < ActiveRecord::Base
   #attr_accessible :user_name, :name, :email, :password, :password_confirmation
   has_many :reports, :dependent => :destroy
+  has_one :dash_board
   attr_accessor :password
   before_save :encrypt_password
   before_save :check_and_generate_api_key

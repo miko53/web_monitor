@@ -1,0 +1,21 @@
+<div class="col-xs-6 col-sm-4">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <%= form_for(panel) do |f| %>
+      Title <%= f.text_field(:name) %>
+      <%= f.submit "Update" %>
+      <%end %>
+    </div>
+    
+    <% panel.panel_item.each do |item| %>
+      <%= render item %>
+    <%end %>
+    
+    <div class="panel-body">
+      <%= link_to 'Add sensor', new_panel_item_path(panel_id: panel.id), class: 'btn btn-primary btn-xs' %>
+    </div>
+    <div class="panel-body">
+      <%= link_to 'Delete panel', dash_board_panel_path(panel), method: :delete, class: 'btn btn-danger btn-xs' %>
+    </div>
+  </div>
+</div>

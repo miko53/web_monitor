@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160508113158) do
+ActiveRecord::Schema.define(version: 20160918103632) do
 
   create_table "calculated_data", force: :cascade do |t|
     t.float    "value"
@@ -19,6 +19,19 @@ ActiveRecord::Schema.define(version: 20160508113158) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "operation_id"
+  end
+
+  create_table "dash_board_panels", force: :cascade do |t|
+    t.integer  "dash_board_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "name"
+  end
+
+  create_table "dash_boards", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "datasets", force: :cascade do |t|
@@ -68,6 +81,15 @@ ActiveRecord::Schema.define(version: 20160508113158) do
     t.datetime "endPeriod"
     t.integer  "number_samples"
     t.integer  "period_unit"
+    t.string   "name"
+  end
+
+  create_table "panel_items", force: :cascade do |t|
+    t.integer  "dash_board_panel_id"
+    t.string   "sensor_name"
+    t.string   "operation_name"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.string   "name"
   end
 

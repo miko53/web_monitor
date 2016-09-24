@@ -1,0 +1,10 @@
+<div class="col-xs-6 col-sm-4">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <%= panel.name %>
+    </div>
+    <% panel.panel_item.each do |item| %>
+      <%= render 'panel_items/show', :item => item %>
+    <%end %>
+  </div>
+</div>

@@ -97,10 +97,15 @@ class ReportsController < ApplicationController
         #check type of operation
         #p dataset.operation_name
         if (dataset.operation_name == "raw") then
+          sArray = Array.new
           samples = sensor.db.where('sensor_id=? AND (datetime(dateTime) >= datetime(?) AND datetime(dateTime) < datetime(?))',  
                                     sensor.id, 
                                     @report.dateBegin.to_time.utc, 
-                                    @report.dateEnd.to_time.utc)
+                                    @report.dateEnd.to_time.utc).select(:id, :dateTime, :value)
+          samples.find_each do |s|
+            sArray << [s.dateTime, s.value]
+          end
+          
           if (min_max['min'] == nil) then
             min_max['min'] = samples.minimum(:value)
             min_max['max'] = samples.maximum(:value)
@@ -108,10 +113,7 @@ class ReportsController < ApplicationController
             min_max['min'] = [ samples.minimum(:value), min_max['min']].min 
             min_max['max'] = [ samples.maximum(:value), min_max['max']].max 
           end
-          sArray = Array.new
-          samples.each do |sample|
-            sArray << [ sample.dateTime, sample.value ]
-          end
+          
           dataset = Hash.new
           dataset['name'] = sensor.name + '_raw'
           dataset['data'] = sArray
@@ -121,20 +123,21 @@ class ReportsController < ApplicationController
           #now take the operation 
           operation = sensor.operations.find_by_name(dataset.operation_name)
           if (operation != nil) then
+            sArray = Array.new
             samples = CalculatedDatum.where('operation_id=? AND (datetime(beginPeriod) >= datetime(?) AND datetime(beginPeriod) < datetime(?))',  
                                       operation.id, 
                                       @report.dateBegin.to_time.utc, 
-                                      @report.dateEnd.to_time.utc)  
+                                      @report.dateEnd.to_time.utc).select(:id, :dateTime, :value)
+            samples.find_each do |s|
+              sArray << [ sample.beginPeriod, sample.value ]
+            end
+            
             if (min_max['min'] == nil) then
               min_max['min'] = samples.minimum(:value)
               min_max['max'] = samples.maximum(:value)
             else
               min_max['min'] = [ samples.minimum(:value), min_max['min']].min 
               min_max['max'] = [ samples.maximum(:value), min_max['max']].max 
-            end
-            sArray = Array.new
-            samples.each do |sample|
-              sArray << [ sample.beginPeriod, sample.value ]
             end
             dataset = Hash.new
             dataset['name'] = operation.name

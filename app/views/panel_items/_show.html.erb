@@ -1,0 +1,25 @@
+<div class="panel-body">
+  <table class="table">
+  <tbody>
+    <tr>
+      <td>
+        <%= item.name %>
+      </td>
+      <td>
+        <% if (sensor_value(item.sensor_name, item.operation_name) != nil) then %> 
+        <%= sensor_value(item.sensor_name, item.operation_name) %>
+        <% else %>
+          ---
+        <% end %>
+      </td>
+      <td>
+        <% if (sensor_refresh_date(item.sensor_name, item.operation_name) != nil) then %> 
+        <%= time_ago_in_words(sensor_refresh_date(item.sensor_name, item.operation_name)) %>
+        <% else %>
+          ---
+        <% end %>
+      </td>
+    </tr>
+  </tbody>          
+  </table>
+</div>

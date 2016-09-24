@@ -1,0 +1,12 @@
+<h2> DashBoard Edition </h2>
+<p>
+<%= link_to 'Display', dashboard_path(current_user.dash_board) %>
+</p>
+<%= render "form"%>
+<div class="col-xs-9" >
+  <tr>
+    <td>
+      <%= link_to 'Add panel', new_dash_board_panel_path(dash_board_id: @dashboard.id), class: 'btn btn-primary btn-xs' %>
+    </td>
+  </tr>
+</div>

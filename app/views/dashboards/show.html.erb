@@ -1,0 +1,19 @@
+<div class="container">
+<ul class="nav navbar-nav navbar-left">
+  <li>
+    <%= link_to "Back", reports_path, class: 'btn-link' %>
+  </li>
+  <li>
+    <% if ((current_user == @dashboard.user) || (current_user.admin?)) then %> 
+    <%= link_to "Edit", edit_dashboard_path(@dashboard), class: 'btn-link' %>
+    <% end %>
+  </li>
+</div>
+<p>
+  <%= button_to "Refresh", "", { :onclick => "history.go(0)" }  %> 
+</p>
+<div class="row">
+  <% @dashboard.dash_board_panel.each do |panel| %>
+  <%= render 'dash_board_panels/show', :panel => panel %>
+  <% end %>
+</div>

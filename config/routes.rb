@@ -6,9 +6,6 @@ scope ActionController::Base.relative_url_root do
   get '/users/update_api_key', to:'users#update_api_key'
   post 'update/insert'
 
-
-
-
   root 'users#home'
   resources :devices  
   resources :sensors
@@ -31,6 +28,11 @@ scope ActionController::Base.relative_url_root do
 #  get '/sensors/:id/delete_sample', to: 'sensors#delete_sample', as: 'sensor_delete_sample'
   delete '/sensors/:id/delete_sample', to: 'sensors#delete_sample', as: 'sensor_delete_sample'
   
+  
+  resources :dashboards
+  resources :dash_board_panels
+  resources :panel_items
+  post '/dashboards/:id/', to: 'dashboards#show'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

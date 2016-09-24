@@ -1,11 +1,11 @@
 # == Schema Information
 #
-# Table name: pressure_data
+# Table name: dash_boards
 #
-#  id        :integer          not null, primary key
-#  sensor_id :integer
-#  value     :float
-#  dateTime  :datetime
+#  id         :integer          not null, primary key
+#  user_id    :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

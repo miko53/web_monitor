@@ -1,0 +1,35 @@
+<%= form_for(panel_item) do |f| %>
+<div class="panel-body">
+  <table class="table">
+  <tbody>
+    <tr>
+      <td>
+        Name <%= f.text_field(:name) %>
+      </td>
+      <td>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Sensor <%= f.text_field(:sensor_name) %>
+      </td>
+      <td>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Operation <%= f.text_field(:operation_name) %>
+      </td>
+      <td>
+        <%= f.submit "Update sensor" %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+    <%= link_to 'Delete sensor', panel_item_path(panel_item), method: :delete, class: 'btn btn-danger btn-xs' %>
+      </td>
+    </tr>
+  </tbody>          
+  </table>
+</div>
+<%end %>

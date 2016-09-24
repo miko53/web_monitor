@@ -3,7 +3,7 @@ class DevicesController < ApplicationController
   before_filter :load_device , only: [:show,:edit,:update, :destroy]
   
   def index
-    @devices = Device.all
+    @devices = Device.all.order(:name)
   end
   
   def show

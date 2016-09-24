@@ -9,7 +9,7 @@ if rails_env == "production" then
   API = ENV['API_KEY'] 
   uri = URI('http://localhost:80/web_monitor/update/insert')
 else
-  API = 'e87c9b917f1f424d81bfbf767fd49e50'
+  API = '55d41a62179fa8627b1cbef71ffddb2e'
   uri = URI('http://localhost:3000/update/insert')
 end
 

@@ -11,7 +11,8 @@
         <span class="caret"></span></a>
         <ul class="dropdown-menu" role="menu">
         <% if signed_in? then %>
-          <li><%= link_to 'Home', user_path(current_user) %></li>
+          <li><%= link_to 'Dashboard', dashboard_path(current_user.dash_board) %></li>
+          <li><%= link_to 'User info', user_path(current_user) %></li>
           <li class="divider"></li>
           <li><%= link_to 'Log out', signout_path %></li>
           <li class="divider"></li>
