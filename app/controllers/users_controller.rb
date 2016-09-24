@@ -9,6 +9,11 @@ class UsersController < ApplicationController
   
   def home
     if signed_in? then
+      if current_user.dash_board == nil then
+        current_user.dash_board = DashBoard.new
+        current_user.save
+      end
+      
       redirect_to dashboard_path(current_user.dash_board)
     else
       @user = User.find_by_user_name("admin")
@@ -24,6 +29,7 @@ class UsersController < ApplicationController
   
   def new
     @user = User.new
+    @user.dash_board = DashBoard.new
   end
   
   #user already set by before_filter
