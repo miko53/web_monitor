@@ -128,7 +128,7 @@ class ReportsController < ApplicationController
             samples = CalculatedDatum.where('operation_id=? AND (datetime(beginPeriod) >= datetime(?) AND datetime(beginPeriod) < datetime(?))',  
                                       operation.id, 
                                       @report.dateBegin.to_time.utc, 
-                                      @report.dateEnd.to_time.utc).select(:id, :dateTime, :value)
+                                      @report.dateEnd.to_time.utc).select(:id, :beginPeriod, :value)
             samples.find_each do |s|
               sArray << [ s.beginPeriod, s.value ]
             end
