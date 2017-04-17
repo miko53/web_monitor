@@ -82,6 +82,7 @@ class ReportsController < ApplicationController
 
   def build_array_for_each_graph(graph)
     #insert each dataset inside graph
+    #p GC.start
     @chartTitles << graph.title
     sUnit = Array.new
     sChartData = Array.new
@@ -129,7 +130,7 @@ class ReportsController < ApplicationController
                                       @report.dateBegin.to_time.utc, 
                                       @report.dateEnd.to_time.utc).select(:id, :dateTime, :value)
             samples.find_each do |s|
-              sArray << [ sample.beginPeriod, sample.value ]
+              sArray << [ s.beginPeriod, s.value ]
             end
             
             if (min_max['min'] == nil) then
