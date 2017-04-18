@@ -45,14 +45,17 @@ class OperationsController < ApplicationController
   def update
     @operation = Operation.find(params[:id])
     parameter = operation_params
+    parameter[:currentValue] = 0
+    parameter[:number_samples] = 0
     #p "-------------------------------------------------"
     #p "param => #{parameter}"
     #p params[:operation]
+    #p @operation
     #p "-------------------------------------------------"
     isValid, nextEndPeriod = PeriodHelper::get_next_end_period(parameter[:period].to_i, parameter[:period_unit].to_i, Time.now)
     if (isValid == true) then
       parameter[:endPeriod] = nextEndPeriod
-      if (@operation.update(operation_params)) then
+      if (@operation.update(parameter)) then
         flash[:info] = "operation correctly updated"
         redirect_to sensor_show_operation_url(@operation.sensor)
       else
@@ -74,7 +77,7 @@ class OperationsController < ApplicationController
 
 private
   def operation_params
-    params.require(:operation).permit(:id, :sensor_id, :period, :period_unit, :calcul_type, :name )
+    params.require(:operation).permit(:id, :sensor_id, :period, :period_unit, :calcul_type, :name)
   end
   
   def load_operation
