@@ -6,15 +6,16 @@
         <%= item.name %>
       </td>
       <td>
-        <% if (sensor_value(item.sensor_name, item.operation_name) != nil) then %> 
-        <%= sensor_value(item.sensor_name, item.operation_name) %>
+        <% value, refresh_date = sensor_value(item.sensor_name, item.operation_name) %>
+        <% if (value != nil) then %>
+        <%= value %>
         <% else %>
           ---
         <% end %>
       </td>
       <td>
-        <% if (sensor_refresh_date(item.sensor_name, item.operation_name) != nil) then %> 
-        <%= time_ago_in_words(sensor_refresh_date(item.sensor_name, item.operation_name)) %>
+        <% if (refresh_date != nil) then %> 
+        <%= time_ago_in_words(refresh_date) %>
         <% else %>
           ---
         <% end %>

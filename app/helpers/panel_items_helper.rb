@@ -2,13 +2,15 @@ module PanelItemsHelper
   
   def sensor_value(sensor_name, sensor_operation)
     v = nil
+    r = nil
     s = Sensor.find_by_name(sensor_name)
     
     if (s != nil) then
       if (sensor_operation == "raw") then
-        data = s.db.where('sensor_id=?', s.id).order('dateTime DESC').first
+        data = s.db.where('sensor_id=?', s.id).order('dateTimeInt DESC').first
         if (data != nil) then
           v = data.value.to_s + getUnit(s)
+          r = data.dateTime
         end
       else  
         operation = s.operations.find_by_name(sensor_operation)
@@ -16,36 +18,13 @@ module PanelItemsHelper
           data = CalculatedDatum.where('operation_id=?', operation.id).order('beginPeriod DESC').first
           if (data != nil) then
             v = data.value.to_s + getUnit(s)
+            r = data.beginPeriod
           end
         end
       end
     end
     
-    return v
-  end
-  
-  def sensor_refresh_date(sensor_name, sensor_operation)
-    v = nil
-    s = Sensor.find_by_name(sensor_name)
-    
-    if (s != nil) then
-      if (sensor_operation == "raw") then
-        data = s.db.where('sensor_id=?', s.id).order('dateTime DESC').first
-        if (data != nil) then
-          v = data.dateTime
-        end
-      else  
-        operation = s.operations.find_by_name(sensor_operation)
-        if (operation != nil) then
-          data = CalculatedDatum.where('operation_id=?', operation.id).order('beginPeriod DESC').first
-          if (data != nil) then
-            v = data.beginPeriod
-          end
-        end
-      end
-    end
-    
-    return v
+    return v,r 
   end
 
 private
