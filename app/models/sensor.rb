@@ -69,7 +69,7 @@ class Sensor < ActiveRecord::Base
   end
   
   def last_sample
-    return db.where(sensor_id: id).order("dateTime DESC").limit(1)[0]
+    return db.where(sensor_id: id).order("dateTimeInt DESC").limit(1)[0]
   end
   
   def find_sample(sample_id)
@@ -79,34 +79,42 @@ class Sensor < ActiveRecord::Base
 private
   
   def insert_temperature_sample(value)
+    date = DateTime.now
     t = TemperatureDatum.new
     t.value = value 
     t.sensor_id = id
-    t.dateTime = DateTime.now
+    t.dateTime = date
+    t.dateTimeInt = date.to_time.to_i
     t.save
   end
 
   def insert_humidity_sample(value)
+    date = DateTime.now
     t = HumidityDatum.new
     t.value = value 
     t.sensor_id = id
-    t.dateTime = DateTime.now
+    t.dateTime = date
+    t.dateTimeInt = date.to_time.to_i
     t.save
   end
 
   def insert_voltage_sample(value)
+    date = DateTime.now
     t = VoltageDatum.new
     t.value = value 
     t.sensor_id = id
-    t.dateTime = DateTime.now
+    t.dateTime = date
+    t.dateTimeInt = date.to_time.to_i
     t.save
   end
   
   def insert_pressure_sample(value)
+    date = DateTime.now
     t = PressureDatum.new
     t.value = value 
     t.sensor_id = id
-    t.dateTime = DateTime.now
+    t.dateTime = date
+    t.dateTimeInt = date.to_time.to_i
     t.save
   end
   

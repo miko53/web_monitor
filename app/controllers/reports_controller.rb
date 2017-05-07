@@ -99,10 +99,10 @@ class ReportsController < ApplicationController
         #p dataset.operation_name
         if (dataset.operation_name == "raw") then
           sArray = Array.new
-          samples = sensor.db.where('sensor_id=? AND (datetime(dateTime) >= datetime(?) AND datetime(dateTime) < datetime(?))',  
+          samples = sensor.db.where('sensor_id=? AND ((dateTimeInt >= ?) AND (dateTimeInt < ?))',  
                                     sensor.id, 
-                                    @report.dateBegin.to_time.utc, 
-                                    @report.dateEnd.to_time.utc).select(:id, :dateTime, :value)
+                                    @report.dateBegin.to_time.to_i, 
+                                    @report.dateEnd.to_time.to_i).select(:id, :dateTime, :value)
           samples.find_each do |s|
             sArray << [s.dateTime, s.value]
           end
@@ -125,10 +125,10 @@ class ReportsController < ApplicationController
           operation = sensor.operations.find_by_name(dataset.operation_name)
           if (operation != nil) then
             sArray = Array.new
-            samples = CalculatedDatum.where('operation_id=? AND (datetime(beginPeriod) >= datetime(?) AND datetime(beginPeriod) < datetime(?))',  
+            samples = CalculatedDatum.where('operation_id=? AND ((beginPeriodInt >= ?) AND (beginPeriodInt < ?))',  
                                       operation.id, 
-                                      @report.dateBegin.to_time.utc, 
-                                      @report.dateEnd.to_time.utc).select(:id, :beginPeriod, :value)
+                                      @report.dateBegin.to_time.to_i, 
+                                      @report.dateEnd.to_time.to_i).select(:id, :beginPeriod, :value)
             samples.find_each do |s|
               sArray << [ s.beginPeriod, s.value ]
             end

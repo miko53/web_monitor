@@ -159,7 +159,7 @@ private
         else
           logger.warn "Unknown calcul type #{operation.calcul_type}"
       end
-      new_calculated_data = operation.calculated_data.new(value: data_value, beginPeriod: operation.endPeriod)
+      new_calculated_data = operation.calculated_data.new(value: data_value, beginPeriod: operation.endPeriod, beginPeriodInt: operation.endPeriod.to_i)
       new_calculated_data.save
     end
     

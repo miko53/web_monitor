@@ -11,14 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160918103632) do
+ActiveRecord::Schema.define(version: 20170507144559) do
 
   create_table "calculated_data", force: :cascade do |t|
     t.float    "value"
     t.datetime "beginPeriod"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "operation_id"
+    t.integer  "beginPeriodInt"
   end
 
   create_table "dash_board_panels", force: :cascade do |t|
@@ -69,6 +70,7 @@ ActiveRecord::Schema.define(version: 20160918103632) do
     t.integer  "sensor_id"
     t.float    "value"
     t.datetime "dateTime"
+    t.integer  "dateTimeInt"
   end
 
   create_table "operations", force: :cascade do |t|
@@ -97,6 +99,7 @@ ActiveRecord::Schema.define(version: 20160918103632) do
     t.integer  "sensor_id"
     t.float    "value"
     t.datetime "dateTime"
+    t.integer  "dateTimeInt"
   end
 
   create_table "reports", force: :cascade do |t|
@@ -125,6 +128,7 @@ ActiveRecord::Schema.define(version: 20160918103632) do
     t.integer  "sensor_id"
     t.float    "value"
     t.datetime "dateTime"
+    t.integer  "dateTimeInt"
   end
 
   create_table "users", force: :cascade do |t|
@@ -144,6 +148,7 @@ ActiveRecord::Schema.define(version: 20160918103632) do
     t.integer  "sensor_id"
     t.float    "value"
     t.datetime "dateTime"
+    t.integer  "dateTimeInt"
   end
 
 end

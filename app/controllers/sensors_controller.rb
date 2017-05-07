@@ -3,7 +3,7 @@ class SensorsController < ApplicationController
   before_filter :load_sensor , only: [:show,:edit,:update,:show_operation, :delete_sample]
 
   def show
-    @samples = @sensor.db.where(sensor_id: @sensor.id).order("dateTime DESC").page(params[:page]).per_page(70)
+    @samples = @sensor.db.where(sensor_id: @sensor.id).order("dateTimeInt DESC").page(params[:page]).per_page(70)
   end
   
   def edit
