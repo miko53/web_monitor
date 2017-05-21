@@ -2,10 +2,11 @@
 #
 # Table name: voltage_data
 #
-#  id        :integer          not null, primary key
-#  sensor_id :integer
-#  value     :float
-#  dateTime  :datetime
+#  id          :integer          not null, primary key
+#  sensor_id   :integer
+#  value       :float
+#  dateTime    :datetime
+#  dateTimeInt :integer
 #
 
 class VoltageDatum < ActiveRecord::Base
