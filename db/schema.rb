@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170507144559) do
+ActiveRecord::Schema.define(version: 20170521103152) do
+
+  create_table "actuators", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "device_id"
+    t.string   "actuator_type"
+    t.integer  "order"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "value"
+    t.datetime "refreshDateTime"
+  end
+
+  add_index "actuators", ["device_id"], name: "index_actuators_on_device_id"
 
   create_table "calculated_data", force: :cascade do |t|
     t.float    "value"

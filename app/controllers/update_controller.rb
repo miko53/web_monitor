@@ -72,8 +72,11 @@ private
       #p "d --> #{d}"
       s = device.sensors.find_by_order(d["id"])
       if (s == nil) then
-        #insert into db
-        s = create_sensor_1(device, d)
+        s = device.actuators.find_by_order(d["id"])
+        if (s == nil) then
+          #insert into db
+          s = create_sensor_1(device, d)
+        end
       end
     end
   end
@@ -84,11 +87,22 @@ private
       #p "d --> #{d}"
       s = device.sensors.find_by_order(d["id"])
       if (s == nil) then
-        #insert into db
-        s = create_sensor_1(device, d)
+        s = device.actuators.find_by_order(d["id"])
+        if (s == nil) then
+          #insert into db
+          s = create_sensor_1(device, d)
+        else
+          #update value 
+          s.value = d["value"]
+          s.refreshDateTime = DateTime.now
+          s.save
+        end
       end
-      s.insert_sample(d["value"])
-      calculate_operation_on_sensor(s, d["value"])
+      
+      if (s.is_a?(Sensor)) then
+        s.insert_sample(d["value"])
+        calculate_operation_on_sensor(s, d["value"])
+      end
     end
   end
   
@@ -99,6 +113,7 @@ private
   
   def create_sensor(device, device_data)
     type = ""
+    ioType = :sensor
     device_data["data"].each do |d|
       #p "d --> #{d}"
       case (d["phys"])
@@ -110,13 +125,21 @@ private
           type = "Voltage"
         when "press"
           type = "Pressure"
+        when "heat"
+          ioType = :actuator
+          type = "heating"
       end
-      device.sensors.create(order: d["id"],  sensor_type: type)
+      if (ioType == :sensor) then
+        device.sensors.create(order: d["id"],  sensor_type: type)
+      else
+        device.actuators.create(order: d["id"], actuator_type: type)
+      end
     end
   end
   
   def create_sensor_1(device, d)
-      #p "d --> #{d}"
+    #p "d --> #{d}"
+    ioType = :sensor
       case (d["phys"])
         when "temp"
           type = "Temperature"
@@ -126,8 +149,17 @@ private
           type = "Voltage"
         when "press"
           type = "Pressure"
+        when "heat"
+          ioType = :actuator
+          type = "heating"
       end
-      s = device.sensors.create(order: d["id"],  sensor_type: type)
+      
+      if (ioType == :sensor) then
+        s = device.sensors.create(order: d["id"],  sensor_type: type)
+      else
+        s = device.actuators.create(order: d["id"], actuator_type: type)
+      end
+      
       return s
   end
   
@@ -192,20 +224,6 @@ private
   def update_end_period(operation)
     isValid, nextPeriod = PeriodHelper::get_next_end_period(operation.period, operation.period_unit, Time.now)
     operation.endPeriod = nextPeriod if (isValid == true)
-    
-#     case operation.period_unit
-#       when PeriodHelper::MINUTE
-#         operation.endPeriod = operation.endPeriod + operation.period * 1.minute
-#       when PeriodHelper::HOUR
-#         operation.endPeriod = operation.endPeriod + operation.period * 1.hour
-#       when PeriodHelper::DAY
-#         operation.endPeriod = operation.endPeriod + operation.period * 1.day
-#       when PeriodHelper::MONTH
-#         days = Time.days_in_month(operation.endPeriod.month, operation.endPeriod.year)
-#         operation.endPeriod = operation.endPeriod + operation.period * days * 1.day
-#       else
-#         logger.warn "Unknown period_unit #{operation.period_unit}"
-#     end  
   end
   
 end

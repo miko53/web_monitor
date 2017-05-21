@@ -40,9 +40,12 @@ ARGV.each { |arg|
       sensors << sensor     
     when :press
       sensor = { :id => current_id, :phys => "press", :value => arg_items[1].to_f}
-      sensors << sensor     
+      sensors << sensor    
+    when :heat
+      sensor = { :id => current_id, :phys => "heat", :value => arg_items[1]}
+      sensors << sensor    
     else
-      p "usage address=<devise_address> id=<sensor_id> >temp=<temperature> id=<sensor_id> humd=<humidity> id=<sensor_id> volt=<tension> id=<sensor_id> press=<pressure>"
+      p "usage address=<devise_address> id=<sensor_id> >temp=<temperature> id=<sensor_id> humd=<humidity> id=<sensor_id> volt=<tension> id=<sensor_id> press=<pressure> id=<sensor_id> heat=<status>"
       raise "unexpected argument \"#{arg_items[0]}\""
   end
 }
