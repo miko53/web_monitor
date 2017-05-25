@@ -1,0 +1,29 @@
+<h1>List of I/O by devices </h1>
+<p>
+  <%= button_to "Refresh", "", { :onclick => "location.reload();" }  %> 
+</p>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Selection </th>
+      <th>Device Name</th>
+      <th>Location</th>
+      <th>Name</th>
+      <th>Current Order</th>
+      <th>Force ?</th>
+      <th>New Order</th>
+    </tr>
+  </thead>
+<%= form_for(:actuator_orders, :url => {:action => 'send_orders' } ) do |f| %>
+  <tbody>
+    <% @actuators.each do |actuator| %>
+    <%= fields_for "actuators[]", actuator do |a| %>
+      <%= render 'actuator_list', :actuator => actuator, :form => a %>
+    <% end %>
+    <% end %>
+  </tbody>
+</table>
+<p>
+  <%= f.submit 'send action', class: 'btn-primary' %>
+</p>
+<%end %>

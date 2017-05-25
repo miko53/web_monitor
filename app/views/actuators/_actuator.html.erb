@@ -1,0 +1,25 @@
+<tr>
+  <td>
+    <%= actuator.order %>
+  </td>
+  <td>
+    <%= actuator.name %>
+  </td>
+  <td>
+    <%= actuator.actuator_type %>
+  </td>
+  <td>
+    <% if (actuator.value != nil) then %>
+    <%= actuator.value %>
+    (<%= time_ago_in_words(actuator.refreshDateTime) %>)
+    <% end %>
+  </td>
+  <td>
+    <%= actuator.forced %>
+  </td>
+  <td>
+    <% if (current_user.admin?) then %>
+    <%= link_to 'Edit', edit_actuator_path(actuator), class: 'btn btn-primary btn-xs'  %>
+    <% end %>
+  </td>
+</tr>

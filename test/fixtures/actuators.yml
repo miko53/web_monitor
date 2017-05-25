@@ -11,6 +11,7 @@
 #  updated_at      :datetime         not null
 #  value           :string
 #  refreshDateTime :datetime
+#  forced          :boolean
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

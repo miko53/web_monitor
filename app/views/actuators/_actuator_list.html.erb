@@ -1,0 +1,25 @@
+<tr>
+  <td>
+    <%= check_box(actuator.id, "selected", {}) %>
+  </td>
+  <td>
+    <%= actuator.device.name%>
+  </td>
+  <td>
+    <%= actuator.device.location %>
+  </td>
+  <td>
+    <%= actuator.name %>
+  </td>
+  <td>
+    <% if (actuator.value != nil) then %>
+    <%= actuator.value %> (<%= time_ago_in_words(actuator.refreshDateTime) %>)
+    <% end %>
+  </td>
+  <td>
+    <%= form.check_box(:forced) %>
+  </td>
+  <td>
+    <%= form.select :value, options_for_select(@actions_list, actuator.value)  %>
+  </td>
+</tr>

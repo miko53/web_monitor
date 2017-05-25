@@ -1,0 +1,31 @@
+<%= form_for(@actuator, html: { class: "form-horizontal" }) do |f| %>
+<div class="form-group ">
+  <%= f.label "Name", {:class => 'col-sm-2 control-label'} %> 
+  <div class = 'col-sm-10'>
+    <%= f.text_field :name, {:class => '' } %>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.label "id", {:class => 'col-sm-2 control-label'} %>
+  <div class = 'col-sm-10'>
+  <%= f.text_field  :order, { :readonly => true, :class => '' } %>
+  </div>
+</div>
+<div class="form-group ">
+  <%= f.label "type", {:class => 'col-sm-2 control-label'} %> 
+  <div class = 'col-sm-10'>
+    <%= f.text_field :actuator_type, { :readonly => true, :class => '' } %>
+  </div>
+</div>
+<div class="form-group ">
+  <%= f.label "forced", {:class => 'col-sm-2 control-label'} %> 
+  <div class = 'col-sm-10'>
+    <%= f.check_box :forced %>
+  </div>
+</div>
+<div class="action form-group">
+  <div class = 'col-sm-offset-2 col-sm-10'>
+  <%= f.submit "Update" %>
+  </div>
+</div>
+<%end %>

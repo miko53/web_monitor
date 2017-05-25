@@ -4,11 +4,14 @@ Rails.application.routes.draw do
 scope ActionController::Base.relative_url_root do  
   #get 'update/index'
   get '/users/update_api_key', to:'users#update_api_key'
+  post '/actuators/send_orders', to:'actuators#send_orders'
+  
   post 'update/insert'
 
   root 'users#home'
   resources :devices  
   resources :sensors
+  resources :actuators
   resources :reports
   resources :operations
   resources :calculated_data

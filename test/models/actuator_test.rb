@@ -11,6 +11,7 @@
 #  updated_at      :datetime         not null
 #  value           :string
 #  refreshDateTime :datetime
+#  forced          :boolean
 #
 
 require 'test_helper'
