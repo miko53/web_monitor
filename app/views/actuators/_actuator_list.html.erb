@@ -20,6 +20,6 @@
     <%= form.check_box(:forced) %>
   </td>
   <td>
-    <%= form.select :value, options_for_select(@actions_list, actuator.value)  %>
+    <%= form.select :value, options_for_select(Actuator.heater_actions_list, actuator.value)  %>
   </td>
 </tr>

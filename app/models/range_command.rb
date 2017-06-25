@@ -8,6 +8,7 @@
 #  stop_time  :time
 #  start_day  :integer
 #  stop_day   :integer
+#  command    :string
 #
 
 class RangeCommand < ActiveRecord::Base

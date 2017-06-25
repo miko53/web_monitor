@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170604162416) do
+ActiveRecord::Schema.define(version: 20170625144457) do
 
   create_table "actuators", force: :cascade do |t|
     t.string   "name"
@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(version: 20170604162416) do
     t.time    "stop_time"
     t.integer "start_day"
     t.integer "stop_day"
+    t.string  "command"
   end
 
   create_table "reports", force: :cascade do |t|

@@ -14,7 +14,6 @@ class ActuatorsController < ApplicationController
 
   def index
     @actuators = Actuator.all
-    @actions_list = %w[CONFORT ECO HG STOP]
   end
   
   def send_orders

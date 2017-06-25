@@ -1,6 +1,6 @@
 class RangeCommandsController < ApplicationController
   before_filter :authenticate
-  #before_filter :load_actuator , only: [:show,:edit,:update,:show_operation, :delete_sample]
+  before_filter :load_range_command , only: [:edit, :update, :destroy]
   
   def index
     @actuator_commands = RangeCommand.all.order(:name).page(params[:page]).per_page(10)
@@ -8,6 +8,9 @@ class RangeCommandsController < ApplicationController
   
   def new
     @actuator_command = RangeCommand.new
+  end
+  
+  def edit
   end
   
   def create
@@ -26,9 +29,31 @@ class RangeCommandsController < ApplicationController
     end
   end
   
+  def destroy
+    @actuator_command.destroy 
+    flash[:info] = "time slot removed"
+    redirect_to range_commands_path
+  end
+  
+  def update
+    actuator_command_id = params.require(:actuators_range_commands).permit(:actuator_ids => [] )
+    @actuator_command.actuator_ids = actuator_command_id[:actuator_ids]
+    if (@actuator_command.update(range_command_params)) then
+        flash[:info] = "time slot correctly updated"
+        redirect_to range_commands_path
+    else
+       flash[:error] = "update failed"
+        render :edit
+    end
+  end
+  
  private
+  def load_range_command
+      @actuator_command = RangeCommand.find(params[:id])
+  end
+  
   def range_command_params
-    params.require(:range_command).permit(:name, :start_time, :stop_time, :start_day, :stop_day)
+    params.require(:range_command).permit(:name, :start_time, :stop_time, :start_day, :stop_day, :command)
   end
 
 end

@@ -9,8 +9,21 @@
     <%= display_date(range_command.stop_day, range_command.stop_time) %>
   </td>
   <td>
-    <%= display_actuators(range_command) %>
-  
+    <%= range_command.command %>
   </td>
+  <td>
+    <%= display_actuators(range_command) %>
+  </td>
+  <td>
+    <% if (current_user.admin?) then %>
+    <%= link_to 'Edit', edit_range_command_path(range_command), class: 'btn btn-primary btn-xs'  %>
+    <% end %>
+  </td>        
+  <td>
+    <% if (current_user.admin?) then %>
+    <%= link_to 'Delete', range_command, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>
+    <% end %>
+  </td>        
+  
 </tr>
 

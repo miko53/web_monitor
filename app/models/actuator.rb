@@ -33,5 +33,11 @@ class Actuator < ActiveRecord::Base
   belongs_to :device
   include ActiveModel::Validations
   validates_with ActuatorValidator
+
+  @@heater_actions_list = %w[CONFORT ECO HG STOP]
+  
+  def self.heater_actions_list
+    @@heater_actions_list
+  end
   
 end
