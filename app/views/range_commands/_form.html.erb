@@ -1,0 +1,41 @@
+<ul>
+</ul>
+<%= form_for(@actuator_command, html: { class: "form-horizontal" }) do |f| %>
+<div class="form-group">
+  <%= f.label "Name", {:class => 'col-sm-2 control-label'} %> 
+  <div class = 'col-sm-10'>
+    <%= f.text_field :name, {:class => '' } %>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.label "Start Day", {:class => 'col-sm-2 control-label'} %> 
+  <div class = 'col-sm-10'>
+    <%= f.select :start_day, Date::DAYNAMES.zip((0..6).to_a) %>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.label "Start Time", {:class => 'col-sm-2 control-label'} %> 
+  <div class = 'col-sm-10'>
+    <%= f.time_field :start_time, {:class => '' } %>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.label "Stop Day", {:class => 'col-sm-2 control-label'} %> 
+  <div class = 'col-sm-10'>
+    <%= f.select :stop_day, Date::DAYNAMES.zip((0..6).to_a) %>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.label "Stop Time", {:class => 'col-sm-2 control-label'} %> 
+  <div class = 'col-sm-10'>
+    <%= f.time_field :stop_time, {:class => '' } %>
+  </div>
+</div>
+<%= collection_check_boxes(:actuators_range_commands, :actuator_ids, Actuator.all, :id, :name, include_hidden: false ) %>
+<div class="action form-group">
+  <div class = 'col-sm-offset-2 col-sm-10'>
+  <%= f.submit "Create" %>
+  </div>
+</div>
+<%end %>
+  

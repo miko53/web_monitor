@@ -1,6 +1,8 @@
 
 Rails.application.routes.draw do
 
+  get 'actuator_commands/index'
+
 scope ActionController::Base.relative_url_root do  
   #get 'update/index'
   get '/users/update_api_key', to:'users#update_api_key'
@@ -16,6 +18,8 @@ scope ActionController::Base.relative_url_root do
   resources :operations
   resources :calculated_data
   resources :users
+  resources :range_commands
+  
   resources :sessions, :only => [ :new , :create, :destroy ]
   
   get '/sensors/:id/show_operation', to: 'sensors#show_operation', as: 'sensor_show_operation'

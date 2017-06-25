@@ -19,7 +19,7 @@ class ActuatorsController < ApplicationController
   
   def send_orders
     #p params
-    # NOTE: the retrival of orders is not very optimal 
+    # NOTE: the retrieval of orders is not very optimal 
     # the aim of the following code is to use the value of 
     # the checkbox given in params to know which actuator must be updated
     # in a first pass, the list of actuator to update is put inside in a list (by Id)
@@ -52,6 +52,11 @@ class ActuatorsController < ApplicationController
         #value is send by pipe to the process which send order in device
         # TODO
         #act.value = actuator[1]["value"]
+        output = open("my_pipe", "w+") # the w+ means we don't block
+        p output
+        output.puts "#{act.device.address};#{actuator[1]["value"]}"
+        output.flush
+        #output.close
         act.save
       end
     end

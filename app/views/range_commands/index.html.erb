@@ -1,0 +1,20 @@
+<h1>Scheduled Heater</h1>
+<ul>
+  <li>
+    <%= link_to 'Add new command range', new_range_command_path %>
+  </li>
+</ul>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Start Time</th>    
+      <th>End Time</th>    
+      <th>Heater(s)</th>    
+    </tr>
+  </thead>
+  <tbody>
+    <%= will_paginate @actuator_commands %>
+    <%= render @actuator_commands  %>
+  </tbody>
+</table>

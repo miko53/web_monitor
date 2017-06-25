@@ -29,6 +29,7 @@ class ActuatorValidator < ActiveModel::Validator
 end
 
 class Actuator < ActiveRecord::Base
+  has_and_belongs_to_many :range_commands 
   belongs_to :device
   include ActiveModel::Validations
   validates_with ActuatorValidator

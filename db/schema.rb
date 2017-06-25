@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170525193046) do
+ActiveRecord::Schema.define(version: 20170604162416) do
 
   create_table "actuators", force: :cascade do |t|
     t.string   "name"
@@ -26,6 +26,14 @@ ActiveRecord::Schema.define(version: 20170525193046) do
   end
 
   add_index "actuators", ["device_id"], name: "index_actuators_on_device_id"
+
+  create_table "actuators_range_commands", id: false, force: :cascade do |t|
+    t.integer "range_command_id", null: false
+    t.integer "actuator_id",      null: false
+  end
+
+  add_index "actuators_range_commands", ["actuator_id"], name: "index_actuators_range_commands_on_actuator_id"
+  add_index "actuators_range_commands", ["range_command_id"], name: "index_actuators_range_commands_on_range_command_id"
 
   create_table "calculated_data", force: :cascade do |t|
     t.float    "value"
@@ -114,6 +122,14 @@ ActiveRecord::Schema.define(version: 20170525193046) do
     t.float    "value"
     t.datetime "dateTime"
     t.integer  "dateTimeInt"
+  end
+
+  create_table "range_commands", force: :cascade do |t|
+    t.string  "name"
+    t.time    "start_time"
+    t.time    "stop_time"
+    t.integer "start_day"
+    t.integer "stop_day"
   end
 
   create_table "reports", force: :cascade do |t|
