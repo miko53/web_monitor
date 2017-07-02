@@ -51,7 +51,7 @@ class ActuatorsController < ApplicationController
         #value is send by pipe to the process which send order in device
         # TODO
         #act.value = actuator[1]["value"]
-        output = open("my_pipe", "w+") # the w+ means we don't block
+        output = open("my_pipe", "a") # the a+ means append at the ens
         p output
         output.puts "#{act.device.address};#{actuator[1]["value"]}"
         output.flush
