@@ -23,6 +23,10 @@
     <%= f.check_box :forced %>
   </div>
 </div>
+<div class="form-group ">
+  <%= f.label "current value", {:class => 'col-sm-2 control-label'} %> 
+  <%= f.text_field :value, { :readonly => true, :class => '' } %>
+</div>
 <div class="action form-group">
   <div class = 'col-sm-offset-2 col-sm-10'>
   <%= f.submit "Update" %>

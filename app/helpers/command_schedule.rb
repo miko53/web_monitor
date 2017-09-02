@@ -5,9 +5,10 @@ class CommandSchedule
         
         now = DateTime.now
         
-        now = DateTime.new(2017, 7, 3, 15, 0, 0)
+        #for test only
+        #now = DateTime.new(2017, 7, 6, 9, 0, 0)  
         
-        puts "shedule heating operation launched at #{now}"
+        puts "schedule heating operation launched at #{now}"
         
         scheduledOperation = RangeCommand.all
         scheduledOperation.each do |currentOperation|
@@ -15,27 +16,28 @@ class CommandSchedule
           #check if dateTime current correspond to the given range.
           if (currentOperation.inRange?(now)) then
               #take all heaters and applies the command is the current command is not the good one
-              p 'is in range'
+              #expect if forced equals true
               currentOperation.actuators.each do |currentHeader|
-                  p "#{currentHeader.name}: apply new command #{currentOperation.command}"
-                  if (currentHeader.value == currentOperation.command) then
-                      p "#{currentHeader.name}: nothing to do, command is already set"
+                  if (currentHeader.forced?) then
+                    p "operation: #{currentOperation.name}, heater: #{currentHeader.name}, forced, nothing to do"
                   else
-                      p "#{currentHeader.name}: apply new command #{currentOperation.command}"
-                      send_command(currentHeader, currentOperation.command)
+                    p "operation: #{currentOperation.name}, heater: #{currentHeader.name}, apply new command #{currentOperation.command}"
+                    if (currentHeader.value == currentOperation.command) then
+                        p "operation: #{currentOperation.name}, heater: #{currentHeader.name}, nothing to do, command is already set"
+                    else
+                        send_command(currentHeader, currentHeader.order, currentOperation.command)
+                    end
                   end
               end
           end
         end
     end
-    
-private
 
-    def self.send_command(heater, command)
+    def self.send_command(heater, sensor_id, command)
         output = open("my_pipe", "w+") # the a for append at the end
-        output.puts "#{heater.device.address};#{command}"
+        output.puts "#{heater.device.address};#{sensor_id};#{command}"
         output.flush
-        #output.close
+        output.close
     end
     
 end

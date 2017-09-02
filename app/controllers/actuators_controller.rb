@@ -35,7 +35,6 @@ class ActuatorsController < ApplicationController
       else
         if (param[0] == "actuators") then
           actuator_data = param[1]
-          
         end
       end
     end
@@ -49,13 +48,8 @@ class ActuatorsController < ApplicationController
         act = Actuator.find(actuator[0].to_i)
         act.forced = actuator[1]["forced"]
         #value is send by pipe to the process which send order in device
-        # TODO
         #act.value = actuator[1]["value"]
-        output = open("my_pipe", "a") # the a+ means append at the ens
-        p output
-        output.puts "#{act.device.address};#{actuator[1]["value"]}"
-        output.flush
-        #output.close
+        CommandSchedule.send_command(act, act.order, actuator[1]["value"])
         act.save
       end
     end

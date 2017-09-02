@@ -32,7 +32,7 @@ class RangeCommand < ActiveRecord::Base
        
        if bIsInRange then
          currentTime = currentDateTime.strftime("%H:%M:%S")
-         p "log: currentTime = #{currentTime}, start_time = #{@startTime}, stop_time = #{@stopTime}"
+         #p "log: currentTime = #{currentTime}, start_time = #{@startTime}, stop_time = #{@stopTime}"
        end
 
        
@@ -46,7 +46,7 @@ protected
         bIsInRange = false
         if ((@cwstartDay == @cwstopDay) && (@cwstartDay == currentDateTime.cwday)) then
             if ((@startTime <= currentTime) && (@stopTime > currentTime)) then
-                p '1-is range'
+                #p '1-is range'
                 bIsInRange = true
             end
             return bIsInRange
@@ -54,7 +54,7 @@ protected
         
         if (@cwstartDay == currentDateTime.cwday) then
             if (@startTime <= currentTime) then
-                p '2-is range'
+                #p '2-is range'
                 bIsInRange = true
             end
             return bIsInRange
@@ -62,7 +62,7 @@ protected
         
         if ((@cwstartDay != currentDateTime.cwday) && (@cwstopDay != currentDateTime.cwday)) then
             if (@cwstartDay < currentDateTime.cwday) && (@cwstopDay > currentDateTime.cwday) then
-                p '2b-is range'
+                #p '2b-is range'
                 bIsInRange = true
             end
             return bIsInRange
@@ -70,7 +70,7 @@ protected
         
         if (@cwstopDay == currentDateTime.cwday) then
             if (@stopTime > currentTime) then
-                p '3-is range'
+                #p '3-is range'
                 bIsInRange = true
             end
             return bIsInRange
@@ -85,16 +85,16 @@ protected
 
         if (@cwstartDay == currentDateTime.cwday) then
             if (@startTime <= currentTime) then
-                p '22-is range'
+                #p '22-is range'
                 bIsInRange = true
             end
             return bIsInRange
         end
         
         if ((@cwstartDay != currentDateTime.cwday) && (@cwstopDay != currentDateTime.cwday)) then
-            p "log: @cwstartDay=#{@cwstartDay} currentDateTime.cwday = #{currentDateTime.cwday} @cwstopDay = #{@cwstopDay}"
+            #p "log: @cwstartDay=#{@cwstartDay} currentDateTime.cwday = #{currentDateTime.cwday} @cwstopDay = #{@cwstopDay}"
             if (@cwstartDay < currentDateTime.cwday) || (@cwstopDay > currentDateTime.cwday) then
-                p '22b-is range'
+                #p '22b-is range'
                 bIsInRange = true
             end
             return bIsInRange
@@ -102,7 +102,7 @@ protected
         
         if (@cwstopDay == currentDateTime.cwday) then
             if (@stopTime > currentTime) then
-                p '23-is range'
+                #p '23-is range'
                 bIsInRange = true
             end
             return bIsInRange
