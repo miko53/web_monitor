@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170625144457) do
+ActiveRecord::Schema.define(version: 20170903081049) do
 
   create_table "actuators", force: :cascade do |t|
     t.string   "name"
@@ -43,6 +43,10 @@ ActiveRecord::Schema.define(version: 20170625144457) do
     t.integer  "operation_id"
     t.integer  "beginPeriodInt"
   end
+
+  add_index "calculated_data", ["beginPeriod"], name: "index_calculated_data_on_beginPeriod"
+  add_index "calculated_data", ["beginPeriodInt"], name: "index_calculated_data_on_beginPeriodInt"
+  add_index "calculated_data", ["operation_id"], name: "index_calculated_data_on_operation_id"
 
   create_table "dash_board_panels", force: :cascade do |t|
     t.integer  "dash_board_id"
@@ -95,6 +99,9 @@ ActiveRecord::Schema.define(version: 20170625144457) do
     t.integer  "dateTimeInt"
   end
 
+  add_index "humidity_data", ["dateTime"], name: "index_humidity_data_on_dateTime"
+  add_index "humidity_data", ["dateTimeInt"], name: "index_humidity_data_on_dateTimeInt"
+
   create_table "operations", force: :cascade do |t|
     t.integer  "sensor_id"
     t.float    "currentValue"
@@ -123,6 +130,9 @@ ActiveRecord::Schema.define(version: 20170625144457) do
     t.datetime "dateTime"
     t.integer  "dateTimeInt"
   end
+
+  add_index "pressure_data", ["dateTime"], name: "index_pressure_data_on_dateTime"
+  add_index "pressure_data", ["dateTimeInt"], name: "index_pressure_data_on_dateTimeInt"
 
   create_table "range_commands", force: :cascade do |t|
     t.string  "name"
@@ -162,6 +172,9 @@ ActiveRecord::Schema.define(version: 20170625144457) do
     t.integer  "dateTimeInt"
   end
 
+  add_index "temperature_data", ["dateTime"], name: "index_temperature_data_on_dateTime"
+  add_index "temperature_data", ["dateTimeInt"], name: "index_temperature_data_on_dateTimeInt"
+
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -181,5 +194,8 @@ ActiveRecord::Schema.define(version: 20170625144457) do
     t.datetime "dateTime"
     t.integer  "dateTimeInt"
   end
+
+  add_index "voltage_data", ["dateTime"], name: "index_voltage_data_on_dateTime"
+  add_index "voltage_data", ["dateTimeInt"], name: "index_voltage_data_on_dateTimeInt"
 
 end
