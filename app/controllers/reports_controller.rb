@@ -99,7 +99,7 @@ class ReportsController < ApplicationController
         #p dataset.operation_name
         if (dataset.operation_name == "raw") then
           sArray = Array.new
-          samples = sensor.db.where('sensor_id=? AND (datetime(dateTime) >= datetime(?) AND datetime(dateTime) < datetime(?))',  
+          samples = sensor.db.where('sensor_id=? AND (dateTime >= ? AND dateTime < ?)',  
                                     sensor.id, 
                                     @report.dateBegin.to_time.utc, 
                                     @report.dateEnd.to_time.utc).select(:id, :dateTime, :value)
@@ -125,7 +125,7 @@ class ReportsController < ApplicationController
           operation = sensor.operations.find_by_name(dataset.operation_name)
           if (operation != nil) then
             sArray = Array.new
-            samples = CalculatedDatum.where('operation_id=? AND (datetime(beginPeriod) >= datetime(?) AND datetime(beginPeriod) < datetime(?))',  
+            samples = CalculatedDatum.where('operation_id=? AND (beginPeriod >= ? AND beginPeriod < ?)',  
                                       operation.id, 
                                       @report.dateBegin.to_time.utc, 
                                       @report.dateEnd.to_time.utc).select(:id, :beginPeriod, :value)

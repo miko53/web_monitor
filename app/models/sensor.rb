@@ -84,7 +84,6 @@ private
     t.value = value 
     t.sensor_id = id
     t.dateTime = date
-    t.dateTimeInt = date.to_time.to_i
     t.save
   end
 
@@ -94,7 +93,6 @@ private
     t.value = value 
     t.sensor_id = id
     t.dateTime = date
-    t.dateTimeInt = date.to_time.to_i
     t.save
   end
 
@@ -104,7 +102,6 @@ private
     t.value = value 
     t.sensor_id = id
     t.dateTime = date
-    t.dateTimeInt = date.to_time.to_i
     t.save
   end
   
@@ -114,7 +111,6 @@ private
     t.value = value 
     t.sensor_id = id
     t.dateTime = date
-    t.dateTimeInt = date.to_time.to_i
     t.save
   end
   
