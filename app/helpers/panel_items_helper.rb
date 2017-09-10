@@ -7,7 +7,7 @@ module PanelItemsHelper
     
     if (s != nil) then
       if (sensor_operation == "raw") then
-        data = s.db.where('sensor_id=?', s.id).order('dateTimeInt DESC').first
+        data = s.db.where('sensor_id=?', s.id).order('dateTime DESC').first
         if (data != nil) then
           v = data.value.to_s + getUnit(s)
           r = data.dateTime
@@ -15,7 +15,7 @@ module PanelItemsHelper
       else  
         operation = s.operations.find_by_name(sensor_operation)
         if (operation != nil) then
-          data = CalculatedDatum.where('operation_id=?', operation.id).order('beginPeriodInt DESC').first
+          data = CalculatedDatum.where('operation_id=?', operation.id).order('beginPeriod DESC').first
           if (data != nil) then
             v = data.value.to_s + getUnit(s)
             r = data.beginPeriod

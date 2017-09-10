@@ -69,7 +69,7 @@ class Sensor < ActiveRecord::Base
   end
   
   def last_sample
-    return db.where(sensor_id: id).order("dateTimeInt DESC").limit(1)[0]
+    return db.where(sensor_id: id).order("dateTime DESC").limit(1)[0]
   end
   
   def find_sample(sample_id)
