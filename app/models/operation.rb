@@ -39,7 +39,7 @@ class Operation < ActiveRecord::Base
     validates_with OperationValidator
     
     def last_sample
-      return self.calculated_data.order("beginPeriod DESC")[0]
+      return self.calculated_data.order("beginPeriod DESC").first
     end
     
 end
