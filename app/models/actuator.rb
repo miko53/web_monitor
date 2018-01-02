@@ -34,7 +34,7 @@ class Actuator < ActiveRecord::Base
   include ActiveModel::Validations
   validates_with ActuatorValidator
 
-  @@heater_actions_list = %w[CONFORT ECO HG STOP]
+  @@heater_actions_list = %w[CONFORT CONFORT_M1 CONFORT_M2 ECO HG STOP]
   
   def self.heater_actions_list
     @@heater_actions_list

@@ -93,6 +93,7 @@ private
           s = create_sensor_1(device, d)
         else
           #update value 
+          #TODO check if value are in correct range (i.e. CONFORT, ECO,...)
           s.value = d["value"]
           s.refreshDateTime = DateTime.now
           s.save
