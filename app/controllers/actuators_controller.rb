@@ -44,7 +44,7 @@ class ActuatorsController < ApplicationController
     
     actuator_data.each do |actuator| 
       if selectedId.include?(actuator[0].to_i) then
-        p actuator[1]
+        # p actuator[1]
         act = Actuator.find(actuator[0].to_i)
         act.forced = actuator[1]["forced"]
         #value is send by pipe to the process which send order in device

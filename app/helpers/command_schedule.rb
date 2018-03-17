@@ -34,7 +34,7 @@ class CommandSchedule
     end
 
     def self.send_command(heater, sensor_id, command)
-        output = open("my_pipe", "w+") # the a for append at the end
+        output = open(ENV['PIPE_NAME'], "w+") # the a for append at the end
         output.puts "#{heater.device.address};#{sensor_id};#{command}"
         output.flush
         output.close
