@@ -3,7 +3,7 @@ module RangeCommandsHelper
     # RangeCommand rangeCommand
     def display_date(day, time)
         #Date::DAYNAMES.zip((0..6).to_a
-        Date::DAYNAMES[day] + ', ' + time.strftime('%H:%S')
+        Date::DAYNAMES[day] + ', ' + time.strftime('%H:%M')
     end
     
     def display_actuators(range_command)
