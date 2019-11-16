@@ -2,6 +2,7 @@
 <p>
   <%= button_to "Refresh", "", { :onclick => "location.reload();" }  %> 
 </p>
+<%= form_for(:actuator_orders, :url => {:action => 'send_orders' } ) do |f| %>
 <table class="table table-hover">
   <thead>
     <tr>
@@ -14,16 +15,15 @@
       <th>New Order</th>
     </tr>
   </thead>
-<%= form_for(:actuator_orders, :url => {:action => 'send_orders' } ) do |f| %>
   <tbody>
-    <% @actuators.each do |actuator| %>
-    <%= fields_for "actuators[]", actuator do |a| %>
-      <%= render 'actuator_list', :actuator => actuator, :form => a %>
-    <% end %>
-    <% end %>
+      <% @actuators.each do |actuator| %>
+      <%= fields_for "actuators[]", actuator do |a| %>
+        <%= render 'actuator_list', :actuator => actuator, :form => a %>
+      <% end %>
+      <% end %>
+    <p>
+    </p>
   </tbody>
 </table>
-<p>
-  <%= f.submit 'send action', class: 'btn-primary' %>
-</p>
+   <%= f.submit 'send action', class: 'btn-primary' %>
 <%end %>
