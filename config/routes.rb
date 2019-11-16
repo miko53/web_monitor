@@ -7,6 +7,8 @@ scope ActionController::Base.relative_url_root do
   #get 'update/index'
   get '/users/update_api_key', to:'users#update_api_key'
   post '/actuators/send_orders', to:'actuators#send_orders'
+  post '/actuators/send_grouped_orders', to:'actuators#send_grouped_orders'
+  post '/actuators/send_forced_orders', to:'actuators#send_forced_orders'
   
   post 'update/insert'
 
