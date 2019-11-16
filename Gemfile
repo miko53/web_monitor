@@ -38,7 +38,7 @@ gem 'cocoon'
 
 
 #for bootstrap
-gem 'bootstrap-sass', '~> 3.2.0'
+gem 'bootstrap-sass', '~> 3.4.1'
 gem 'autoprefixer-rails'
 gem 'will_paginate'
 gem 'chartkick'
