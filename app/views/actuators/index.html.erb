@@ -1,7 +1,8 @@
-<h1>List of actuators by devices </h1>
+<h1>Actuator management</h1>
 <p>
   <%= button_to "Refresh", "", { :onclick => "location.reload();" }  %> 
 </p>
+<h2> Single command </h2>
 <%= form_for(:actuator_orders, :url => {:action => 'send_orders' } ) do |f| %>
 <table class="table table-hover">
   <thead>
@@ -11,7 +12,7 @@
       <th>Location</th>
       <th>Name</th>
       <th>Current Order</th>
-      <th>Force ?</th>
+      <th>Forced ?</th>
       <th>New Order</th>
     </tr>
   </thead>
@@ -26,4 +27,46 @@
   </tbody>
 </table>
    <%= f.submit 'send action', class: 'btn-primary' %>
+<%end %>
+
+<h2> Grouped commands </h2>
+<h3> Block order </h3>
+<p> Here only the forced order is updated </p>
+<%= form_for(:actuator_orders, :url => {:action => 'send_forced_orders' } ) do |f| %>
+<table style="width:300px" class="table table-hover table-sm">
+  <thead>
+    <tr>
+      <th>Forced order </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= f.check_box(:forced) %> </td>
+      <td><%= f.submit 'update forced order', class: 'btn-primary' %></td>
+    </tr>
+  </tbody>
+</table>
+<%end %>
+
+<h3> force order and modify heat order </h3>
+<p> the selected command will be sent to all actuator (forced + heat order) </p>
+
+<%= form_for(:actuator_orders, :url => {:action => 'send_grouped_orders' } ) do |f| %>
+<table style="width:500px" class="table table-hover table-sm">
+  <thead>
+    <tr>
+      <th>Forced order </th>
+      <th>Heat Command</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody> 
+    <tr>
+      <td><%= f.check_box(:forced) %></td>
+      <td><%= f.select :value, options_for_select(Actuator.heater_actions_list, "CONFORT")  %></td>
+      <td><%= f.submit 'send heat order', class: 'btn-primary' %></td>
+    </tr>
+  </tbody>
+</table>
 <%end %>

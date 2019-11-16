@@ -16,6 +16,33 @@ class ActuatorsController < ApplicationController
     @actuators = Actuator.all
   end
   
+  def send_grouped_orders
+    order = params['actuator_orders']['value']
+    forced = params['actuator_orders']['forced']
+    #p params['actuator_orders']['value']
+    #p forced
+    Actuator.all.each do |act|
+      act.forced = forced
+      act.save
+    end
+    
+    Actuator.all.each do |act|
+      CommandSchedule.send_command(act, act.order, order)
+    end
+    redirect_to actuators_path
+  end
+  
+  
+  def send_forced_orders
+    forced = params['actuator_orders']['forced']
+    #p forced
+    Actuator.all.each do |act|
+      act.forced = forced
+      act.save
+    end   
+    redirect_to actuators_path
+  end
+  
   def send_orders
     #p params
     # NOTE: the retrieval of orders is not very optimal 
