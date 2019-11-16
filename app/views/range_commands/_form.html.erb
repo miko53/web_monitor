@@ -34,14 +34,14 @@
 <div class="form-group">
   <%= f.label "Command", {:class => 'col-sm-2 control-label'} %> 
   <div class = 'col-sm-10'>
-    <%= f.select :command,  options_for_select(Actuator.heater_actions_list, :command) ,{:class => '' } %>
+    <%= f.select :command,  options_for_select(Actuator.heater_actions_list, @actuator_command.command) ,{:class => '' } %>
   </div>
 </div>
 
 <div class="form-group">
     <%= f.label "Heater list", {:class => 'col-sm-2 control-label'} %> 
     <div class = 'col-sm-10'>
-    <%= collection_check_boxes(:actuators_range_commands, :actuator_ids, Actuator.all, :id, :name, include_hidden: false ) do |b| %>
+    <%= collection_check_boxes(:actuators_range_commands, :actuator_ids, Actuator.all, :id, :name, include_hidden: false, checked: @actuator_command.actuator_ids.map(&:to_param) ) do |b| %>
         <%= b.check_box %>
         <%= b.label %>
         &nbsp;&nbsp;&nbsp;&nbsp;
