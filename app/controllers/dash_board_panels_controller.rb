@@ -1,6 +1,6 @@
 class DashBoardPanelsController < ApplicationController
-  before_filter :authenticate
-  before_filter :load_panel , only: [:show, :edit, :update, :destroy]
+  before_action :authenticate
+  before_action :load_panel , only: [:show, :edit, :update, :destroy]
 
   def new
     dashboard = DashBoard.find(params[:dash_board_id])

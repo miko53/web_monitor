@@ -1,5 +1,5 @@
 class CalculatedDataController < ApplicationController
-  before_filter :authenticate
+  before_action :authenticate
 
   def index
     @operation = Operation.find(params[:operation_id])

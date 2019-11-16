@@ -1,6 +1,6 @@
 class RangeCommandsController < ApplicationController
-  before_filter :authenticate
-  before_filter :load_range_command , only: [:edit, :update, :destroy]
+  before_action :authenticate
+  before_action :load_range_command , only: [:edit, :update, :destroy]
   
   def index
     @actuator_commands = RangeCommand.all.order(:name).page(params[:page]).per_page(10)

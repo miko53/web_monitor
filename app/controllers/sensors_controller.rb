@@ -1,6 +1,6 @@
 class SensorsController < ApplicationController
-  before_filter :authenticate
-  before_filter :load_sensor , only: [:show,:edit,:update,:show_operation, :delete_sample]
+  before_action :authenticate
+  before_action :load_sensor , only: [:show,:edit,:update,:show_operation, :delete_sample]
 
   def show
     @samples = @sensor.db.where(sensor_id: @sensor.id).order("dateTime DESC").page(params[:page]).per_page(70)

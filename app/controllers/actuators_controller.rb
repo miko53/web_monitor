@@ -6,8 +6,8 @@ class String
 end
 
 class ActuatorsController < ApplicationController
-  before_filter :authenticate
-  before_filter :load_actuator , only: [:show,:edit,:update,:show_operation, :delete_sample]
+  before_action :authenticate
+  before_action :load_actuator , only: [:show,:edit,:update,:show_operation, :delete_sample]
 
   def edit
   end

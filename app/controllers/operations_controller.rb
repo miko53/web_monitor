@@ -1,8 +1,8 @@
 require 'period_helper'
 
 class OperationsController < ApplicationController
-  before_filter :authenticate
-  before_filter :load_operation , only: [:show, :edit, :update, :destroy]
+  before_action :authenticate
+  before_action :load_operation , only: [:show, :edit, :update, :destroy]
   
   def new
     @sensor= Sensor.find(params[:sensor_id])

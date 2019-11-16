@@ -1,6 +1,6 @@
 class DashboardsController < ApplicationController
-  before_filter :authenticate
-  before_filter :load_dashboard , only: [:show,:edit,:update, :destroy, :add_panel]
+  before_action :authenticate
+  before_action :load_dashboard , only: [:show,:edit,:update, :destroy, :add_panel]
   
 
   def new

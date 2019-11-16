@@ -1,6 +1,6 @@
 class PanelItemsController < ApplicationController
-  before_filter :authenticate
-  before_filter :load_item , only: [:show, :edit, :update, :destroy]
+  before_action :authenticate
+  before_action :load_item , only: [:show, :edit, :update, :destroy]
 
 def new
     panel = DashBoardPanel.find(params[:panel_id])

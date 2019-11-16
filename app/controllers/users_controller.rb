@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_filter :authenticate, :except => [:new, :create, :home]
-  before_filter :correct_user, :only => [:edit, :update]
-  before_filter :admin_user,   :only => [:destroy, :update_api_key]
+  before_action :authenticate, :except => [:new, :create, :home]
+  before_action :correct_user, :only => [:edit, :update]
+  before_action :admin_user,   :only => [:destroy, :update_api_key]
   
   def index
     @users = User.all
@@ -32,7 +32,7 @@ class UsersController < ApplicationController
     @user.dash_board = DashBoard.new
   end
   
-  #user already set by before_filter
+  #user already set by before_action
   def edit
   end  
   
@@ -47,7 +47,7 @@ class UsersController < ApplicationController
     redirect_to user_url(@user)
   end
   
-  #user already set by before_filter
+  #user already set by before_action
   def update
     if (@user.update(user_params)) then
       flash[:info] = "profile correctly updated"

@@ -1,7 +1,7 @@
 
 class ReportsController < ApplicationController
-  before_filter :authenticate
-  before_filter :load_report , only: [:show,:edit,:update, :destroy]
+  before_action :authenticate
+  before_action :load_report , only: [:show,:edit,:update, :destroy]
   helper :reports
   
   def new
