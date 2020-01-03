@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_filter :authenticate, :except => [:new, :create, :home]
   before_filter :correct_user, :only => [:edit, :update]
-  before_filter :admin_user,   :only => [:destroy, :update_api_key]
+  before_filter :admin_user,   :only => [:destroy, :update_api_key, :display_syslog, :display_kernel_log]]
   
   def index
     @users = User.all
@@ -48,6 +48,16 @@ class UsersController < ApplicationController
   end
   
   #user already set by before_filter
+  def display_syslog
+    lines = params[:lines]
+    @logs = `tail -n #{lines} /var/log/syslog`
+  end
+  
+  def display_kernel_log
+    lines = params[:lines]
+    @logs = `cat /var/log/messages | grep kernel`    
+  end
+  
   def update
     if (@user.update(user_params)) then
       flash[:info] = "profile correctly updated"
@@ -56,7 +66,6 @@ class UsersController < ApplicationController
       flash[:error] = "profile update failed"
       render :edit
     end
-    
   end
   
   def create
@@ -84,6 +93,7 @@ class UsersController < ApplicationController
     flash[:info] = "user correctly removed"
     redirect_to users_path
   end
+  
   
 private 
   def user_params
