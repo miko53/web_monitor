@@ -7,6 +7,12 @@
   <li>
     <%= link_to 'User list', users_path %>
   </li>
+  <li>
+    <%= link_to 'syslog', syslog_path(lines:100) %>
+  </li>
+  <li>
+    <%= link_to 'kernel log', kernel_log_path(lines:200) %>
+  </li>
   <% end %>
   <li>
     <%= link_to 'Update information profile', edit_user_path(@user) %>

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate, :except => [:new, :create, :home]
   before_action :correct_user, :only => [:edit, :update]
-  before_action :admin_user,   :only => [:destroy, :update_api_key]
+  before_action :admin_user,   :only => [:destroy, :update_api_key, :display_syslog, :display_kernel_log]
   
   def index
     @users = User.all
@@ -47,6 +47,16 @@ class UsersController < ApplicationController
     redirect_to user_url(@user)
   end
   
+  def display_syslog
+    lines = params[:lines]
+    @logs = `tail -n #{lines} /var/log/syslog`
+  end
+  
+  def display_kernel_log
+    lines = params[:lines]
+    @logs = `cat /var/log/messages | grep kernel`    
+  end
+  
   #user already set by before_action
   def update
     if (@user.update(user_params)) then
@@ -84,6 +94,7 @@ class UsersController < ApplicationController
     flash[:info] = "user correctly removed"
     redirect_to users_path
   end
+  
   
 private 
   def user_params

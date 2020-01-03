@@ -5,10 +5,12 @@ Rails.application.routes.draw do
 
 scope ActionController::Base.relative_url_root do  
   #get 'update/index'
-  get '/users/update_api_key', to:'users#update_api_key'
+  get '/users/update_api_key', to: 'users#update_api_key'
+  get '/users/display_syslog:lines', to: 'users#display_syslog', as: "syslog"
+  get '/users/display_kernel_log:lines', to: 'users#display_kernel_log', as: "kernel_log"
   post '/actuators/send_orders', to:'actuators#send_orders'
-  post '/actuators/send_grouped_orders', to:'actuators#send_grouped_orders'
-  post '/actuators/send_forced_orders', to:'actuators#send_forced_orders'
+  post '/actuators/send_grouped_orders', to: 'actuators#send_grouped_orders'
+  post '/actuators/send_forced_orders', to: 'actuators#send_forced_orders'
   
   post 'update/insert'
 
@@ -20,6 +22,7 @@ scope ActionController::Base.relative_url_root do
   resources :operations
   resources :calculated_data
   resources :users
+  
   resources :range_commands
   
   resources :sessions, :only => [ :new , :create, :destroy ]
