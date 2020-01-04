@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_filter :authenticate, :except => [:new, :create, :home]
   before_filter :correct_user, :only => [:edit, :update]
-  before_filter :admin_user,   :only => [:destroy, :update_api_key, :display_syslog, :display_kernel_log]]
+  before_filter :admin_user,   :only => [:destroy, :update_api_key, :display_syslog, :display_kernel_log]
   
   def index
     @users = User.all
