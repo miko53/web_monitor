@@ -16,12 +16,12 @@
   </td>
   <td>
     <% if (current_user.admin?) then %>
-    <%= link_to 'Edit', edit_range_command_path(range_command), class: 'btn btn-primary btn-xs'  %>
+    <%= link_to 'Edit', edit_range_command_path(range_command, :page => @page), class: 'btn btn-primary btn-xs'  %>
     <% end %>
   </td>        
   <td>
     <% if (current_user.admin?) then %>
-    <%= link_to 'Delete', range_command, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>
+    <%= link_to 'Delete', range_command_path(range_command, :page => @page), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>
     <% end %>
   </td>        
   
