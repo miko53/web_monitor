@@ -34,7 +34,7 @@ class UpdateController < ApplicationController
 private
   
   def check_api(api)
-    bApiOk = false;
+    bApiOk = false
     admin = User.find_by_user_name('admin')
     if (admin == nil) then
       logger.info("no admin found")
