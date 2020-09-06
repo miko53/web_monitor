@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_06_100306) do
+ActiveRecord::Schema.define(version: 2020_09_06_132626) do
 
   create_table "actuators", force: :cascade do |t|
     t.string "name"
@@ -78,12 +78,14 @@ ActiveRecord::Schema.define(version: 2020_09_06_100306) do
     t.integer "sensor_id"
     t.float "value"
     t.datetime "dateTime"
+    t.index ["dateTime"], name: "index_electrical_consumption_data_on_dateTime", order: :desc
   end
 
   create_table "electrical_power_data", force: :cascade do |t|
     t.integer "sensor_id"
     t.float "value"
     t.datetime "dateTime"
+    t.index ["dateTime"], name: "index_electrical_power_data_on_dateTime", order: :desc
   end
 
   create_table "graphs", force: :cascade do |t|
