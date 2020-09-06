@@ -34,7 +34,7 @@ class UpdateController < ApplicationController
 private
   
   def check_api(api)
-    bApiOk = false;
+    bApiOk = false
     admin = User.find_by_user_name('admin')
     if (admin == nil) then
       logger.info("no admin found")
@@ -126,6 +126,10 @@ private
           type = "Voltage"
         when "press"
           type = "Pressure"
+        when "ElectricalMeter"
+          type = "ElectricalMeter"
+        when "ElectricalConsumption"
+          type = "ElectricalMeter"
         when "heat"
           ioType = :actuator
           type = "heating"
@@ -150,6 +154,10 @@ private
           type = "Voltage"
         when "press"
           type = "Pressure"
+        when "ElectricalMeter"
+          type = "ElectricalMeter"
+        when "ElectricalConsumption"
+          type = "ElectricalConsumption"
         when "heat"
           ioType = :actuator
           type = "heating"

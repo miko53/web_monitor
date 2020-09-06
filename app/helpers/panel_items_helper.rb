@@ -39,6 +39,10 @@ private
         s = " V"
      when "Pressure"
         s = " hPa"
+    when "ElectricalMeter"
+        s = " Watt"
+    when "ElectricalConsumption"
+        s = " Wh"
     end
     return s
   end

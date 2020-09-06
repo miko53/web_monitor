@@ -57,4 +57,5 @@ group :production, :test do
 gem 'fcgi'
 end
 
+gem 'linky_meter'
 
