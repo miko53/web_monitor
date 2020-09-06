@@ -11,7 +11,11 @@ module ReportsHelper
         unit = "V"
       when "Pressure"
         unit = "hPa"
-      else
+      when "ElectricalMeter"
+        unit = "Watt"
+      when "ElectricalConsumption"
+        unit = "Wh"
+    else
     end
   end
 end

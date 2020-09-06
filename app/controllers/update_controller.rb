@@ -126,6 +126,10 @@ private
           type = "Voltage"
         when "press"
           type = "Pressure"
+        when "ElectricalMeter"
+          type = "ElectricalMeter"
+        when "ElectricalConsumption"
+          type = "ElectricalMeter"
         when "heat"
           ioType = :actuator
           type = "heating"
@@ -150,6 +154,10 @@ private
           type = "Voltage"
         when "press"
           type = "Pressure"
+        when "ElectricalMeter"
+          type = "ElectricalMeter"
+        when "ElectricalConsumption"
+          type = "ElectricalConsumption"
         when "heat"
           ioType = :actuator
           type = "heating"

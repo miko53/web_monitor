@@ -41,6 +41,10 @@ class Sensor < ActiveRecord::Base
         insert_voltage_sample(value)
       when "Pressure"
         insert_pressure_sample(value)
+      when "ElectricalMeter"
+        insert_electric_sample(value)
+      when "ElectricalConsumption"
+        insert_electric_consumption_sample(value)
       else
         raise "DB doesn't exist"
     end
@@ -56,6 +60,10 @@ class Sensor < ActiveRecord::Base
         return VoltageDatum
       when "Pressure"
         return PressureDatum
+      when "ElectricalMeter"
+        return ElectricalPowerDatum
+      when "ElectricalConsumption"
+        return ElectricalConsumptionDatum
       else
         raise "DB unknown"
     end
@@ -114,4 +122,11 @@ private
     t.save
   end
   
+  def insert_electric_sample(value)
+    #TODO
+  end
+  
+  def insert_electric_consumption_sample(value)
+    #TODO
+  end
 end

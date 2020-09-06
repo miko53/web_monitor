@@ -1,0 +1,19 @@
+# == Schema Information
+#
+# Table name: electrical_power_data
+#
+#  id        :integer          not null, primary key
+#  sensor_id :integer
+#  value     :float
+#  dateTime  :datetime
+#
+
+one:
+  sensor_id: 1
+  value: 1.5
+  datetime: 
+
+two:
+  sensor_id: 1
+  value: 1.5
+  datetime: 
