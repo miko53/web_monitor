@@ -1,6 +1,6 @@
 require 'linky_meter'
 require 'date'
-require 'update_helper'
+#require 'update_helper'
 #require 'byebug'
 
 class ElectricalRetrieval
@@ -11,7 +11,10 @@ class ElectricalRetrieval
     authentication_cookie = ENV['LINKY_COOKIE_INTERNAL_AUTH_ID']
 
     linky = LinkyMeter.new()
-#     linky.connect(username, password, authentication_cookie)
+    #p username
+    #p password
+    #p authentication_cookie
+    linky.connect(username, password, authentication_cookie)
 
     date_yesterday = DateTime.now - 1 # retrieve date of yesterday
     
@@ -35,7 +38,7 @@ class ElectricalRetrieval
 #                                       0.416, 2.092, 1.7, 0.97, 0.236], "mesuresPasEnum"=>"PT30M", "grandeurMetier"=>"CONS", "grandeurPhysique"=>"PA", "unite"=>"W"}}}
     
     linky_device = ENV['LINKY_DEVICE_NAME']
-    linky_device = 'web@linky_home'
+    #linky_device = 'web@linky_home'
     #p result
     items_list = Array.new
     for i in 0..result['1']['CONS']['labels'].count-1 
@@ -49,10 +52,10 @@ class ElectricalRetrieval
       items_list << item
     end
     
-    d = UpdateHelper.get_device(linky_device)
-    s = UpdateHelper.create_sensor(d, 0, "ElectricalMeter")
+    d = UpdateHelper::get_device(linky_device)
+    s = UpdateHelper::create_sensor(d, 0, "ElectricalMeter")
     if (d.follow) then
-      UpdateHelper.insert_sample_datas(s, items_list)
+      UpdateHelper::insert_sample_datas(s, items_list)
     end
     
     
@@ -71,9 +74,9 @@ class ElectricalRetrieval
       items_list << item
     end
     
-    s = UpdateHelper.create_sensor(d, 1, "ElectricalConsumption")
+    s = UpdateHelper::create_sensor(d, 1, "ElectricalConsumption")
     if (d.follow) then
-      UpdateHelper.insert_sample_datas(s, items_list)
+      UpdateHelper::insert_sample_datas(s, items_list)
     end
     
   end
