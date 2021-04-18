@@ -1,4 +1,4 @@
-class AddDateTimeStamp < ActiveRecord::Migration
+class AddDateTimeStamp < ActiveRecord::Migration[4.2]
   def change
 
     add_column  :temperature_data, :dateTimeInt, :integer

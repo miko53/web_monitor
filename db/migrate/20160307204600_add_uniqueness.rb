@@ -1,4 +1,4 @@
-class AddUniqueness < ActiveRecord::Migration
+class AddUniqueness < ActiveRecord::Migration[4.2]
   def change
     add_column :users, :user_name, :string
     add_index :users, :user_name, :unique => true

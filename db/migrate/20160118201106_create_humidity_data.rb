@@ -1,4 +1,4 @@
-class CreateHumidityData < ActiveRecord::Migration
+class CreateHumidityData < ActiveRecord::Migration[4.2]
   def change
     create_table :humidity_data do |t|
       t.integer :sensor_id

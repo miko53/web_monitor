@@ -1,4 +1,4 @@
-class RemoveDateTimeInt < ActiveRecord::Migration
+class RemoveDateTimeInt < ActiveRecord::Migration[4.2]
   def change
     remove_index :voltage_data, :dateTimeInt
     remove_index :temperature_data, :dateTimeInt

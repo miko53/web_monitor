@@ -1,4 +1,4 @@
-class AddHeaterCommand < ActiveRecord::Migration
+class AddHeaterCommand < ActiveRecord::Migration[4.2]
   def change
     create_table :range_commands do |t|
       t.string :name

@@ -1,4 +1,4 @@
-class AddIndex < ActiveRecord::Migration
+class AddIndex < ActiveRecord::Migration[4.2]
   def change
     add_index :voltage_data, :dateTimeInt, order: { dateTimeInt: :desc }
     add_index :voltage_data, :dateTime, order: { dateTime: :desc }

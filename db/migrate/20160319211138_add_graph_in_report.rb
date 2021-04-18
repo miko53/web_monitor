@@ -1,4 +1,4 @@
-class AddGraphInReport < ActiveRecord::Migration
+class AddGraphInReport < ActiveRecord::Migration[4.2]
   def change
     create_table :graphs do |t|
       t.integer :report_id

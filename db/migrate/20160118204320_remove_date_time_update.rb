@@ -1,4 +1,4 @@
-class RemoveDateTimeUpdate < ActiveRecord::Migration
+class RemoveDateTimeUpdate < ActiveRecord::Migration[4.2]
   def change
     remove_column  :temperature_data, :created_at 
     remove_column  :temperature_data, :updated_at

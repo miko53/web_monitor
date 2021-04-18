@@ -1,4 +1,4 @@
-class CreateTemperatureData < ActiveRecord::Migration
+class CreateTemperatureData < ActiveRecord::Migration[4.2]
   def change
     create_table :temperature_data do |t|
       t.integer :sensor_id

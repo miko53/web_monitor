@@ -1,4 +1,4 @@
-class CreateDeviceOfReports < ActiveRecord::Migration
+class CreateDeviceOfReports < ActiveRecord::Migration[4.2]
   def change
     create_table :device_of_reports do |t|
       t.string :deviceName

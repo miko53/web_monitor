@@ -1,4 +1,4 @@
-class CreateDashBoards < ActiveRecord::Migration
+class CreateDashBoards < ActiveRecord::Migration[4.2]
   def change
     create_table :dash_boards do |t|
       t.integer :user_id

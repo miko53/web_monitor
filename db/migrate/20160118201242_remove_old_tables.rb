@@ -1,4 +1,4 @@
-class RemoveOldTables < ActiveRecord::Migration
+class RemoveOldTables < ActiveRecord::Migration[4.2]
   def change
     drop_table :temperatureDatas
     drop_table :humidityDatas

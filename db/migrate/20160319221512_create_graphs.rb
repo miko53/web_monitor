@@ -1,4 +1,4 @@
-class CreateGraphs < ActiveRecord::Migration
+class CreateGraphs < ActiveRecord::Migration[4.2]
   def change
   end
 end

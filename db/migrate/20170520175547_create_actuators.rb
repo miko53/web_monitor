@@ -1,4 +1,4 @@
-class CreateActuators < ActiveRecord::Migration
+class CreateActuators < ActiveRecord::Migration[4.2]
   def change
     create_table :actuators do |t|
       t.string :name

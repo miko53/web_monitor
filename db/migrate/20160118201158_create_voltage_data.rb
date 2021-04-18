@@ -1,4 +1,4 @@
-class CreateVoltageData < ActiveRecord::Migration
+class CreateVoltageData < ActiveRecord::Migration[4.2]
   def change
     create_table :voltage_data do |t|
       t.integer :sensor_id

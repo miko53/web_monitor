@@ -1,4 +1,4 @@
-class CreatePanelItems < ActiveRecord::Migration
+class CreatePanelItems < ActiveRecord::Migration[4.2]
   def change
     create_table :panel_items do |t|
       t.integer :dash_board_panel_id
