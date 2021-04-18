@@ -10,6 +10,7 @@ class RangeCommandsController < ApplicationController
   def new
     @actuator_command = RangeCommand.new
     @page = params[:page]
+    @page = 1 if @page == nil
   end
   
   def edit
@@ -42,7 +43,7 @@ class RangeCommandsController < ApplicationController
   
   def update
     @page = params[:page]
-    actuator_command_id = params.require(:actuators_range_commands).permit(:actuator_ids => [] )
+    actuator_command_id = params.require(:actuators_range_commands).permit(:actuator_ids => [])
     @actuator_command.actuator_ids = actuator_command_id[:actuator_ids]
     if (@actuator_command.update(range_command_params)) then
         flash[:info] = "time slot correctly updated"
