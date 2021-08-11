@@ -15,7 +15,7 @@ class UpdateController < ApplicationController
      logger.info "data reception"
      if (params[:data] == nil || params[:api] == nil) then
         logger.info("params are nil")
-        head :error, content_type: "text/html"
+        head :internal_server_error, content_type: "text/html"
      else
        #check if API is OK
        if (check_api(params[:api]) == true) then
@@ -27,7 +27,7 @@ class UpdateController < ApplicationController
        head :ok, content_type: "text/html"
      end
      rescue
-       head :error, content_type: "text/html"       
+       head :internal_server_error, content_type: "text/html"       
     end
   end
   
@@ -179,15 +179,15 @@ private
       now = DateTime.now
       if (now >= operation.endPeriod) then
         logger.info "We has reached the end of period, now = #{now} endPeriod = #{operation.endPeriod}, do the calcul"
-        insert_new_calcul(operation, value)
+        insert_new_calcul(operation, value, now)
       else
         #logger.info "NOT A THE END, now = #{now} endPeriod = #{operation.endPeriod}"        
-        do_calcul(operation, value)
+        do_calcul(operation, value, now)
       end
     end
   end
   
-  def insert_new_calcul(operation, value)
+  def insert_new_calcul(operation, value, current_date)
     if (operation.number_samples != 0) then
       data_value = 0.0
       case operation.calcul_type
@@ -200,26 +200,33 @@ private
         else
           logger.warn "Unknown calcul type #{operation.calcul_type}"
       end
-      new_calculated_data = operation.calculated_data.new(value: data_value, beginPeriod: operation.endPeriod)
+      new_calculated_data = operation.calculated_data.new(value: data_value, beginPeriod: operation.eventDateTime)
       new_calculated_data.save
     end
     
     #calculate new end period
     update_end_period(operation)
+    if operation.calcul_type == 'Moy' then
+      operation.eventDateTime = PeriodHelper::get_middle_period(operation.period, operation.period_unit, operation.endPeriod) 
+    else
+      operation.eventDateTime = current_date
+    end
     operation.currentValue = value
     operation.number_samples = 1
     operation.save
   end
   
-  def do_calcul(operation, value)
+  def do_calcul(operation, value, current_date)
     case operation.calcul_type
       when 'Min'
         if (value < operation.currentValue) then
           operation.currentValue = value
+          operation.eventDateTime = current_date
         end
       when 'Max'
         if (value > operation.currentValue) then
           operation.currentValue = value
+          operation.eventDateTime = current_date
         end
       when 'Moy'
         operation.currentValue = operation.currentValue + value

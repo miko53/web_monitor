@@ -91,6 +91,24 @@ module PeriodHelper
     return true, next_date
   end
 
+  def get_middle_period(period, period_unit, nextPeriod)
+     to_second = 1
+     case(period_unit)
+     when MINUTE
+       to_second = 1.minute
+     when HOUR
+       to_second = 1.hour
+     when DAY
+       to_second = 1.day
+     when MONTH
+       to_second = 1.month
+     else
+       p "not valid period_unit => #{period_unit}"
+     end
+     middle_period = (period*to_second)/2
+     return nextPeriod - middle_period.seconds
+  end
+  
 private
 
   def next_month(date)
@@ -104,6 +122,6 @@ private
 #    If you have a Time object t, cleaner to ask the day number of the last day of the month:
 #    days = t.end_of_month.day
   
-  module_function(:get_next_end_period, :next_month)
+  module_function(:get_next_end_period, :next_month, :get_middle_period)
   
 end

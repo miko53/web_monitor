@@ -13,6 +13,7 @@
 #  number_samples :integer
 #  period_unit    :integer
 #  name           :string
+#  eventDateTime  :datetime
 #
 
 class OperationValidator < ActiveModel::Validator
