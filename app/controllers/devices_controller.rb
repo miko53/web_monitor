@@ -7,9 +7,6 @@ class DevicesController < ApplicationController
   end
   
   def show
-    if (@device != nil) then
-      @sensors = @device.sensors
-    end
   end
   
   def edit
