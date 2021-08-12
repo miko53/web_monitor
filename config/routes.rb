@@ -39,7 +39,7 @@ scope ActionController::Base.relative_url_root do
   
 #  get '/sensors/:id/delete_sample', to: 'sensors#delete_sample', as: 'sensor_delete_sample'
   delete '/sensors/:id/delete_sample', to: 'sensors#delete_sample', as: 'sensor_delete_sample'
-  
+  delete '/calculated_data/:id/delete', to: 'calculated_data#delete_sample', as: 'calculated_data_delete_sample'
   
   resources :dashboards
   resources :dash_board_panels

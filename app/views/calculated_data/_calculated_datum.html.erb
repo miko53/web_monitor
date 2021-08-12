@@ -5,5 +5,11 @@
   <td>
   <%= calculated_datum.value %>
   </td>
+  <td>
+    <% if (current_user.admin?) then %>
+    <%= p calculated_datum.id %>
+    <%= link_to 'Delete', calculated_data_delete_sample_path(calculated_datum.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>
+    <% end %>
+  </td>
 </tr>
   
