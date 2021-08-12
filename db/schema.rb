@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_12_160554) do
+ActiveRecord::Schema.define(version: 2021_08_12_171331) do
 
   create_table "actuators", force: :cascade do |t|
     t.string "name"
@@ -104,6 +104,11 @@ ActiveRecord::Schema.define(version: 2021_08_12_160554) do
     t.float "value"
     t.datetime "dateTime"
     t.index ["dateTime"], name: "index_humidity_data_on_dateTime"
+  end
+
+  create_table "logger_last_sucess_full_linky_accesses", force: :cascade do |t|
+    t.integer "device_id"
+    t.datetime "last_ok_date"
   end
 
   create_table "operations", force: :cascade do |t|

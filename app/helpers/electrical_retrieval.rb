@@ -10,12 +10,30 @@ class ElectricalRetrieval
     password = ENV['LINKY_PASSWORD']
     authentication_cookie = ENV['LINKY_COOKIE_INTERNAL_AUTH_ID']
     
+    linky_device = ENV['LINKY_DEVICE_NAME']
+    d = get_device(linky_device)
+    
+    #p d.id
+    
+    last_linky_access_table = LoggerLastSucessFullLinkyAccess.find_by_device_id(d.id)
+    if (last_linky_access_table.nil?)
+      last_linky_access_table = LoggerLastSucessFullLinkyAccess.create(device_id: d.id)
+    end
+    
+    #p last_linky_access_table
+    
+    currentDate = DateTime.now
+    if !last_linky_access_table.last_ok_date.nil? && last_linky_access_table.last_ok_date.to_date == currentDate.to_date
+        p "nothing to do already correctly retrieved today"
+        return
+    end
+    
     linky = LinkyMeter.new(false)
     linky.connect(username, password, authentication_cookie)
 
-    date_yesterday = DateTime.now - 3 # retrieve date of yesterday
+    date_yesterday = currentDate - 3 # retrieve date of yesterday
     
-    result = linky.get(date_yesterday, DateTime.now,  LinkyMeter::BY_HOUR)
+    result = linky.get(date_yesterday, currentDate,  LinkyMeter::BY_HOUR)
     p result    
 #     result = {"1"=>{"CONS"=>{"labels"=>["2020-08-15T00:30:00.000+0200", "2020-08-15T01:00:00.000+0200", "2020-08-15T01:30:00.000+0200", "2020-08-15T02:00:00.000+0200", 
 #                                         "2020-08-15T02:30:00.000+0200", "2020-08-15T03:00:00.000+0200", "2020-08-15T03:30:00.000+0200", "2020-08-15T04:00:00.000+0200", 
@@ -39,7 +57,6 @@ class ElectricalRetrieval
       return
     end
     
-    linky_device = ENV['LINKY_DEVICE_NAME']
     #linky_device = 'web@linky_home'
     #p result
     items_list = Array.new
@@ -57,13 +74,12 @@ class ElectricalRetrieval
       end
     end
     
-    d = get_device(linky_device)
     s = create_sensor(d, 0, "ElectricalMeter")
     if (d.follow) then
       insert_sample_datas(s, items_list)
     end
     
-    result = linky.get(date_yesterday, DateTime.now,  LinkyMeter::BY_DAY)
+    result = linky.get(date_yesterday, currentDate,  LinkyMeter::BY_DAY)
 #   result = {"1"=>{"CONS"=>{"aggregats"=>{"JOUR"=>{"labels"=>["Vendredi 04/09/20"], "periodes"=>[{"grandeurPhysiqueEnum"=>"EA", "dateDebut"=>"2020-09-04T00:00:00.000+0200",  "dateFin"=>"2020-09-04T00:00:00.000+0200"}], "datas"=>[17.82]}, "SEMAINE"=>{"labels"=>["du 31/08/20 au 06/09/20"], "periodes"=>[{"grandeurPhysiqueEnum"=>"EA", "dateDebut"=>"2020-08-31T00:00:00.000+0200", "dateFin"=>"2020-09-06T23:59:59.000+0200"}], "datas"=>[17.82]}, "MOIS"=>{"labels"=>["Septembre 2020"], "periodes"=>[{"grandeurPhysiqueEnum"=>"EA", "dateDebut"=>"2020-09-01T00:00:00.000+0200", "dateFin"=>"2020-09-30T23:59:59.000+0200"}], "datas"=>[17.82]}, "ANNEE"=>{"labels"=>["2020"], "periodes"=>[{"grandeurPhysiqueEnum"=>"EA", "dateDebut"=>"2020-01-01T00:00:00.000+0100", "dateFin"=>"2020-12-31T23:59:59.000+0100"}], "datas"=>[17.82]}}, "grandeurMetier"=>"CONS", "grandeurPhysique"=>"EA", "unite"=>"Wh"}}}
 #           {"1"=>{"CONS"=>{"aggregats"=>{"JOUR"=>{"labels"=>["Samedi 21/11/20", "Dimanche 22/11/20", "Lundi 23/11/20"], "periodes"=>[{"grandeurPhysiqueEnum"=>"EA", "dateDebut"=>"2020-11-21T00:00:00.000+0200", "dateFin"=>"2020-11-21T00:00:00.000+0200"}, {"grandeurPhysiqueEnum"=>"EA", "dateDebut"=>"2020-11-22T00:00:00.000+0200", "dateFin"=>"2020-11-22T00:00:00.000+0200"}, {"grandeurPhysiqueEnum"=>"EA", "dateDebut"=>"2020-11-23T00:00:00.000+0200", "dateFin"=>"2020-11-23T00:00:00.000+0200"}], "datas"=>[30.577, 31.848, 37.411]}, "SEMAINE"=>{"labels"=>["du 16/11/20 au 22/11/20", "du 23/11/20 au 29/11/20"], "periodes"=>[{"grandeurPhysiqueEnum"=>"EA", "dateDebut"=>"2020-11-16T00:00:00.000+0200", "dateFin"=>"2020-11-22T23:59:59.000+0200"}, {"grandeurPhysiqueEnum"=>"EA", "dateDebut"=>"2020-11-23T00:00:00.000+0200", "dateFin"=>"2020-11-29T23:59:59.000+0200"}], "datas"=>[62.425, 37.411]}, "MOIS"=>{"labels"=>["Novembre 2020"], "periodes"=>[{"grandeurPhysiqueEnum"=>"EA", "dateDebut"=>"2020-11-01T00:00:00.000+0100", "dateFin"=>"2020-Nov 24 21:03:00 beaglebone rails_linky: 11-30T23:59:59.000+0100"}], "datas"=>[99.836]}, "ANNEE"=>{"labels"=>["2020"], "periodes"=>[{"grandeurPhysiqueEnum"=>"EA", "dateDebut"=>"2020-01-01T00:00:00.000+0100", "dateFin"=>"2020-12-31T23:59:59.000+0100"}], "datas"=>[99.836]}}, "grandeurMetier"=>"CONS", "grandeurPhysique"=>"EA", "unite"=>"Wh"}}}
     
@@ -87,6 +103,10 @@ class ElectricalRetrieval
       if (d.follow) then
         insert_sample_datas(s, items_list)
       end
+      
+   last_linky_access_table.last_ok_date = currentDate
+   last_linky_access_table.save
+   p "correctly updated for today"
   end
 
   
