@@ -13,6 +13,11 @@ class ElectricalRetrieval
     linky_device = ENV['LINKY_DEVICE_NAME']
     d = get_device(linky_device)
     
+    daylight = 0
+    if !Time.now.dst? 
+      daylight = 1.hour
+    end
+    
     #p d.id
     
     last_linky_access_table = LoggerLastSucessFullLinkyAccess.find_by_device_id(d.id)
@@ -52,10 +57,10 @@ class ElectricalRetrieval
 #                                       0.188, 0.188, 0.14, 0.096, 0.096, 0.098, 0.198, 0.192, 2.99, 4.096, 4.206, 3.602, 3.604, 3.562, 3.596, 3.966, 1.604, 1.2, 1.318, 1.544, 2.824, 
 #                                       0.416, 2.092, 1.7, 0.97, 0.236], "mesuresPasEnum"=>"PT30M", "grandeurMetier"=>"CONS", "grandeurPhysique"=>"PA", "unite"=>"W"}}}
 
-    if (result['1']['CONS']['data'][0] == "NaN") then
-      p "it is NaN --> quit"
-      return
-    end
+    #if (result['1']['CONS']['data'][0] == "NaN") then
+    #  p "it is NaN --> quit"
+    #  return
+    #end
     
     #linky_device = 'web@linky_home'
     #p result
@@ -66,7 +71,7 @@ class ElectricalRetrieval
       
       if (item_data != "NaN") then
         item = Hash.new
-        item['date'] = DateTime.parse(item_date)
+        item['date'] = DateTime.parse(item_date) + daylight
         item['value'] = item_data * 1000 #set in W not kW
         #p item['date']
         #p item['value']
@@ -91,7 +96,7 @@ class ElectricalRetrieval
 
       if (item_data != "NaN") then
         item = Hash.new
-        item['date'] = DateTime.parse(item_date)
+        item['date'] = DateTime.parse(item_date) + daylight
         item['value'] = item_data * 1000 #set in Wh not kWh
         #p item['date']
         #p item['value']
