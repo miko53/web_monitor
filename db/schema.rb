@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_12_171331) do
+ActiveRecord::Schema.define(version: 2023_01_29_222657) do
 
   create_table "actuators", force: :cascade do |t|
     t.string "name"
@@ -141,6 +141,13 @@ ActiveRecord::Schema.define(version: 2021_08_12_171331) do
     t.index ["dateTime"], name: "index_pressure_data_on_dateTime"
   end
 
+  create_table "rain_falls", force: :cascade do |t|
+    t.integer "sensor_id"
+    t.float "value"
+    t.datetime "dateTime"
+    t.index ["dateTime"], name: "index_rain_falls_on_dateTime"
+  end
+
   create_table "range_commands", force: :cascade do |t|
     t.string "name"
     t.time "start_time"
@@ -195,6 +202,20 @@ ActiveRecord::Schema.define(version: 2021_08_12_171331) do
     t.float "value"
     t.datetime "dateTime"
     t.index ["dateTime"], name: "index_voltage_data_on_dateTime"
+  end
+
+  create_table "wind_directions", force: :cascade do |t|
+    t.integer "sensor_id"
+    t.float "value"
+    t.datetime "dateTime"
+    t.index ["dateTime"], name: "index_wind_directions_on_dateTime"
+  end
+
+  create_table "wind_speeds", force: :cascade do |t|
+    t.integer "sensor_id"
+    t.float "value"
+    t.datetime "dateTime"
+    t.index ["dateTime"], name: "index_wind_speeds_on_dateTime"
   end
 
 end

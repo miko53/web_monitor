@@ -45,6 +45,12 @@ class Sensor < ActiveRecord::Base
         insert_electric_sample(value)
       when "ElectricalConsumption"
         insert_electric_consumption_sample(value)
+      when "WindDirection"
+        insert_wind_dir_sample(value)
+      when "WindSpeed"
+        insert_wind_speed_sample(value)
+      when "RainFall"
+        insert_rain_fall_sample(value)
       else
         raise "DB doesn't exist"
     end
@@ -64,6 +70,12 @@ class Sensor < ActiveRecord::Base
         return ElectricalPowerDatum
       when "ElectricalConsumption"
         return ElectricalConsumptionDatum
+      when "WindDirection"
+        return WindDirection
+      when "WindSpeed"
+        return WindSpeed
+      when "RainFall"
+        return RainFall
       else
         raise "DB unknown"
     end
@@ -120,6 +132,33 @@ private
     t.sensor_id = id
     t.dateTime = date
     t.save
+  end
+  
+  def insert_wind_dir_sample(value)
+    date = DateTime.now
+    t = WindDirection.new
+    t.value = value 
+    t.sensor_id = id
+    t.dateTime = date
+    t.save    
+  end
+  
+  def insert_wind_speed_sample(value)
+    date = DateTime.now
+    t = WindSpeed.new
+    t.value = value 
+    t.sensor_id = id
+    t.dateTime = date
+    t.save    
+  end
+  
+  def insert_rain_fall_sample(value)
+    date = DateTime.now
+    t = RainFall.new
+    t.value = value 
+    t.sensor_id = id
+    t.dateTime = date
+    t.save    
   end
   
   def insert_electric_sample(value)

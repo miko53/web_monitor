@@ -43,6 +43,12 @@ private
         s = " Watt"
     when "ElectricalConsumption"
         s = " Wh"
+    when "WindDirection"
+        unit = " °"
+    when "WindSpeed"
+        unit = " m/s"
+    when "RainFall"
+        unit = " mm"
     end
     return s
   end

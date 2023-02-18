@@ -26,7 +26,9 @@ class UpdateController < ApplicationController
        end
        head :ok, content_type: "text/html"
      end
-     rescue
+     rescue => e
+       logger.error e.message
+       e.backtrace.each { |line| logger.error line }
        head :internal_server_error, content_type: "text/html"       
     end
   end
@@ -133,6 +135,15 @@ private
         when "heat"
           ioType = :actuator
           type = "heating"
+        when "winddir"
+          type = "WindDirection"
+        when "windspeed"
+          type = "WindSpeed"
+        when "rainfall"
+          type = "RainFall"
+        else
+          logger.info "ERROR 0"
+          raise "Error"
       end
       if (ioType == :sensor) then
         device.sensors.create(order: d["id"],  sensor_type: type)
@@ -158,9 +169,18 @@ private
           type = "ElectricalMeter"
         when "ElectricalConsumption"
           type = "ElectricalConsumption"
+        when "winddir"
+          type = "WindDirection"
+        when "windspeed"
+          type = "WindSpeed"
+        when "rainfall"
+          type = "RainFall"
         when "heat"
           ioType = :actuator
           type = "heating"
+      else
+          logger.info "ERROR 1"
+          raise "Error"
       end
       
       if (ioType == :sensor) then

@@ -15,6 +15,12 @@ module ReportsHelper
         unit = "Watt"
       when "ElectricalConsumption"
         unit = "Wh"
+      when "WindDirection"
+        unit = "°"
+      when "WindSpeed"
+        unit = "m/s"
+      when "RainFall"
+        unit = "mm"
     else
     end
   end

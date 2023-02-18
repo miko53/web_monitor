@@ -161,6 +161,12 @@ class ElectricalRetrieval
         db = ElectricalPowerDatum
       when "ElectricalConsumption"
         db = ElectricalConsumptionDatum
+      when "WindDirection"
+        db = WindDirection
+      when "WindSpeed"
+        db = WindSpeed
+      when "RainFall"
+        db = RainFall
       else
         raise "DB doesn't exist"
     end
