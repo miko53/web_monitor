@@ -259,7 +259,7 @@ class ElectricalRetrieval
       if (item_data != "NaN") then
         item = Hash.new
         item['date'] = DateTime.parse(item_date) + daylight
-        item['value'] = item_data * 1000 #set in W not kW
+        item['value'] = item_data.to_f * 1000 #set in W not kW
         #p item['date']
         #p item['value']
         items_list << item
@@ -296,7 +296,7 @@ class ElectricalRetrieval
       if (item_data != "NaN") then
         item = Hash.new
         item['date'] = DateTime.parse(item_date) + daylight
-        item['value'] = item_data * 1000 #set in Wh not kWh
+        item['value'] = item_data.to_f * 1000 #set in Wh not kWh
         #p item['date']
         #p item['value']
         items_list << item
