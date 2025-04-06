@@ -4,42 +4,42 @@ require 'date'
 #require 'byebug'
 
 class ElectricalRetrieval
-  
+
   def self.schedule
     username = ENV['LINKY_USERNAME']
     password = ENV['LINKY_PASSWORD']
     authentication_cookie = ENV['LINKY_COOKIE_INTERNAL_AUTH_ID']
-    
+
     linky_device = ENV['LINKY_DEVICE_NAME']
     d = get_device(linky_device)
-    
-    daylight = 0
-    if !Time.now.dst? 
-      daylight = 1.hour
-    end
-    
+
+    # daylight = 0
+    # if !Time.now.dst?
+    #   daylight = 1.hour
+    # end
+
     #p d.id
-    
+
     last_linky_access_table = LoggerLastSucessFullLinkyAccess.find_by_device_id(d.id)
     if (last_linky_access_table.nil?)
       last_linky_access_table = LoggerLastSucessFullLinkyAccess.create(device_id: d.id)
     end
-    
+
     #p last_linky_access_table
-    
+
     currentDate = DateTime.now
     if !last_linky_access_table.last_ok_date.nil? && last_linky_access_table.last_ok_date.to_date == currentDate.to_date
         p "nothing to do already correctly retrieved today"
         return
     end
-    
+
     linky = LinkyMeter.new(false)
     linky.connect(username, password, authentication_cookie)
 
     date_yesterday = currentDate - 3 # retrieve date of yesterday
-    
+
     result = linky.get(date_yesterday, currentDate,  LinkyMeter::BY_HOUR)
-    p result    
+    p result
 
 # {"cons"=>
 #   {"aggregats"=>
@@ -242,37 +242,37 @@ class ElectricalRetrieval
 #    "grandeurPhysique"=>"PA",
 #    "dateDebut"=>"2024-12-25",
 #    "dateFin"=>"2024-12-28"}}
-    
-    
+
+
     #if (result['1']['CONS']['data'][0] == "NaN") then
     #  p "it is NaN --> quit"
     #  return
     #end
-    
+
     #linky_device = 'web@linky_home'
     #p result
     items_list = Array.new
-    for i in 0..result['cons']['aggregats']['heure']['donnees'].count-1 
-      item_date = result['cons']['aggregats']['heure']['donnees'][i]['dateDebut']
+    for i in 0..result['cons']['aggregats']['heure']['donnees'].count-1
+      item_date = result['cons']['aggregats']['heure']['donnees'][i]['dateFin']
       item_data = result['cons']['aggregats']['heure']['donnees'][i]['valeur']
-      
+
       if (item_data != "NaN") then
         item = Hash.new
-        item['date'] = DateTime.parse(item_date) + daylight
+        item['date'] = ActiveSupport::TimeZone["Europe/Paris"].parse(item_date) # DateTime.parse(item_date) + daylight
         item['value'] = item_data.to_f * 1000 #set in W not kW
         #p item['date']
         #p item['value']
         items_list << item
       end
     end
-    
+
     s = create_sensor(d, 0, "ElectricalMeter")
     if (d.follow) then
       insert_sample_datas(s, items_list)
     end
-    
+
     result = linky.get(date_yesterday, currentDate,  LinkyMeter::BY_DAY)
-    
+
   #   result = {"cons"=>
   # {"aggregats"=>
   #   {"jour"=>
@@ -289,31 +289,31 @@ class ElectricalRetrieval
 
     p result
     items_list = Array.new
-    for i in 0..result['cons']['aggregats']['jour']['donnees'].count-1 
+    for i in 0..result['cons']['aggregats']['jour']['donnees'].count-1
       item_date = result['cons']['aggregats']['jour']['donnees'][i]['dateDebut']
       item_data = result['cons']['aggregats']['jour']['donnees'][i]['valeur']
 
       if (item_data != "NaN") then
         item = Hash.new
-        item['date'] = DateTime.parse(item_date) + daylight
+        item['date'] = ActiveSupport::TimeZone["Europe/Paris"].parse(item_date) # DateTime.parse(item_date) + daylight
         item['value'] = item_data.to_f * 1000 #set in Wh not kWh
         #p item['date']
         #p item['value']
         items_list << item
       end
     end
-   
+
       s = create_sensor(d, 1, "ElectricalConsumption")
       if (d.follow) then
         insert_sample_datas(s, items_list)
       end
-      
+
    last_linky_access_table.last_ok_date = currentDate
    last_linky_access_table.save
    p "correctly updated for today"
   end
 
-  
+
   def self.get_device(device_adress)
     #p device_data
     device = Device.find_by_address(device_adress)
@@ -322,10 +322,10 @@ class ElectricalRetrieval
         device = Device.create(address: device_adress, follow: false)
       end
     end
-    
+
     return device
   end
-  
+
   def self.create_sensor(device, sensor_order, sensor_type)
     s = device.sensors.find_by_order(sensor_order)
     if (s == nil) then
@@ -345,7 +345,7 @@ class ElectricalRetrieval
     end
     return s
   end
-  
+
   def self.insert_sample_datas(sensor, datas)
     case (sensor.sensor_type)
       when "Temperature"
@@ -380,7 +380,7 @@ class ElectricalRetrieval
         end
       end
     end
-    
+
     ActiveRecord::Base.transaction do
       #byebug
       datas.each do |d|
@@ -392,7 +392,7 @@ class ElectricalRetrieval
         #p "add #{t.dateTime}"
       end
     end
-    
+
   end
 
 end
