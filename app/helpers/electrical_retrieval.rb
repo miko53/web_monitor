@@ -1,4 +1,4 @@
-require 'linky_meter'
+require 'linky/linky_meter'
 require 'date'
 #require 'update_helper'
 #require 'byebug'
@@ -12,14 +12,7 @@ class ElectricalRetrieval
 
     linky_device = ENV['LINKY_DEVICE_NAME']
     d = get_device(linky_device)
-
-    # daylight = 0
-    # if !Time.now.dst?
-    #   daylight = 1.hour
-    # end
-
     #p d.id
-
     last_linky_access_table = LoggerLastSucessFullLinkyAccess.find_by_device_id(d.id)
     if (last_linky_access_table.nil?)
       last_linky_access_table = LoggerLastSucessFullLinkyAccess.create(device_id: d.id)
@@ -33,12 +26,12 @@ class ElectricalRetrieval
         return
     end
 
-    linky = LinkyMeter.new(false)
+    linky = Linky::LinkyMeter.new(false)
     linky.connect(username, password, authentication_cookie)
 
     date_yesterday = currentDate - 3 # retrieve date of yesterday
 
-    result = linky.get(date_yesterday, currentDate,  LinkyMeter::BY_HOUR)
+    result = linky.get(date_yesterday, currentDate,  Linky::LinkyMeter::BY_HOUR)
     p result
 
 # {"cons"=>
@@ -258,7 +251,7 @@ class ElectricalRetrieval
 
       if (item_data != "NaN") then
         item = Hash.new
-        item['date'] = ActiveSupport::TimeZone["Europe/Paris"].parse(item_date) # DateTime.parse(item_date) + daylight
+        item['date'] = ActiveSupport::TimeZone["Europe/Paris"].parse(item_date)
         item['value'] = item_data.to_f * 1000 #set in W not kW
         #p item['date']
         #p item['value']
@@ -271,7 +264,7 @@ class ElectricalRetrieval
       insert_sample_datas(s, items_list)
     end
 
-    result = linky.get(date_yesterday, currentDate,  LinkyMeter::BY_DAY)
+    result = linky.get(date_yesterday, currentDate,  Linky::LinkyMeter::BY_DAY)
 
   #   result = {"cons"=>
   # {"aggregats"=>
@@ -295,7 +288,7 @@ class ElectricalRetrieval
 
       if (item_data != "NaN") then
         item = Hash.new
-        item['date'] = ActiveSupport::TimeZone["Europe/Paris"].parse(item_date) # DateTime.parse(item_date) + daylight
+        item['date'] = ActiveSupport::TimeZone["Europe/Paris"].parse(item_date)
         item['value'] = item_data.to_f * 1000 #set in Wh not kWh
         #p item['date']
         #p item['value']
