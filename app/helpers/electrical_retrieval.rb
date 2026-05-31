@@ -57,8 +57,9 @@ class ElectricalRetrieval
 
       if (item_data != "NaN") then
         item = Hash.new
-        item['date'] =  ActiveSupport::TimeZone["Europe/Paris"].parse(item_date) # DateTime.parse(item_date) - daylight
-        item['value'] = item_data * 1000 #set in W not kW
+        item['date'] = ActiveSupport::TimeZone["Europe/Paris"].parse(item_date)
+        s = item_data.tr(',','.')
+        item['value'] = s.to_f * 1000 #set in W not kW
         #p item['date']
         #p item['value']
         items_list << item
@@ -82,8 +83,9 @@ class ElectricalRetrieval
 
       if (item_data != "NaN") then
         item = Hash.new
-        item['date'] =  ActiveSupport::TimeZone["Europe/Paris"].parse(item_date) #   DateTime.parse(item_date) - daylight
-        item['value'] = item_data * 1000 #set in Wh not kWh
+        item['date'] = ActiveSupport::TimeZone["Europe/Paris"].parse(item_date)
+        s = item_data.tr(',','.')
+        item['value'] = s.to_f * 1000 #set in Wh not kWh
         #p item['date']
         #p item['value']
         items_list << item
